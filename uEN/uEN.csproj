@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,14 +64,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\Binding\BindingPolicy.cs" />
+    <Compile Include="UI\Binding\BindingStringFormatAttribute.cs" />
     <Compile Include="UI\Binding\RoutedEventBehavior.cs" />
     <Compile Include="UI\Binding\BindingBehaviorBuilder.cs" />
     <Compile Include="UI\Binding\DependencyPropertyBehavior.cs" />
     <Compile Include="UI\Binding\IBindingBehavior.cs" />
+    <Compile Include="UI\Binding\SimpleValueConverter.cs" />
     <Compile Include="UI\BizView.cs" />
     <Compile Include="UI\BizViewModel.cs" />
+    <Compile Include="UI\Validation\IValidationRuleProvider.cs" />
+    <Compile Include="UI\Validation\RequiredRule.cs" />
     <Compile Include="UI\ViewDataTemplateSelector.cs" />
     <Compile Include="UI\VisualElementsAttribute.cs" />
+    <Compile Include="Utils\BizUtils.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

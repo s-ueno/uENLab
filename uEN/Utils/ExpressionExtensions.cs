@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace uEN.Utils
+namespace uEN
 {
     public static class ExpressionExtensions
     {
@@ -26,6 +26,26 @@ namespace uEN.Utils
                 memExp = memExp.Expression as MemberExpression;
             }
             return string.Join(".", list.Reverse<string>());
+        }
+
+
+        public static IEnumerable<Attribute> ListAttributes(this  Expression expr)
+        {
+            var memExp = (expr as LambdaExpression).Body as MemberExpression;
+            var list = new List<Attribute>();
+            while (memExp is MemberExpression)
+            {
+                if (memExp.Member != null)
+                {
+                    var atts = memExp.Member.GetCustomAttributes(typeof(Attribute), true).OfType<Attribute>();
+                    if (atts.Any())
+                    {
+                        list.AddRange(atts);
+                    }
+                }
+                memExp = memExp.Expression as MemberExpression;
+            }
+            return list;
         }
     }
 }

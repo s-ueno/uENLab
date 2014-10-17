@@ -9,13 +9,6 @@ namespace uEN.UI
 {
     public abstract class BizViewModel : INotifyPropertyChanged
     {
-        protected BizViewModel()
-        {
-            if (VisualElements != null)
-            {
-                View = Activator.CreateInstance(VisualElements.VisualType) as BizView;
-            }
-        }
         private VisualElementsAttribute visualElements;
         public VisualElementsAttribute VisualElements
         {
@@ -34,11 +27,7 @@ namespace uEN.UI
         public BizView View
         {
             get { return view; }
-            set
-            {
-                view = value;
-                view.DataContext = this;
-            }
+            set { view = value; }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
