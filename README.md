@@ -1,7 +1,5 @@
 ## What is uENLab?
 
-uENLab is [uEN Laboratory](http://s-ueno.github.io/) blogging at its finest.
-
 uENLab is a framework about the WPF technology that blog of [uEN Laboratory](http://s-ueno.github.io/) introduces.
 
 This framework adds a function with an introduction of the blog and uses it as a learning document of WPF.
