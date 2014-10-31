@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace uEN.UI.Binding
@@ -59,13 +60,99 @@ namespace uEN.UI.Binding
 
             return this;
         }
-
+        public BindingBehaviorBuilder<T> ValidatesOnDataErrors(bool value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.ValidatesOnDataErrors = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> ValidatesOnExceptions(bool value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.ValidatesOnExceptions = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> ValidatesOnNotifyDataErrors(bool value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.ValidatesOnNotifyDataErrors = value;
+            return this;
+        }
         public BindingBehaviorBuilder<T> StringFormat(string value)
         {
             var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
             current.BindingPolicy.StringFormat = value;
             return this;
         }
+        public BindingBehaviorBuilder<T> BindsDirectlyToSource(bool value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.BindsDirectlyToSource = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> Delay(int value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.Delay = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> FallbackValue(object value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.FallbackValue = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> IsAsync(bool value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.IsAsync = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> NotifyOnSourceUpdated(bool value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.NotifyOnSourceUpdated = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> NotifyOnTargetUpdated(bool value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.NotifyOnTargetUpdated = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> NotifyOnValidationError(bool value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.NotifyOnValidationError = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> RelativeSource(RelativeSource value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.RelativeSource = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> TargetNullValue(object value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.TargetNullValue = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> UpdateSourceExceptionFilter(UpdateSourceExceptionFilterCallback value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.UpdateSourceExceptionFilter = value;
+            return this;
+        }
+        public BindingBehaviorBuilder<T> AddValidationRule(ValidationRule value)
+        {
+            var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
+            current.BindingPolicy.ValidationRules.Add(value);
+            return this;
+        }
+
+
+
 
         public BindingBehaviorBuilder<T> Converter(IValueConverter converter)
         {
@@ -73,7 +160,6 @@ namespace uEN.UI.Binding
             current.BindingPolicy.Converter = converter;
             return this;
         }
-
         public BindingBehaviorBuilder<T> Convert(
             Func<object, Type, object, CultureInfo, object> convert = null,
             Func<object, Type, object, CultureInfo, object> convertBack = null)

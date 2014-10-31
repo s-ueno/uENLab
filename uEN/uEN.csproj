@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -51,6 +52,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\BizApplicationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -64,13 +66,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\Binding\ActionEventPolicy.cs" />
+    <Compile Include="UI\Binding\BindingBehaviorCollection.cs" />
     <Compile Include="UI\Binding\BindingPolicy.cs" />
     <Compile Include="UI\Binding\BindingStringFormatAttribute.cs" />
+    <Compile Include="UI\Binding\GroupRegionAttribute.cs" />
+    <Compile Include="UI\Binding\IExceptionPolicy.cs" />
     <Compile Include="UI\Binding\RoutedEventBehavior.cs" />
     <Compile Include="UI\Binding\BindingBehaviorBuilder.cs" />
     <Compile Include="UI\Binding\DependencyPropertyBehavior.cs" />
     <Compile Include="UI\Binding\IBindingBehavior.cs" />
+    <Compile Include="UI\Binding\IRoutedEventPolicy.cs" />
     <Compile Include="UI\Binding\SimpleValueConverter.cs" />
+    <Compile Include="UI\Binding\WaitCursorEventPolicy.cs" />
+    <Compile Include="UI\BizApplication.cs" />
     <Compile Include="UI\BizView.cs" />
     <Compile Include="UI\BizViewModel.cs" />
     <Compile Include="UI\Validation\IValidationRuleProvider.cs" />
@@ -79,6 +88,7 @@
     <Compile Include="UI\VisualElementsAttribute.cs" />
     <Compile Include="Utils\BizUtils.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />
+    <Compile Include="Utils\Repository.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

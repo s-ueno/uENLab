@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 using uEN.UI.Binding;
 
 namespace uEN.UI
@@ -20,22 +24,61 @@ namespace uEN.UI
             if (viewModel != null)
                 viewModel.View = this;
 
-            BindingBehaviors = new List<IBindingBehavior>();
+            BindingBehaviors = new BindingBehaviorCollection();
             BuildBinding();
             foreach (var each in BindingBehaviors)
             {
                 each.Ensure();
             }
+            if (viewModel != null)
+                viewModel.ApplyView();
         }
         protected virtual void BuildBinding()
         {
 
         }
-        public IList<IBindingBehavior> BindingBehaviors { get; set; }
+        public BindingBehaviorCollection BindingBehaviors { get; set; }
 
         protected virtual BindingBehaviorBuilder<T> CreateBindingBuilder<T>() where T : BizViewModel
         {
             return new BindingBehaviorBuilder<T>(this);
+        }
+
+        public virtual IEnumerable<DependencyPropertyBehavior> UpdateSource(string groupRegion = null)
+        {
+            var list = BindingBehaviors.ListBehaviors<DependencyPropertyBehavior>(groupRegion);
+            foreach (var each in list)
+            {
+                each.UpdateSource();
+            }
+            return list;
+        }
+        public virtual IEnumerable<DependencyPropertyBehavior> UpdateTarget(string groupRegion = null)
+        {
+            var list = BindingBehaviors.ListBehaviors<DependencyPropertyBehavior>(groupRegion);
+            foreach (var each in list)
+            {
+                each.UpdateTarget();
+            }
+            return list;
+        }
+
+        public virtual void ThrowValidationError(string groupRegion = null)
+        {
+            var list = UpdateSource(groupRegion);
+            var errors = BindingBehaviors.ListValidationErrors(list);
+            var firstError = errors.FirstOrDefault();
+            if (firstError != null)
+            {
+                var errorBinding = firstError.BindingInError as BindingExpressionBase;
+                var uiElements = errorBinding.Target as UIElement;
+                if (uiElements != null)
+                {
+                    uiElements.Focus();
+                }
+                throw new BizApplicationException(Convert.ToString(firstError.ErrorContent));
+            }
+
         }
 
 

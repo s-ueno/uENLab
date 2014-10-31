@@ -13,6 +13,7 @@ namespace uEN.UI.Binding
         object ViewModel { get; set; }
         DependencyObject Element { get; set; }
         LambdaExpression LambdaExpression { get; set; }
+        IEnumerable<Attribute> Attributes { get; }
         void Ensure();
     }
 }

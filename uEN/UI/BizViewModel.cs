@@ -46,5 +46,28 @@ namespace uEN.UI
             OnPropertyChanged(propertyName);
             return true;
         }
+        public void UpdateSource(string groupRegion = null)
+        {
+            View.UpdateSource(groupRegion);
+        }
+        public void UpdateTarget(string groupRegion = null)
+        {
+            View.UpdateTarget(groupRegion);
+        }
+        public void ThrowValidationError()
+        {
+            View.ThrowValidationError();
+        }
+
+        public virtual void ApplyView()
+        {
+
+        }
+        public virtual string Description { get { return string.Empty; } }
+
+        public override string ToString()
+        {
+            return string.IsNullOrWhiteSpace(Description) ? base.ToString() : Description;
+        }
     }
 }

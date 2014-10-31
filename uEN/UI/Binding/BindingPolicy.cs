@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace uEN.UI.Binding
@@ -23,6 +24,7 @@ namespace uEN.UI.Binding
             ValidatesOnExceptions = validatesOnExceptions;
             ValidatesOnNotifyDataErrors = validatesOnNotifyDataErrors;
             BindingMode = System.Windows.Data.BindingMode.Default;
+            ValidationRules = new List<ValidationRule>();
         }
 
         public string StringFormat { get; set; }
@@ -32,5 +34,18 @@ namespace uEN.UI.Binding
         public bool ValidatesOnExceptions { get; set; }
         public bool ValidatesOnNotifyDataErrors { get; set; }
         public IValueConverter Converter { get; set; }
+        public int? Delay { get; set; }
+        public bool? BindsDirectlyToSource { get; set; }
+        public object FallbackValue { get; set; }
+        public bool? IsAsync { get; set; }
+        public bool? NotifyOnSourceUpdated { get; set; }
+        public bool? NotifyOnTargetUpdated { get; set; }
+        public bool? NotifyOnValidationError { get; set; }
+        public RelativeSource RelativeSource { get; set; }
+        public object TargetNullValue { get; set; }
+        public UpdateSourceExceptionFilterCallback UpdateSourceExceptionFilter { get; set; }
+        public List<ValidationRule> ValidationRules { get; private set; }
+
+
     }
 }
