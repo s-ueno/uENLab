@@ -21,17 +21,20 @@ namespace uEN.UI
         protected virtual void OnBizViewDataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
             var viewModel = DataContext as BizViewModel;
-            if (viewModel != null)
-                viewModel.View = this;
+            if (viewModel == null)
+            {
+                UpdateSource();
+                return;
+            }
 
+            viewModel.View = this;
             BindingBehaviors = new BindingBehaviorCollection();
             BuildBinding();
             foreach (var each in BindingBehaviors)
             {
                 each.Ensure();
             }
-            if (viewModel != null)
-                viewModel.ApplyView();
+            viewModel.ApplyView();
         }
         protected virtual void BuildBinding()
         {

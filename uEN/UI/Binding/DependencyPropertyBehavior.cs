@@ -141,14 +141,6 @@ namespace uEN.UI.Binding
             BindingExpression.UpdateTarget();
         }
 
-
-        public virtual void ThrowValidationError()
-        {
-
-
-
-        }
-
     }
 
 

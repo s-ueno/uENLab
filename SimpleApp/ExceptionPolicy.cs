@@ -13,7 +13,6 @@ namespace SimpleApp
     [Export(typeof(IExceptionPolicy))]
     public class ExceptionPolicy : IExceptionPolicy
     {
-
         public void Do(Exception ex)
         {
             var appException = ex as BizApplicationException;

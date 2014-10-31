@@ -13,8 +13,8 @@ namespace uEN.UI
     {
         public ViewDataTemplateSelector()
         {
-            UseViewCache =
-            TemplatedParentWidth =
+            UseViewCache = false;
+            TemplatedParentWidth = true;
             TemplatedParentHeight = true;
         }
         public bool UseViewCache { get; set; }
