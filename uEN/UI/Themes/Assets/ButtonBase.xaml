@@ -55,7 +55,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ModernButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+    <Style x:Key="ModernButtonStyle" TargetType="{x:Type Button}" >
         <Setter Property="Foreground"                   Value="{DynamicResource AppBrand}" />
         <Setter Property="FontFamily"                   Value="{DynamicResource AppFont}"/>
         <Setter Property="FontSize"                     Value="{DynamicResource AppFontSize}"/>
