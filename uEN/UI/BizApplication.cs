@@ -18,6 +18,8 @@ namespace uEN.UI
             window.Content = mainViewModel;
             window.ContentTemplateSelector = new ViewDataTemplateSelector();
             Initialize(window, mainViewModel);
+
+
             Run(window);
         }
 

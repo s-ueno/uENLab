@@ -20,7 +20,10 @@ namespace SimpleApp
         {
             var list = new List<BizViewModel>();
             list.Add(new Vol04ViewModel());
-            ViewModels = new ListCollectionView(list);   
+            list.Add(new Vol05ViewModel());
+            
+            ViewModels = new ListCollectionView(list);
+            ViewModels.MoveCurrentToLast();
         }
 
         public ListCollectionView ViewModels { get; set; }
