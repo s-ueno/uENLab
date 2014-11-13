@@ -174,12 +174,12 @@ namespace uEN.UI.Binding
             return this;
         }
 
-        private T ValidateCurrentBehavior<T>() where T : IBindingBehavior
+        private TBehavior ValidateCurrentBehavior<TBehavior>() where TBehavior : IBindingBehavior
         {
             var current = CurrentBehavior;
-            if (!(current is T))
+            if (!(current is TBehavior))
                 throw new InvalidOperationException(string.Format("CurrentBehavior is not {0}", typeof(T).Name));
-            return (T)current;
+            return (TBehavior)current;
         }
 
         public BindingBehaviorBuilder<T> Binding(RoutedEvent routedEvent, Expression<Func<T, Action>> @event)

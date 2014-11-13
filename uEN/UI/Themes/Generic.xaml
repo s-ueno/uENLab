@@ -18,4 +18,6 @@
 
     <FontFamily x:Key="AppFont">Meiryo</FontFamily>
     <ms:Double x:Key="AppFontSize">13</ms:Double>
+
+    <FontFamily x:Key="AppBrandLogoFont">Constantia</FontFamily>
 </ResourceDictionary>

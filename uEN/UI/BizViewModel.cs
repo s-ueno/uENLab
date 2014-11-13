@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows;
 
 namespace uEN.UI
 {
+
     public abstract class BizViewModel : INotifyPropertyChanged
     {
         private VisualElementsAttribute visualElements;
@@ -69,5 +71,79 @@ namespace uEN.UI
         {
             return string.IsNullOrWhiteSpace(Description) ? base.ToString() : Description;
         }
+
+
+
+        #region StatusMessage
+        
+        public string StatusMessage
+        {
+            get { return statusMessage; }
+            set { SetProperty(ref statusMessage, value); }
+        }
+        private string statusMessage;
+
+        public string SubStatusMessage1
+        {
+            get { return subStatusMessage1; }
+            set { SetProperty(ref subStatusMessage1, value); }
+        }
+        private string subStatusMessage1;
+
+        public string SubStatusMessage2
+        {
+            get { return subStatusMessage2; }
+            set { SetProperty(ref subStatusMessage2, value); }
+        }
+        private string subStatusMessage2;
+
+        public string SubStatusMessage3
+        {
+            get { return subStatusMessage3; }
+            set { SetProperty(ref subStatusMessage3, value); }
+        }
+        private string subStatusMessage3;
+
+        public void ClearStatusMessage()
+        {
+            StatusMessage =
+            SubStatusMessage1 =
+            SubStatusMessage2 =
+            SubStatusMessage3 = string.Empty;
+        }
+
+        #endregion
+
+        #region Company
+
+        public string CompanyName
+        {
+            get { return companyName; }
+            set { SetProperty(ref companyName, value); }
+        }
+        private string companyName = BizUtils.AppSettings("CompanyName", "");
+
+        public string CompanyDescription
+        {
+            get { return companyDescription; }
+            set { SetProperty(ref companyDescription, value); }
+        }
+        private string companyDescription = BizUtils.AppSettings("CompanyDescription", "");
+
+        #endregion
+
+        #region User
+
+        public string UserName
+        {
+            get { return userName; }
+            set { SetProperty(ref userName, value); }
+        }
+        private string userName = Environment.UserName;
+
+
+        #endregion
+
+
     }
 }
