@@ -4,5 +4,6 @@
                     >
     <Style TargetType="{x:Type local:BizView}">
         <Setter Property="Background"   Value="{DynamicResource WindowTheme}"/>
+        <Setter Property="Foreground"   Value="{DynamicResource AppBrand}" />
     </Style>
 </ResourceDictionary>

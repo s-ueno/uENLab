@@ -24,6 +24,10 @@ namespace SimpleApp
             
             ViewModels = new ListCollectionView(list);
             ViewModels.MoveCurrentToLast();
+
+            UserName = "User Name";
+            Section = "Section";
+            StatusMessage = "準備完了";
         }
 
         public ListCollectionView ViewModels { get; set; }

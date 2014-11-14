@@ -6,5 +6,6 @@
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/ButtonBase.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/BizView.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/Window.xaml" />
+        <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/Path.xaml" />
     </ResourceDictionary.MergedDictionaries> 
 </ResourceDictionary>

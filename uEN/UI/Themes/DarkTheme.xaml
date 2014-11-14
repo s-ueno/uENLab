@@ -10,5 +10,19 @@
 
     <!-- 文字色ー -->
     <SolidColorBrush x:Key="AppForeground" Color="LightGray"/>
+    <SolidColorBrush x:Key="AppForegroundDisabled"  Color="DarkGray" />
+    <SolidColorBrush x:Key="AppDisabled"            Color="DimGray" />
 
+    <!-- ボタンー -->
+    <SolidColorBrush x:Key="ButtonBackground"       Color="Transparent"/>
+    <SolidColorBrush x:Key="ButtonBorder"           Color="#cccccc" />
+    <SolidColorBrush x:Key="ButtonBackgroundHover"  Color="#dddddd" />
+    <SolidColorBrush x:Key="ButtonBorderHover"      Color="#cccccc" />
+    <SolidColorBrush x:Key="ButtonTextHover"        Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="ButtonBorderPressed"    Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="ButtonTextPressed"      Color="#ffffff" />
+    
+    
+    
 </ResourceDictionary>
