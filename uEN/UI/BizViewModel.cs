@@ -141,6 +141,12 @@ namespace uEN.UI
         }
         private string userName = Environment.UserName;
 
+        public string Section
+        {
+            get { return section; }
+            set { SetProperty(ref section, value); }
+        }
+        private string section = Environment.UserDomainName;
 
         #endregion
 
