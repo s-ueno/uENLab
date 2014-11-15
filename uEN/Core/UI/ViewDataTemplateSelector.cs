@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using uEN.UI.AttachedProperties;
 
 namespace uEN.UI
 {
@@ -35,16 +36,17 @@ namespace uEN.UI
                 return base.SelectTemplate(item, container);
 
             var template = new DataTemplate() { VisualTree = new FrameworkElementFactory(vm.VisualElements.VisualType) };
+
+            if (Application.Current != null)
+                template.VisualTree.SetValue(FrameworkElement.StyleProperty, Application.Current.TryFindResource(typeof(BizView)));
+
             if (TemplatedParentWidth)
-            {
                 template.VisualTree.SetBinding(FrameworkElement.WidthProperty,
                     new System.Windows.Data.Binding("ActualWidth") { RelativeSource = new RelativeSource(RelativeSourceMode.TemplatedParent) });
-            }
             if (TemplatedParentHeight)
-            {
                 template.VisualTree.SetBinding(FrameworkElement.HeightProperty,
                     new System.Windows.Data.Binding("ActualHeight") { RelativeSource = new RelativeSource(RelativeSourceMode.TemplatedParent) });
-            }
+
             template.Seal();
             return cache[t] = template;
         }

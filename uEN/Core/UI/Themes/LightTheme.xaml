@@ -22,8 +22,11 @@
     <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{DynamicResource AppBrandColor}" />
     <SolidColorBrush x:Key="ButtonBorderPressed"    Color="{DynamicResource AppBrandColor}" />
     <SolidColorBrush x:Key="ButtonTextPressed"      Color="#ffffff" />
-    
-    
-    
-    
+
+
+    <!-- Modern Listbox -->
+    <SolidColorBrush x:Key="ListboxForeground"       Color="#ffffff" />
+    <SolidColorBrush x:Key="ListboxBackground"       Color="{DynamicResource AppBrandColor}" />
+
+
 </ResourceDictionary>

@@ -4,4 +4,5 @@
         <Setter Property="Stretch" Value="Fill" />
         <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Button}}}" />
     </Style>
+
 </ResourceDictionary>

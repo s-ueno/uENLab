@@ -59,7 +59,7 @@
         <Setter Property="Foreground"                   Value="{DynamicResource AppBrand}" />
         <Setter Property="FontFamily"                   Value="{DynamicResource AppFont}"/>
         <Setter Property="FontSize"                     Value="{DynamicResource AppFontSize}"/>
-
+ 
         <Setter Property="FocusVisualStyle"             Value="{x:Null}"/>
         <Setter Property="HorizontalContentAlignment"   Value="Center"/>
         <Setter Property="VerticalContentAlignment"     Value="Center"/>
@@ -145,6 +145,41 @@
                             <Setter Property="Background" Value="Red"/>
                             <Setter Property="Foreground" Value="White"/>
                         </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EllipseButtonStyle" TargetType="{x:Type Button}" >
+        <Style.Resources>
+            <ElasticEase x:Key="easeOutBounce" EasingMode="EaseOut" Springiness="6" Oscillations="4" />
+        </Style.Resources>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Padding"          Value="7"       />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse x:Name="ellipse"
+                                     Stroke="{TemplateBinding BorderBrush}"
+                                     Fill="Transparent"
+                                     StrokeThickness="2.5"
+                                     VerticalAlignment="Stretch" >
+                        </Ellipse>
+                        <ContentPresenter Name="content" Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ellipse" Property="Stroke" Value="OrangeRed"/>
+                            <Setter TargetName="ellipse" Property="Fill" >
+                                <Setter.Value>
+                                    <SolidColorBrush Color="OrangeRed" Opacity="0.5"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

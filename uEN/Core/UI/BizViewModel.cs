@@ -67,6 +67,11 @@ namespace uEN.UI
         }
         public virtual string Description { get { return string.Empty; } }
 
+        public virtual void LoadedView()
+        {
+
+        }
+
         public override string ToString()
         {
             return string.IsNullOrWhiteSpace(Description) ? base.ToString() : Description;
