@@ -68,47 +68,47 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Core\UI\AttachedProperties\ScrollIntoViewProxy.cs" />
-    <Compile Include="Core\UI\AttachedProperties\ViewTransition.cs" />
-    <Compile Include="Core\UI\AttachedProperties\WindowProxy.cs" />
-    <Compile Include="Core\UI\Binding\ActionEventPolicy.cs" />
-    <Compile Include="Core\UI\Binding\BindingBehaviorCollection.cs" />
-    <Compile Include="Core\UI\Binding\BindingPolicy.cs" />
-    <Compile Include="Core\UI\Binding\BindingStringFormatAttribute.cs" />
-    <Compile Include="Core\UI\Binding\GroupRegionAttribute.cs" />
-    <Compile Include="Core\UI\Binding\IExceptionPolicy.cs" />
-    <Compile Include="Core\UI\Binding\RoutedEventBehavior.cs" />
-    <Compile Include="Core\UI\Binding\BindingBehaviorBuilder.cs" />
-    <Compile Include="Core\UI\Binding\DependencyPropertyBehavior.cs" />
-    <Compile Include="Core\UI\Binding\IBindingBehavior.cs" />
-    <Compile Include="Core\UI\Binding\IRoutedEventPolicy.cs" />
-    <Compile Include="Core\UI\Binding\SimpleValueConverter.cs" />
-    <Compile Include="Core\UI\Binding\WaitCursorEventPolicy.cs" />
-    <Compile Include="Core\UI\Controls\BrandColorView.xaml.cs">
+    <Compile Include="UI\AttachedProperties\ScrollIntoViewProxy.cs" />
+    <Compile Include="UI\AttachedProperties\ViewTransition.cs" />
+    <Compile Include="UI\AttachedProperties\WindowProxy.cs" />
+    <Compile Include="UI\Binding\ActionEventPolicy.cs" />
+    <Compile Include="UI\Binding\BindingBehaviorCollection.cs" />
+    <Compile Include="UI\Binding\BindingPolicy.cs" />
+    <Compile Include="UI\Binding\BindingStringFormatAttribute.cs" />
+    <Compile Include="UI\Binding\GroupRegionAttribute.cs" />
+    <Compile Include="UI\Binding\IExceptionPolicy.cs" />
+    <Compile Include="UI\Binding\RoutedEventBehavior.cs" />
+    <Compile Include="UI\Binding\BindingBehaviorBuilder.cs" />
+    <Compile Include="UI\Binding\DependencyPropertyBehavior.cs" />
+    <Compile Include="UI\Binding\IBindingBehavior.cs" />
+    <Compile Include="UI\Binding\IRoutedEventPolicy.cs" />
+    <Compile Include="UI\Binding\SimpleValueConverter.cs" />
+    <Compile Include="UI\Binding\WaitCursorEventPolicy.cs" />
+    <Compile Include="UI\Controls\BrandColorView.xaml.cs">
       <DependentUpon>BrandColorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\UI\Controls\BrandColorViewModel.cs" />
-    <Compile Include="Core\UI\Controls\FontFamilyView.xaml.cs">
+    <Compile Include="UI\Controls\BrandColorViewModel.cs" />
+    <Compile Include="UI\Controls\FontFamilyView.xaml.cs">
       <DependentUpon>FontFamilyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\UI\Controls\FontFamilyViewModel.cs" />
-    <Compile Include="Core\UI\Controls\FontSizeView.xaml.cs">
+    <Compile Include="UI\Controls\FontFamilyViewModel.cs" />
+    <Compile Include="UI\Controls\FontSizeView.xaml.cs">
       <DependentUpon>FontSizeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\UI\Controls\FontSizeViewModel.cs" />
-    <Compile Include="Core\UI\Controls\Settings.xaml.cs">
+    <Compile Include="UI\Controls\FontSizeViewModel.cs" />
+    <Compile Include="UI\Controls\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Core\UI\Converter\ColorToStringConverter.cs" />
-    <Compile Include="Core\UI\Converter\FontFamilyConverter.cs" />
-    <Compile Include="Core\UI\Validation\BizApplication.cs" />
-    <Compile Include="Core\UI\Validation\BizView.cs" />
-    <Compile Include="Core\UI\BizViewModel.cs" />
-    <Compile Include="Core\UI\Themes\ThemeManager.cs" />
-    <Compile Include="Core\UI\Validation\IValidationRuleProvider.cs" />
-    <Compile Include="Core\UI\Validation\RequiredRule.cs" />
-    <Compile Include="Core\UI\ViewDataTemplateSelector.cs" />
-    <Compile Include="Core\UI\VisualElementsAttribute.cs" />
+    <Compile Include="UI\Converter\ColorToStringConverter.cs" />
+    <Compile Include="UI\Converter\FontFamilyConverter.cs" />
+    <Compile Include="UI\Validation\BizApplication.cs" />
+    <Compile Include="UI\Validation\BizView.cs" />
+    <Compile Include="UI\BizViewModel.cs" />
+    <Compile Include="UI\Themes\ThemeManager.cs" />
+    <Compile Include="UI\Validation\IValidationRuleProvider.cs" />
+    <Compile Include="UI\Validation\RequiredRule.cs" />
+    <Compile Include="UI\ViewDataTemplateSelector.cs" />
+    <Compile Include="UI\VisualElementsAttribute.cs" />
     <Compile Include="Utils\BizUtils.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />
     <Compile Include="Utils\Repository.cs" />
@@ -129,60 +129,60 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="Core\UI\Controls\BrandColorView.xaml">
+    <Page Include="UI\Controls\BrandColorView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Controls\FontFamilyView.xaml">
+    <Page Include="UI\Controls\FontFamilyView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Controls\FontSizeView.xaml">
+    <Page Include="UI\Controls\FontSizeView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Controls\Settings.xaml">
+    <Page Include="UI\Controls\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\Assets\AllAssets.xaml">
+    <Page Include="UI\Themes\Assets\AllAssets.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\Assets\BizView.xaml">
+    <Page Include="UI\Themes\Assets\BizView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\Assets\ButtonBase.xaml">
+    <Page Include="UI\Themes\Assets\ButtonBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\Assets\ListBox.xaml">
+    <Page Include="UI\Themes\Assets\ListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\Assets\Path.xaml">
+    <Page Include="UI\Themes\Assets\Path.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\Assets\Window.xaml">
+    <Page Include="UI\Themes\Assets\Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\DarkTheme.xaml">
+    <Page Include="UI\Themes\DarkTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\FlatStyle.xaml">
+    <Page Include="UI\Themes\FlatStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\Generic.xaml">
+    <Page Include="UI\Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\LightTheme.xaml">
+    <Page Include="UI\Themes\LightTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Core\UI\Themes\ModernStyle.xaml">
+    <Page Include="UI\Themes\ModernStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
