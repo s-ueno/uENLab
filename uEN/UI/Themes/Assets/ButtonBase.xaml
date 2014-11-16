@@ -152,9 +152,6 @@
     </Style>
 
     <Style x:Key="EllipseButtonStyle" TargetType="{x:Type Button}" >
-        <Style.Resources>
-            <ElasticEase x:Key="easeOutBounce" EasingMode="EaseOut" Springiness="6" Oscillations="4" />
-        </Style.Resources>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Padding"          Value="7"       />
         <Setter Property="HorizontalContentAlignment" Value="Center" />

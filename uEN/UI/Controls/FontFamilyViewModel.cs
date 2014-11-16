@@ -22,7 +22,6 @@ namespace uEN.UI.Controls
             var fonts = Fonts.SystemFontFamilies.OrderBy(x => x.ToString()).ToList();
             FontCollection = new ListCollectionView(fonts);
             FontCollection.MoveCurrentTo(Singleton<ThemeManager>.Value.Font);
-
             FontCollection.CurrentChanged += (sender, e) =>
             {
                 Singleton<ThemeManager>.Value.Font = FontCollection.CurrentItem as FontFamily;

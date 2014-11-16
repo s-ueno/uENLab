@@ -6,6 +6,7 @@
     
     <!-- Windowカラー -->
     <Color x:Key="WindowThemeColor">Snow</Color>
+    <!--<Color x:Key="WindowThemeColor">#f5f5ee</Color>-->
     <SolidColorBrush x:Key="WindowTheme"  Color="{DynamicResource WindowThemeColor}" />
 
     <!-- 文字色ー -->
@@ -22,7 +23,6 @@
     <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{DynamicResource AppBrandColor}" />
     <SolidColorBrush x:Key="ButtonBorderPressed"    Color="{DynamicResource AppBrandColor}" />
     <SolidColorBrush x:Key="ButtonTextPressed"      Color="#ffffff" />
-
 
     <!-- Modern Listbox -->
     <SolidColorBrush x:Key="ListboxForeground"       Color="#ffffff" />

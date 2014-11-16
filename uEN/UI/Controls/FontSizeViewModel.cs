@@ -19,14 +19,12 @@ namespace uEN.UI.Controls
         public override void ApplyView()
         {
             var list = new List<double>();
-            for (int i = 7; i < 50; i++)
+            for (double i = 7; i <= 50; i += 0.5)
             {
                 list.Add(i);
-                list.Add(i + 0.5);
             }
             FontSizeCollection = new ListCollectionView(list);
             FontSizeCollection.MoveCurrentTo(Singleton<ThemeManager>.Value.FontSize);
-
             FontSizeCollection.CurrentChanged -= FontSizeCollection_CurrentChanged;                
             FontSizeCollection.CurrentChanged += FontSizeCollection_CurrentChanged;                
         }

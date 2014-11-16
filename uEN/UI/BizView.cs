@@ -14,12 +14,6 @@ namespace uEN.UI
 {
     public abstract class BizView : UserControl
     {
-        static BizView()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(BizView),
-                new FrameworkPropertyMetadata(typeof(UserControl)));
-        }
-
         protected BizView()
         {
             DataContextChanged += OnBizViewDataContextChanged;

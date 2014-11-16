@@ -3,7 +3,7 @@
                     xmlns:ms="clr-namespace:System;assembly=mscorlib"
                     >
     <!-- アプリケーションの統一的なブランド色 -->
-    <Color x:Key="AppBrandColor">#307EB8</Color>
+    <Color x:Key="AppBrandColor">#00519A</Color>
     <SolidColorBrush x:Key="AppBrand" Color="{DynamicResource AppBrandColor}" />
     <SolidColorBrush x:Key="AppBrandOpacity1" Color="{DynamicResource AppBrandColor}" Opacity="0.1"/>
     <SolidColorBrush x:Key="AppBrandOpacity2" Color="{DynamicResource AppBrandColor}" Opacity="0.2"/>
@@ -14,7 +14,6 @@
     <SolidColorBrush x:Key="AppBrandOpacity7" Color="{DynamicResource AppBrandColor}" Opacity="0.7"/>
     <SolidColorBrush x:Key="AppBrandOpacity8" Color="{DynamicResource AppBrandColor}" Opacity="0.8"/>
     <SolidColorBrush x:Key="AppBrandOpacity9" Color="{DynamicResource AppBrandColor}" Opacity="0.9"/>
-
 
     <FontFamily x:Key="AppFont">Meiryo</FontFamily>
     <ms:Double x:Key="AppFontSize">13</ms:Double>

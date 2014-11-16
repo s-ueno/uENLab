@@ -10,6 +10,7 @@
         <Setter Property="BorderBrush"                  Value="Transparent" />
         <Setter Property="Padding"                      Value="20,10,20,10" />
         <Setter Property="VerticalContentAlignment"     Value="Center" />
+        <Setter Property="HorizontalContentAlignment"   Value="Left" />
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="true">
                 <Setter Property="Background" Value="{DynamicResource AppBrandOpacity3}"/>

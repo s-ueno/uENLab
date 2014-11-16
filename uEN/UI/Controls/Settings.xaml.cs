@@ -29,18 +29,6 @@ namespace uEN.UI.Controls
         }
 
         private static readonly List<Type> settingTypes = new List<Type>();
-        private static Type LoadType(string s)
-        {
-            Type type = null;
-            try
-            {
-                type = Type.GetType(s);
-            }
-            catch
-            {
-            }
-            return type;
-        }
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -65,17 +53,54 @@ namespace uEN.UI.Controls
             SettingViewModels.SelectionChanged -= SettingViewModels_SelectionChanged;
             SettingViewModels.SelectionChanged += SettingViewModels_SelectionChanged;
         }
+        private static Type LoadType(string s)
+        {
+            Type type = null;
+            try
+            {
+                type = Type.GetType(s);
+            }
+            catch
+            {
+            }
+            return type;
+        }
+        private static BizViewModel CreateViewModel(Type t)
+        {
+            BizViewModel vm = null;
+            try
+            {
+                vm = Activator.CreateInstance(t) as BizViewModel;
+            }
+            catch (Exception ex)
+            {
+            }
+            return vm;
+        }
+        void IconButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SettingViewModels.Visibility == System.Windows.Visibility.Visible)
+            {
+                var grid = this.FindParentWithVisualTree<Grid>();
+                ViewTransition.Play(grid, TransitionStyle.SlideOut,
+                    () => grid.Visibility = System.Windows.Visibility.Collapsed);
+                return;
+            }
+            ShowContents(SettingViewModels.Visibility == Visibility.Collapsed);
+        }
+        void SettingViewModels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ShowContents(false);
+        }
 
         public void ShowContents(bool showMainMenu = true)
         {
-
             if (showMainMenu)
             {
                 SettingViewModels.Visibility = Visibility.Visible;
                 ViewModelPresenter.Visibility = Visibility.Collapsed;
 
                 Caption.Text = "Settings";
-                ViewModelPresenter.Visibility = Visibility.Collapsed;
                 ViewTransition.Play(Caption, TransitionStyle.Slide);
                 ViewTransition.Play(SettingViewModels, TransitionStyle.Slide);
             }
@@ -88,44 +113,12 @@ namespace uEN.UI.Controls
                 if (vm == null)
                     return;
 
-                ViewModelPresenter.Visibility = Visibility.Visible;
+                Caption.Text = vm.Description;
                 ViewModelPresenter.Content = vm;
                 ViewTransition.Play(ViewModelPresenter, TransitionStyle.Slide);
-
-                Caption.Text = vm.Description;
                 ViewTransition.Play(Caption, TransitionStyle.Slide,
                     () => SettingViewModels.SelectedIndex = -1);
             }
-        }
-
-        void IconButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (SettingViewModels.Visibility == System.Windows.Visibility.Visible)
-            {
-                var grid = this.FindParentWithVisualTree<Grid>();
-                ViewTransition.Play(grid, TransitionStyle.SlideOut, 
-                    () => grid.Visibility = System.Windows.Visibility.Collapsed);
-                return;
-            }
-            ShowContents(SettingViewModels.Visibility == Visibility.Collapsed);
-        }
-
-        void SettingViewModels_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ShowContents(false);
-        }
-
-        private static BizViewModel CreateViewModel(Type t)
-        {
-            BizViewModel vm = null;
-            try
-            {
-                vm = Activator.CreateInstance(t) as BizViewModel;
-            }
-            catch (Exception ex)
-            {
-            }
-            return vm;
         }
     }
 }

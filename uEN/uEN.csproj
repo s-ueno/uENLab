@@ -101,8 +101,8 @@
     </Compile>
     <Compile Include="UI\Converter\ColorToStringConverter.cs" />
     <Compile Include="UI\Converter\FontFamilyConverter.cs" />
-    <Compile Include="UI\Validation\BizApplication.cs" />
-    <Compile Include="UI\Validation\BizView.cs" />
+    <Compile Include="UI\BizApplication.cs" />
+    <Compile Include="UI\BizView.cs" />
     <Compile Include="UI\BizViewModel.cs" />
     <Compile Include="UI\Themes\ThemeManager.cs" />
     <Compile Include="UI\Validation\IValidationRuleProvider.cs" />
