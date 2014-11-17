@@ -35,6 +35,17 @@ namespace uEN.UI
                 each.Ensure();
             }
             viewModel.ApplyView();
+            this.Loaded -= BizView_Loaded;
+            this.Loaded += BizView_Loaded;
+        }
+
+        void BizView_Loaded(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as BizViewModel;
+            if (viewModel != null)
+            {
+                viewModel.LoadedView();
+            }
         }
         protected virtual void BuildBinding()
         {

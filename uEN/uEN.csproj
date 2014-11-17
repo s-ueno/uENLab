@@ -35,9 +35,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -68,6 +68,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\AttachedProperties\ScrollIntoViewProxy.cs" />
+    <Compile Include="UI\AttachedProperties\ViewTransition.cs" />
     <Compile Include="UI\AttachedProperties\WindowProxy.cs" />
     <Compile Include="UI\Binding\ActionEventPolicy.cs" />
     <Compile Include="UI\Binding\BindingBehaviorCollection.cs" />
@@ -82,7 +84,24 @@
     <Compile Include="UI\Binding\IRoutedEventPolicy.cs" />
     <Compile Include="UI\Binding\SimpleValueConverter.cs" />
     <Compile Include="UI\Binding\WaitCursorEventPolicy.cs" />
-    <Compile Include="UI\Validation\BizApplication.cs" />
+    <Compile Include="UI\Controls\BrandColorView.xaml.cs">
+      <DependentUpon>BrandColorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\BrandColorViewModel.cs" />
+    <Compile Include="UI\Controls\FontFamilyView.xaml.cs">
+      <DependentUpon>FontFamilyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\FontFamilyViewModel.cs" />
+    <Compile Include="UI\Controls\FontSizeView.xaml.cs">
+      <DependentUpon>FontSizeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\FontSizeViewModel.cs" />
+    <Compile Include="UI\Controls\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Converter\ColorToStringConverter.cs" />
+    <Compile Include="UI\Converter\FontFamilyConverter.cs" />
+    <Compile Include="UI\BizApplication.cs" />
     <Compile Include="UI\BizView.cs" />
     <Compile Include="UI\BizViewModel.cs" />
     <Compile Include="UI\Themes\ThemeManager.cs" />
@@ -93,6 +112,8 @@
     <Compile Include="Utils\BizUtils.cs" />
     <Compile Include="Utils\ExpressionExtensions.cs" />
     <Compile Include="Utils\Repository.cs" />
+    <Compile Include="Utils\UIElementExtensions.cs" />
+    <Compile Include="Utils\ViewModelExtensions.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -108,6 +129,19 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="UI\Controls\BrandColorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\FontFamilyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\FontSizeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Themes\Assets\AllAssets.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Themes\Assets\ButtonBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Themes\Assets\ListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

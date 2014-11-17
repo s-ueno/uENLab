@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="uEN.UI.Controls.Settings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uen="clr-namespace:uEN.UI"
+             mc:Ignorable="d" 
+             Background="{DynamicResource AppBrand}"
+             Foreground="White"
+             BorderBrush="Transparent"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <uen:ViewDataTemplateSelector x:Key="templateSelector" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="10,30,0,30" Orientation="Horizontal">
+            <Button x:Name="IconButton" Width="35" Height="35" Margin="5" 
+                    Foreground="White"
+                    BorderBrush="White"
+                    Style="{DynamicResource EllipseButtonStyle}" 
+                    >
+                <Viewbox Stretch="Fill">
+                    <Path Style="{DynamicResource PathButtonStyle}"
+                          Data="F1 M 33.6458,38L 49.4792,53.8333L 38.7917,53.8333L 22.1667,38L 38.7917,22.1667L 49.4792,22.1667L 33.6458,38 Z "/>
+                </Viewbox>
+            </Button>
+            <TextBlock x:Name="Caption" Text="Settings" FontSize="20" VerticalAlignment="Center"/>
+        </StackPanel>
+        <ListBox Grid.Row="1" x:Name="SettingViewModels" Visibility="Visible" />
+        <ContentPresenter Grid.Row="1" x:Name="ViewModelPresenter"  
+                          ContentTemplateSelector="{StaticResource templateSelector}"
+                          />
+    </Grid>
+</UserControl>

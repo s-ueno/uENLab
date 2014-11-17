@@ -93,12 +93,43 @@ namespace uEN.UI.AttachedProperties
                     SystemCommands.CloseWindow(win);
                     break;
                 case Commands.Setting:
+                    FadeInSetteings(win);
                     break;
                 default:
                     break;
             }
         }
 
+        private static void FadeInSetteings(Window win)
+        {
+            var element = win.Template.FindName("SettingArea", win) as Grid;
+            if (element != null)
+            {
+                var settings = win.Template.FindName("settings", win) as uEN.UI.Controls.Settings;
+                settings.ShowContents(true);
+
+                element.Visibility = Visibility.Visible;
+                ViewTransition.Play(element, TransitionStyle.Slide, () =>
+                {
+                    win.MouseDown -= win_MouseDown;
+                    win.MouseDown += win_MouseDown;
+                });
+            }
+        }
+
+        static void win_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var win = (Window)sender;
+            var element = win.Template.FindName("SettingArea", win) as FrameworkElement;
+            if (element != null &&
+                element.Visibility == Visibility.Visible &&
+                !element.IsMouseOver)
+            {
+                win.MouseDown -= win_MouseDown;
+                ViewTransition.Play(element, TransitionStyle.SlideOut, 
+                    () => element.Visibility = Visibility.Collapsed);
+            }
+        }
 
 
         #endregion

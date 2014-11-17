@@ -103,6 +103,39 @@ namespace uEN.UI
 
         #endregion
 
+        #region BrandColor
+
+        public Color? BrandColor
+        {
+            get { return GetBrandColor(); }
+            set
+            {
+                SetBrandColor(value);
+                OnPropertyChanged();
+            }
+        }
+        private Color? GetBrandColor()
+        {
+            Color? color = null;
+            if (IsValid)
+                color = Application.Current.TryFindResource(KeyAppBrandColor) as Color?;
+            if (color == null)
+                color = Colors.DeepSkyBlue;
+            return color;
+        }
+        private void SetBrandColor(Color? color)
+        {
+            if (!IsValid) return;
+
+            Application.Current.Resources[KeyAppBrandColor] = color;
+            SetAppTheme(GetAppTheme());
+        }
+
+        public const string KeyAppBrandColor = "AppBrandColor";
+
+        #endregion
+
+
         #region AppStyle
 
         public AppStyle? Style
