@@ -49,7 +49,7 @@ namespace uEN.UI.AttachedProperties
         static void fw_Loaded(object sender, RoutedEventArgs e)
         {
             var fw = (FrameworkElement)sender;
-            var style = (TransitionStyle)fw.GetValue(ViewTransition.TransitionStyleProperty);
+            var style = GetTransitionStyle(fw);
 
             Play(fw, style);
         }
