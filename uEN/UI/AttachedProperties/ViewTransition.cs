@@ -114,8 +114,8 @@ namespace uEN.UI.AttachedProperties
         {
             var storyboard = new Storyboard();
 
-            var fromThickness = isFadeIn ? new Thickness(0, 30, 0, 30) : new Thickness(0);
-            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(0, 30, 0, 30);
+            var fromThickness = isFadeIn ? new Thickness(0, 30, 0, -30) : new Thickness(0);
+            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(0, 30, 0, -30);
 
 
             var slideAnimation = new ThicknessAnimation();
