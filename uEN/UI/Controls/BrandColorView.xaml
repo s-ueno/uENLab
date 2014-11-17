@@ -24,7 +24,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource colorConvertor}}"
-                               Foreground="Black"
+                               Foreground="White" 
                                Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}} }"
                                Height="50"                      
                                >
