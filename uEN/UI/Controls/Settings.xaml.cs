@@ -81,7 +81,7 @@ namespace uEN.UI.Controls
         {
             if (SettingViewModels.Visibility == System.Windows.Visibility.Visible)
             {
-                var grid = this.FindParentWithVisualTree<Grid>();
+                var grid = this.FindVisualParent<Grid>();
                 ViewTransition.Play(grid, TransitionStyle.SlideOut,
                     () => grid.Visibility = System.Windows.Visibility.Collapsed);
                 return;

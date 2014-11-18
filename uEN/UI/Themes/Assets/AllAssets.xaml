@@ -8,5 +8,6 @@
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/Window.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/Path.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/ListBox.xaml" />
+        <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/ListContent.xaml" />
     </ResourceDictionary.MergedDictionaries> 
 </ResourceDictionary>
