@@ -36,9 +36,6 @@ namespace uEN.UI
             SetFontSize(FontSize);
             SetBrandColor(BrandColor);
         }
-
-
-        private LocalStorage<ThemeManager> Store = new LocalStorage<ThemeManager>();
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -60,7 +57,7 @@ namespace uEN.UI
         {
             get
             {
-                var stringFontFamily = Store.Load() as string;
+                var stringFontFamily = this.GetBackingStore() as string;
                 if (!string.IsNullOrWhiteSpace(stringFontFamily))
                 {
                     FontFamily buff = null;
@@ -77,31 +74,20 @@ namespace uEN.UI
                         return buff;
                     }
                 }
-                return GetDefaultFont();
+                return new FontFamily("Meiryo");
             }
             set
             {
                 SetFont(value);
-                Store.Save(value.ToString());
+                this.SetBackingStore(Convert.ToString(value));
                 OnPropertyChanged();
             }
-        }
-        private FontFamily GetDefaultFont()
-        {
-            FontFamily font = null;
-            if (IsValid)
-                font = Application.Current.TryFindResource(KeyFont) as FontFamily;
-            if (font == null)
-                font = new FontFamily("Meiryo");
-            return font;
         }
         private void SetFont(FontFamily font)
         {
             if (!IsValid) return;
-            Application.Current.Resources[KeyFont] = font;
+            Application.Current.Resources["AppFont"] = font;
         }
-
-        public const string KeyFont = "AppFont";
 
         #endregion
 
@@ -111,34 +97,21 @@ namespace uEN.UI
         {
             get
             {
-                var storeItem = Store.Load() as Double?;
-                return storeItem.HasValue ? storeItem.Value : GetDefaultFontSize();
+                var storeItem = this.GetBackingStore() as Double?;
+                return storeItem.HasValue ? storeItem.Value : 13d;
             }
             set
             {
                 SetFontSize(value);
-                Store.Save(value);
+                this.SetBackingStore(value);
                 OnPropertyChanged();
             }
         }
-
-        private double GetDefaultFontSize()
-        {
-            double? size = null;
-            if (IsValid)
-                size = Application.Current.TryFindResource(KeyFontSize) as double?;
-            if (!size.HasValue)
-                size = 13;
-            return size.Value;
-        }
-
         private void SetFontSize(double value)
         {
             if (!IsValid) return;
-            Application.Current.Resources[KeyFontSize] = value;
+            Application.Current.Resources["AppFontSize"] = value;
         }
-
-        public const string KeyFontSize = "AppFontSize";
 
         #endregion
 
@@ -148,7 +121,7 @@ namespace uEN.UI
         {
             get
             {
-                var stringBrandColor = Store.Load() as string;
+                var stringBrandColor = this.GetBackingStore() as string;
                 if (!string.IsNullOrWhiteSpace(stringBrandColor))
                 {
                     Color? buff = null;
@@ -165,33 +138,22 @@ namespace uEN.UI
                         return buff.Value;
                     }
                 }
-                return GetDefaultBrandColor();
+                return ColorConverter.ConvertFromString("#00519A") as Color?;
             }
             set
             {
                 SetBrandColor(value);
-                Store.Save(Convert.ToString(value));
+                this.SetBackingStore(Convert.ToString(value));
                 OnPropertyChanged();
             }
-        }
-        private Color? GetDefaultBrandColor()
-        {
-            Color? color = null;
-            if (IsValid)
-                color = Application.Current.TryFindResource(KeyAppBrandColor) as Color?;
-            if (color == null)
-                color = ColorConverter.ConvertFromString("#00519A") as Color?;
-            return color;
         }
         private void SetBrandColor(Color? color)
         {
             if (!IsValid) return;
 
-            Application.Current.Resources[KeyAppBrandColor] = color;
-            SetAppTheme(GetDefaultAppTheme());
+            Application.Current.Resources["AppBrandColor"] = color;
+            SetAppTheme(Theme);
         }
-
-        public const string KeyAppBrandColor = "AppBrandColor";
 
         #endregion
 
@@ -200,23 +162,13 @@ namespace uEN.UI
 
         public AppStyle? Style
         {
-            get { return Store.Load() as AppStyle? ?? GetDefaultAppStyle(); }
+            get { return this.GetBackingStore() as AppStyle? ?? AppStyle.Modern; }
             set
             {
                 SetAppStyle(value);
-                Store.Save(value);
+                this.SetBackingStore(value);
                 OnPropertyChanged();
             }
-        }
-
-        private AppStyle? GetDefaultAppStyle()
-        {
-            if (!IsValid)
-                return null;
-            var modern = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == ModernStyle);
-            var flat = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == FlatStyle);
-            return modern != null ? AppStyle.Modern :
-                   flat != null ? AppStyle.Flat : (AppStyle?)null;
         }
 
         private void SetAppStyle(AppStyle? value)
@@ -244,25 +196,14 @@ namespace uEN.UI
 
         public AppTheme? Theme
         {
-            get { return Store.Load() as AppTheme? ?? GetDefaultAppTheme(); }
+            get { return this.GetBackingStore() as AppTheme? ?? AppTheme.Light; }
             set
             {
                 SetAppTheme(value);
-                Store.Save(value);
+                this.SetBackingStore(value);
                 OnPropertyChanged();
             }
         }
-
-        private AppTheme? GetDefaultAppTheme()
-        {
-            if (!IsValid)
-                return null;
-            var light = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == LightTheme);
-            var dark = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == DarkTheme);
-            return light != null ? AppTheme.Light :
-                   dark != null ? AppTheme.Dark : (AppTheme?)null;
-        }
-
         private void SetAppTheme(AppTheme? value)
         {
             if (!IsValid || !value.HasValue)
@@ -283,9 +224,6 @@ namespace uEN.UI
         }
 
         #endregion
-
-
-
 
     }
 }

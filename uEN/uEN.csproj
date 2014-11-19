@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BizApplicationException.cs" />
-    <Compile Include="Core\LocalStorage.cs" />
+    <Compile Include="Core\BackingStore.cs" />
     <Compile Include="Core\Singleton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
