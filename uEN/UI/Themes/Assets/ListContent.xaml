@@ -12,7 +12,6 @@
         <Setter Property="Background"                   Value="Transparent"/>
         <Setter Property="BorderBrush"                  Value="Transparent"/>
         <Setter Property="BorderThickness"              Value="0"/>
-        <Setter Property="Margin"                       Value="0,55,20,-55" />
         <Setter Property="Padding"                      Value="4,1"/>
         <Setter Property="SnapsToDevicePixels"          Value="True"/>
         <Setter Property="HorizontalContentAlignment"   Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
@@ -57,11 +56,37 @@
             </Setter.Value>
         </Setter>
     </Style>
-   
+
+    <ui:ViewDataTemplateSelector x:Key="templateSelector" />
+    <ControlTemplate x:Key="ListContentVerticalStyle" TargetType="{x:Type local:ListContent}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*"    />
+            </Grid.ColumnDefinitions>
+            <ListBox x:Name="TitleContent" 
+                    Background="Transparent"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                    ItemsSource="{TemplateBinding ItemsSource}"
+                    ItemContainerStyle="{StaticResource ListContentHeaderStyle}"
+                    >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Border Margin="5,0,10,0" Grid.Column="1" Background="{DynamicResource AppBrandOpacity5}" Width="5" 
+                    Visibility="{TemplateBinding local:ListContent.BorderVisibility }"
+                    />
+            <ContentPresenter x:Name="MainContent" Grid.Column="2" 
+                            Content="{TemplateBinding SelectedItem}"
+                            ContentTemplateSelector="{StaticResource templateSelector}" />
+        </Grid>
+    </ControlTemplate>
+
     <Style TargetType="{x:Type local:ListContent}">
-        <Style.Resources>
-            <ui:ViewDataTemplateSelector x:Key="templateSelector" />
-        </Style.Resources>
         <Setter Property="Focusable" Value="False" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
@@ -71,11 +96,13 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <ListBox x:Name="TitleContent" 
                                  Background="Transparent"
-                                 
+                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+
                                  ItemsSource="{TemplateBinding ItemsSource}"
                                  ItemContainerStyle="{StaticResource ListContentHeaderStyle}"
                                  >
@@ -85,16 +112,21 @@
                                 </ItemsPanelTemplate>
                             </ListBox.ItemsPanel>
                         </ListBox>
-                        <ContentPresenter x:Name="MainContent" Grid.Row="1" 
+                        <Border Margin="0,5,0,5" Grid.Row="1" Background="{DynamicResource AppBrandOpacity5}" Height="5" 
+                                Visibility="{TemplateBinding local:ListContent.BorderVisibility }"
+                                />
+                        <ContentPresenter x:Name="MainContent" Grid.Row="2" 
                                           Content="{TemplateBinding SelectedItem}"
                                           ContentTemplateSelector="{StaticResource templateSelector}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="local:ListContent.HeaderStyle" Value="Vertical">
+                <Setter Property="Template" Value="{StaticResource ListContentVerticalStyle}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
-    
-    
-    
-    
+
 </ResourceDictionary>

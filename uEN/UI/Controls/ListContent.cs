@@ -19,6 +19,12 @@ using uEN.Core;
 
 namespace uEN.UI.Controls
 {
+
+    public enum ListContentHeaderStyle
+    {
+        Horizontal, Vertical
+    }
+
     /// <summary>
     /// このカスタム コントロールを XAML ファイルで使用するには、手順 1a または 1b の後、手順 2 に従います。
     ///
@@ -53,8 +59,39 @@ namespace uEN.UI.Controls
         static ListContent()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ListContent),
-                new FrameworkPropertyMetadata(typeof(Selector)));
+                new FrameworkPropertyMetadata(typeof(ListContent)));
         }
+
+        #region HeaderStyle
+
+        public static ListContentHeaderStyle GetHeaderStyle(DependencyObject obj)
+        {
+            return (ListContentHeaderStyle)obj.GetValue(HeaderStyleProperty);
+        }
+        public static void SetHeaderStyle(DependencyObject obj, ListContentHeaderStyle value)
+        {
+            obj.SetValue(HeaderStyleProperty, value);
+        }
+        public static readonly DependencyProperty HeaderStyleProperty =
+            DependencyProperty.RegisterAttached("HeaderStyle", typeof(ListContentHeaderStyle), typeof(ListContent), new UIPropertyMetadata(ListContentHeaderStyle.Horizontal));
+
+        #endregion
+
+        #region BorderVisibility
+
+        public static Visibility GetBorderVisibility(DependencyObject obj)
+        {
+            return (Visibility)obj.GetValue(BorderVisibilityProperty);
+        }
+
+        public static void SetBorderVisibility(DependencyObject obj, Visibility value)
+        {
+            obj.SetValue(BorderVisibilityProperty, value);
+        }
+        public static readonly DependencyProperty BorderVisibilityProperty =
+            DependencyProperty.RegisterAttached("BorderVisibility", typeof(Visibility), typeof(ListContent), new PropertyMetadata(Visibility.Collapsed));
+
+        #endregion
 
         public override void OnApplyTemplate()
         {
@@ -98,44 +135,27 @@ namespace uEN.UI.Controls
             }
         }
 
-        /*
-        void item_Loaded(object sender, RoutedEventArgs e)
-        {
-            var fw = sender as Control;
-            if (fw != null)
-            {
-                var title = fw.Template.FindName("Title", fw) as TextBlock;
-                if (title != null)
-                {
-                    var mouseoverTrigger = new EventTrigger(FrameworkElement.MouseEnterEvent);
-                    var storyboard = new Storyboard();
-                    var colorAnimation = new ColorAnimation();
-                    colorAnimation.To = Singleton<ThemeManager>.Value.BrandColor;
-                    colorAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.4));
-                    colorAnimation.EasingFunction = new BackEase() { EasingMode = EasingMode.EaseOut, Amplitude = 0.3 };
-
-                    Storyboard.SetTargetName(colorAnimation, "TitleForeground");
-                    Storyboard.SetTargetProperty(colorAnimation, new PropertyPath(SolidColorBrush.ColorProperty));
-                    storyboard.Children.Add(colorAnimation);
-
-                    mouseoverTrigger.Actions.Add(new BeginStoryboard() { Storyboard = storyboard });
-                    title.Triggers.Add(mouseoverTrigger);
-                }
-            }
-        }
-        */
-         
-          
         static Storyboard LoadedStoryboard(int d, FrameworkElement element)
         {
             var storyboard = new Storyboard();
-
             var slideAnimation = new ThicknessAnimation();
-            slideAnimation.To = new Thickness(0, 5, 20, 5);
-            slideAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.4));
-            slideAnimation.BeginTime = TimeSpan.FromMilliseconds(d * 100);
-            slideAnimation.EasingFunction = new BackEase() { EasingMode = EasingMode.EaseOut, Amplitude = 0.3 };
+            var headerStyle = GetHeaderStyle(element.FindVisualParent<ListContent>());
 
+            if (headerStyle == ListContentHeaderStyle.Horizontal)
+            {
+                element.Margin = new Thickness(0, 55, 20, -55);
+                slideAnimation.To = new Thickness(0, 5, 20, 5);
+                slideAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.7));
+            }
+            else
+            {
+                element.Margin = new Thickness(200, 0, -200, 10);
+                slideAnimation.To = new Thickness(10, 0, 10, 5);
+                slideAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
+            }
+            slideAnimation.EasingFunction = new BackEase() { EasingMode = EasingMode.EaseOut, Amplitude = 0.3 };
+            slideAnimation.BeginTime = TimeSpan.FromMilliseconds(d * 100);
+            
             Storyboard.SetTargetProperty(slideAnimation, new PropertyPath(FrameworkElement.MarginProperty));
             storyboard.Children.Add(slideAnimation);
 
@@ -149,9 +169,5 @@ namespace uEN.UI.Controls
 
             return storyboard;
         }
-
-
-
-
     }
 }
