@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using uEN.Core;
 
 namespace uEN.UI
 {
@@ -26,6 +27,15 @@ namespace uEN.UI
 
     public class ThemeManager : INotifyPropertyChanged
     {
+        public ThemeManager()
+        {
+            SetAppStyle(Style);
+            SetAppTheme(Theme);
+
+            SetFont(Font);
+            SetFontSize(FontSize);
+            SetBrandColor(BrandColor);
+        }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -45,29 +55,39 @@ namespace uEN.UI
 
         public FontFamily Font
         {
-            get { return GetFont(); }
+            get
+            {
+                var stringFontFamily = this.GetBackingStore() as string;
+                if (!string.IsNullOrWhiteSpace(stringFontFamily))
+                {
+                    FontFamily buff = null;
+                    try
+                    {
+                        buff = new FontFamily(stringFontFamily);
+                    }
+                    catch
+                    {
+                    }
+                    if (buff != null)
+                    {
+                        SetFont(buff);
+                        return buff;
+                    }
+                }
+                return new FontFamily("Meiryo");
+            }
             set
             {
                 SetFont(value);
+                this.SetBackingStore(Convert.ToString(value));
                 OnPropertyChanged();
             }
-        }
-        private FontFamily GetFont()
-        {
-            FontFamily font = null;
-            if (IsValid)
-                font = Application.Current.TryFindResource(KeyFont) as FontFamily;
-            if (font == null)
-                font = new FontFamily("Meiryo");
-            return font;
         }
         private void SetFont(FontFamily font)
         {
             if (!IsValid) return;
-            Application.Current.Resources[KeyFont] = font;            
+            Application.Current.Resources["AppFont"] = font;
         }
-
-        public const string KeyFont = "AppFont";
 
         #endregion
 
@@ -75,31 +95,23 @@ namespace uEN.UI
 
         public double FontSize
         {
-            get { return GetFontSize(); }
+            get
+            {
+                var storeItem = this.GetBackingStore() as Double?;
+                return storeItem.HasValue ? storeItem.Value : 13d;
+            }
             set
             {
                 SetFontSize(value);
+                this.SetBackingStore(value);
                 OnPropertyChanged();
             }
         }
-
-        private double GetFontSize()
-        {
-            double? size = null;
-            if (IsValid)
-                size = Application.Current.TryFindResource(KeyFontSize) as double?;
-            if (!size.HasValue)
-                size = 13;
-            return size.Value;
-        }
-
         private void SetFontSize(double value)
         {
             if (!IsValid) return;
-            Application.Current.Resources[KeyFontSize] = value;
+            Application.Current.Resources["AppFontSize"] = value;
         }
-
-        public const string KeyFontSize = "AppFontSize";
 
         #endregion
 
@@ -107,31 +119,41 @@ namespace uEN.UI
 
         public Color? BrandColor
         {
-            get { return GetBrandColor(); }
+            get
+            {
+                var stringBrandColor = this.GetBackingStore() as string;
+                if (!string.IsNullOrWhiteSpace(stringBrandColor))
+                {
+                    Color? buff = null;
+                    try
+                    {
+                        buff = ColorConverter.ConvertFromString(stringBrandColor) as Color?;
+                    }
+                    catch
+                    {
+                    }
+                    if (buff.HasValue)
+                    {
+                        SetBrandColor(buff.Value);
+                        return buff.Value;
+                    }
+                }
+                return ColorConverter.ConvertFromString("#00519A") as Color?;
+            }
             set
             {
                 SetBrandColor(value);
+                this.SetBackingStore(Convert.ToString(value));
                 OnPropertyChanged();
             }
-        }
-        private Color? GetBrandColor()
-        {
-            Color? color = null;
-            if (IsValid)
-                color = Application.Current.TryFindResource(KeyAppBrandColor) as Color?;
-            if (color == null)
-                color = Colors.DeepSkyBlue;
-            return color;
         }
         private void SetBrandColor(Color? color)
         {
             if (!IsValid) return;
 
-            Application.Current.Resources[KeyAppBrandColor] = color;
-            SetAppTheme(GetAppTheme());
+            Application.Current.Resources["AppBrandColor"] = color;
+            SetAppTheme(Theme);
         }
-
-        public const string KeyAppBrandColor = "AppBrandColor";
 
         #endregion
 
@@ -140,29 +162,20 @@ namespace uEN.UI
 
         public AppStyle? Style
         {
-            get { return GetAppStyle(); }
+            get { return this.GetBackingStore() as AppStyle? ?? AppStyle.Modern; }
             set
             {
                 SetAppStyle(value);
+                this.SetBackingStore(value);
                 OnPropertyChanged();
             }
-        }
-
-        private AppStyle? GetAppStyle()
-        {
-            if (!IsValid)
-                return null;
-            var modern = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == ModernStyle);
-            var flat = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == FlatStyle);
-            return modern != null ? AppStyle.Modern :
-                   flat != null ? AppStyle.Flat : (AppStyle?)null;
         }
 
         private void SetAppStyle(AppStyle? value)
         {
             if (!IsValid || !value.HasValue)
                 return;
-            
+
             var modern = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == ModernStyle);
             var flat = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == FlatStyle);
 
@@ -171,9 +184,9 @@ namespace uEN.UI
             if (flat != null)
                 Application.Current.Resources.MergedDictionaries.Remove(flat);
 
-            var dic = value.Value == AppStyle.Flat ? 
-                        new ResourceDictionary() { Source = FlatStyle } : 
-                        new ResourceDictionary() { Source = ModernStyle } ;
+            var dic = value.Value == AppStyle.Flat ?
+                        new ResourceDictionary() { Source = FlatStyle } :
+                        new ResourceDictionary() { Source = ModernStyle };
             Application.Current.Resources.MergedDictionaries.Add(dic);
         }
 
@@ -183,24 +196,14 @@ namespace uEN.UI
 
         public AppTheme? Theme
         {
-            get { return GetAppTheme(); }
+            get { return this.GetBackingStore() as AppTheme? ?? AppTheme.Light; }
             set
             {
                 SetAppTheme(value);
+                this.SetBackingStore(value);
                 OnPropertyChanged();
             }
         }
-
-        private AppTheme? GetAppTheme()
-        {
-            if (!IsValid)
-                return null;
-            var light = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == LightTheme);
-            var dark = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == DarkTheme);
-            return light != null ? AppTheme.Light :
-                   dark != null ? AppTheme.Dark : (AppTheme?)null;
-        }
-
         private void SetAppTheme(AppTheme? value)
         {
             if (!IsValid || !value.HasValue)
@@ -221,9 +224,6 @@ namespace uEN.UI
         }
 
         #endregion
-
-
-
 
     }
 }

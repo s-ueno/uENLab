@@ -12,7 +12,7 @@ namespace uEN
 {
     public static class UIElementExtensions
     {
-        public static T FindParentWithVisualTree<T>(this DependencyObject target) where T : DependencyObject
+        public static T FindVisualParent<T>(this DependencyObject target) where T : DependencyObject
         {
             if (!(target is Visual))
                 return null;
@@ -22,6 +22,29 @@ namespace uEN
             return parent as T;
         }
 
+        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject target) where T : DependencyObject
+        {
+            if (!(target is Visual))
+            {
+                yield break;
+            }
+                
+            var cnt = VisualTreeHelper.GetChildrenCount(target);
+            for (int i = 0; i < cnt; i++)
+            {
+                var result = VisualTreeHelper.GetChild(target, i);
+                if (result  is T)
+                {
+                    yield return (T)result;
+                }
+                foreach (var each in FindVisualChildren<T>(result))
+                {
+                    yield return each;
+                }
+            }
+        }
+
+      
 
         //http://msdn.microsoft.com/ja-jp/library/system.windows.threading.dispatcher.pushframe.aspx
         [SecurityPermissionAttribute(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]

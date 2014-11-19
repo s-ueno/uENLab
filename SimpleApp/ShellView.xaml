@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:uen="clr-namespace:uEN.UI;assembly=uEN"
+        xmlns:controls="clr-namespace:uEN.UI.Controls;assembly=uEN"
         mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         >
@@ -18,6 +19,6 @@
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
             <Label Content="ViewModelでLob開発" FontSize="20"/>
         </StackPanel>
-        <TabControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="TabPresenter" Margin="15"/>
+        <controls:ListContent Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="TabPresenter" Margin="15"/>
     </Grid>
 </uen:BizView>
