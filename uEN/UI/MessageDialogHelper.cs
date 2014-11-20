@@ -101,11 +101,11 @@ namespace uEN.UI
             ViewTransition.Play(Container, TransitionStyle.SlideOut, () =>
             {
                 Container.Visibility = Visibility.Collapsed;
-                if (command.Action != null)
-                {
-                    WaitCursorEventPolicyAttribute.Action(command.Action);
-                }
             });
+            if (command.Action != null)
+            {
+                WaitCursorEventPolicyAttribute.Action(command.Action);
+            }
         }
     }
 }
