@@ -68,6 +68,10 @@
       <DependentUpon>Vol05View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contents\Vol05ViewModel.cs" />
+    <Compile Include="Contents\Vol09View.xaml.cs">
+      <DependentUpon>Vol09View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contents\Vol09ViewModel.cs" />
     <Compile Include="ExceptionPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -109,6 +113,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contents\Vol05View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contents\Vol09View.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShellView.xaml">

@@ -20,20 +20,30 @@ namespace SimpleApp.Contents
     /// <summary>
     /// 
     /// </summary>
-    public partial class Vol05View : BizView
+    public partial class Vol09View : BizView
     {
         /// <summary>デフォルトコンストラクタ</summary>
-        public Vol05View()
+        public Vol09View()
         {
             InitializeComponent();
         }
 
         protected override void BuildBinding()
         {
-            var builder = CreateBindingBuilder<Vol05ViewModel>();
+            var builder = CreateBindingBuilder<Vol09ViewModel>();
 
-            builder.Element(SampleButton)
-                   .Binding(Button.ClickEvent, x => x.SampleAction);
+            builder.Element(OkButton)
+                   .Binding(Button.ClickEvent, x => x.OkAction);
+
+            builder.Element(YesNoButton)
+                   .Binding(Button.ClickEvent, x => x.YesNoAction);
+
+            builder.Element(YesNoCancelButton)
+                   .Binding(Button.ClickEvent, x => x.YesNoCancelAction);
+
+            builder.Element(CustomButton)
+                   .Binding(Button.ClickEvent, x => x.CustomAction);
+
         }
     }
 }

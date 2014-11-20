@@ -21,6 +21,7 @@ namespace SimpleApp
             var list = new List<BizViewModel>();
             list.Add(new Vol04ViewModel());
             list.Add(new Vol05ViewModel());
+            list.Add(new Vol09ViewModel());
             
             ViewModels = new ListCollectionView(list);
             ViewModels.MoveCurrentToLast();
