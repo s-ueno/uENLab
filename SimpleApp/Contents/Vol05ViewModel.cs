@@ -13,12 +13,11 @@ namespace SimpleApp.Contents
     [VisualElements(typeof(Vol05View))]
     public class Vol05ViewModel : BizViewModel
     {
-        public override string Description { get { return "Vol 05"; } }
+        public override string Description { get { return "様々なボタン"; } }
 
 
         internal void SampleAction()
         {
-            var view = this.View as Vol05View;
 
 
 

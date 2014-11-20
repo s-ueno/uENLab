@@ -11,17 +11,23 @@ namespace uEN.UI.Binding
     {
         public void Action(RoutedEventBehavior behavior)
         {
+            Action(() => NextPolicy.Action(behavior));
+        }
+
+        public static void Action(Action action)
+        {
             var currentCursor = Mouse.OverrideCursor;
             Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
             try
             {
-                NextPolicy.Action(behavior);
+                action();
             }
             finally
             {
                 Mouse.OverrideCursor = currentCursor;
             }
         }
+
         public IRoutedEventPolicy NextPolicy { get; set; }
         public int Priolity
         {

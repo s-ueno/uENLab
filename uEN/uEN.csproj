@@ -106,6 +106,7 @@
     <Compile Include="UI\BizApplication.cs" />
     <Compile Include="UI\BizView.cs" />
     <Compile Include="UI\BizViewModel.cs" />
+    <Compile Include="UI\MessageDialogHelper.cs" />
     <Compile Include="UI\Themes\ThemeManager.cs" />
     <Compile Include="UI\Validation\IValidationRuleProvider.cs" />
     <Compile Include="UI\Validation\RequiredRule.cs" />

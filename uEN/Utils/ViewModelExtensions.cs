@@ -4,12 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using uEN.UI;
 using uEN.UI.Binding;
 
-namespace uEN
+namespace uEN.UI
 {
     public static class ViewModelExtensions
     {
@@ -25,7 +25,7 @@ namespace uEN
                 var expr = each.BindingExpression as BindingExpression;
                 if (expr.ParentBinding.Path.Path == path)
                 {
-                    var control = each.Element as Control;
+                    var control = each.Element as UIElement;
                     if (control != null)
                     {
                         return control.Focus();
@@ -34,5 +34,32 @@ namespace uEN
             }
             return false;
         }
+
+
+        public static void ShowOk<T>(this T vm, string title, string message, Action action) where T : BizViewModel
+        {
+            ShowMessage(vm, title, message, new MessageDialogHelper.Command("OK", action));
+        }
+
+        public static void ShowYesNo<T>(this T vm, string title, string message, Action yesAction, Action noAction) where T : BizViewModel
+        {
+            ShowMessage(vm, title, message,
+                new MessageDialogHelper.Command("はい", yesAction),
+                new MessageDialogHelper.Command("いいえ", noAction, true));
+        }
+        public static void ShowYesNoCancel<T>(this T vm, string title, string message, Action yesAction, Action noAction, Action cancelAction) where T : BizViewModel
+        {
+            ShowMessage(vm, title, message,
+                new MessageDialogHelper.Command("はい", yesAction),
+                new MessageDialogHelper.Command("いいえ", noAction),
+                new MessageDialogHelper.Command("キャンセル", cancelAction, true)
+                );
+        }
+        public static void ShowMessage<T>(this T vm, string title, string message, params MessageDialogHelper.Command[] commands) where T : BizViewModel
+        {
+            var helper = new MessageDialogHelper(vm.View as DependencyObject);
+            helper.Show(title, message, commands);
+        }
+
     }
 }
