@@ -84,28 +84,76 @@ namespace uEN.UI
         public string StatusMessage
         {
             get { return statusMessage; }
-            set { SetProperty(ref statusMessage, value); }
+            set
+            {
+                SetProperty(ref statusMessage, value);
+                var win = Window.GetWindow(this.View);
+                if (win != null)
+                {
+                    var vm = win.Content as BizViewModel;
+                    if (vm != null && vm != this)
+                    {
+                        vm.StatusMessage = value;
+                    }
+                }
+            }
         }
         private string statusMessage;
 
         public string SubStatusMessage1
         {
             get { return subStatusMessage1; }
-            set { SetProperty(ref subStatusMessage1, value); }
+            set
+            {
+                SetProperty(ref subStatusMessage1, value);
+                var win = Window.GetWindow(this.View);
+                if (win != null)
+                {
+                    var vm = win.Content as BizViewModel;
+                    if (vm != null && vm != this)
+                    {
+                        vm.SubStatusMessage1 = value;
+                    }
+                }
+            }
         }
         private string subStatusMessage1;
 
         public string SubStatusMessage2
         {
             get { return subStatusMessage2; }
-            set { SetProperty(ref subStatusMessage2, value); }
+            set
+            {
+                SetProperty(ref subStatusMessage2, value);
+                var win = Window.GetWindow(this.View);
+                if (win != null)
+                {
+                    var vm = win.Content as BizViewModel;
+                    if (vm != null && vm != this)
+                    {
+                        vm.SubStatusMessage2 = value;
+                    }
+                }
+            }
         }
         private string subStatusMessage2;
 
         public string SubStatusMessage3
         {
             get { return subStatusMessage3; }
-            set { SetProperty(ref subStatusMessage3, value); }
+            set
+            {
+                SetProperty(ref subStatusMessage3, value);
+                var win = Window.GetWindow(this.View);
+                if (win != null)
+                {
+                    var vm = win.Content as BizViewModel;
+                    if (vm != null && vm != this)
+                    {
+                        vm.SubStatusMessage3 = value;
+                    }
+                }
+            }
         }
         private string subStatusMessage3;
 
