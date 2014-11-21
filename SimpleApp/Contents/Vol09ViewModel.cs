@@ -29,7 +29,8 @@ namespace SimpleApp.Contents
         }
         private void OkActionInternal()
         {
-            
+
+            StatusMessage = "OK を押しました";
 
         }
 
@@ -40,10 +41,11 @@ namespace SimpleApp.Contents
             this.ShowYesNo("メッセージのデザイン",
                 "ユーザーの入力を必要とするブロック質問を表示するには、メッセージ ダイアログを使います。",
                 YesAction,
-                () => { /* no action */ });
+                () => StatusMessage = "いいえ を押しました");
         }
         private void YesAction()
         {
+            StatusMessage = "はい を押しました";
 
         }
 
@@ -53,8 +55,8 @@ namespace SimpleApp.Contents
         {
             this.ShowYesNoCancel("メッセージのデザイン",
                 "ユーザーの明示的な操作を求める場合、またはユーザーが認識することが重要であるメッセージを表示する場合は、メッセージ ダイアログを使います",
-                () => { },
-                () => { },
+                () => StatusMessage = "はい を押しました",
+                () => StatusMessage = "いいえ を押しました",
                 null);
         }
 
