@@ -85,6 +85,7 @@
     <Compile Include="UI\Binding\IRoutedEventPolicy.cs" />
     <Compile Include="UI\Binding\SimpleValueConverter.cs" />
     <Compile Include="UI\Binding\WaitCursorEventPolicy.cs" />
+    <Compile Include="UI\BreadcrumbNavigator.cs" />
     <Compile Include="UI\Controls\BrandColorView.xaml.cs">
       <DependentUpon>BrandColorView.xaml</DependentUpon>
     </Compile>
