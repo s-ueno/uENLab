@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
-
+using uEN.UI.Controls;
+using uEN.Utils;
 namespace uEN.UI
 {
-
     public abstract class BizViewModel : INotifyPropertyChanged
     {
+        protected BizViewModel() { /*this.Compose();*/ }
+
         private VisualElementsAttribute visualElements;
         public VisualElementsAttribute VisualElements
         {
@@ -61,26 +65,16 @@ namespace uEN.UI
             View.ThrowValidationError();
         }
 
-        public virtual void ApplyView()
-        {
+        public virtual void ApplyView() { }
 
-        }
-        public virtual string Description { get { return string.Empty; } }
+        public virtual void LoadedView() { }
 
-        public virtual void LoadedView()
-        {
+        public bool Initialized  { get; internal set; }
 
-        }
-
-        public override string ToString()
-        {
-            return string.IsNullOrWhiteSpace(Description) ? base.ToString() : Description;
-        }
-
-
+        async public Task<T> AsyncGenericAction<T>() { return await Task.FromResult(default(T)); }
 
         #region StatusMessage
-        
+
         public string StatusMessage
         {
             get { return statusMessage; }
@@ -203,6 +197,20 @@ namespace uEN.UI
 
         #endregion
 
+        public Breadcrumb Navigator
+        {
+            get
+            {
+                var win = Window.GetWindow(View);
+                return Breadcrumb.GetBreadcrumb(win);
+            }
+        }
+
+        public virtual string Description { get { return string.Empty; } }
+        public override string ToString()
+        {
+            return string.IsNullOrWhiteSpace(Description) ? base.ToString() : Description;
+        }
 
     }
 }

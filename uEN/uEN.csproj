@@ -89,6 +89,7 @@
       <DependentUpon>BrandColorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\BrandColorViewModel.cs" />
+    <Compile Include="UI\Controls\Breadcrumb.cs" />
     <Compile Include="UI\Controls\FontFamilyView.xaml.cs">
       <DependentUpon>FontFamilyView.xaml</DependentUpon>
     </Compile>
@@ -132,6 +133,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="UI\Themes\Assets\Breadcrumb.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Controls\BrandColorView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

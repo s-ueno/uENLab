@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -74,5 +75,19 @@ namespace uEN.Utils
         {
             container.ComposeParts(obj);
         }
+
+        public static T GetPriorityExport<T>()
+        {
+            var list = container.GetExports<T, IPriority>();
+            var mostPriority = list.OrderBy(x => x.Metadata.Priority)
+                                   .FirstOrDefault();
+            return mostPriority != null ? mostPriority.Value : default(T);
+        }
+        public const string Priority = "Priority";
     }
+
+    public interface IPriority { int Priority { get; } }
+
+
+
 }
