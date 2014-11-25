@@ -137,7 +137,7 @@
                                     </StackPanel>
                                 </Grid>
                                 <AdornerDecorator Grid.ColumnSpan="2"  Grid.Row="1" >
-                                    <ContentPresenter />
+                                    <ContentPresenter controls:Breadcrumb.Use="True" />
                                 </AdornerDecorator>
                                 <Grid x:Name="PART_Status" Grid.Row="2" Grid.ColumnSpan="2"  Height="25" Background="{DynamicResource AppBrand}" >
                                     <Grid.ColumnDefinitions>
@@ -194,6 +194,56 @@
                 </ControlTemplate>
             </Setter.Value>
             
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="ChildWndowStyle" TargetType="{x:Type Window}">
+        <Setter Property="Height"                    Value="500" />
+        <Setter Property="Width"                        Value="900" />
+        <Setter Property="Foreground"                   Value="{DynamicResource AppForeground}"/>
+        <Setter Property="FontFamily"                   Value="{DynamicResource AppFont}"/>
+        <Setter Property="FontSize"                     Value="{DynamicResource AppFontSize}"/>
+        <Setter Property="Background"                   Value="{DynamicResource WindowTheme}"/>
+        <Setter Property="BorderBrush"                  Value="{DynamicResource AppBrand}"/>
+        <Setter Property="BorderThickness"              Value="2" />
+        <Setter Property="Focusable"                    Value="False" />
+        <Setter Property="FocusVisualStyle"             Value="{x:Null}"/>
+        <Setter Property="WindowStyle"                  Value="None" />
+        <Setter Property="AllowsTransparency"           Value="True" />
+        <Setter Property="ResizeMode"                   Value="CanResizeWithGrip" />
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome ResizeBorderThickness="10" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}">
+                        <Grid x:Name="PART_RootGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*"   />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock HorizontalAlignment="Stretch" 
+                                       Padding="5"
+                                       Text="{Binding Content.Description, RelativeSource={RelativeSource TemplatedParent} }"
+                                       FontFamily="{TemplateBinding FontFamily}" 
+                                       Foreground="White"
+                                       FontSize="24"
+                                       Background="{DynamicResource AppBrand}"
+                                       />
+                            <AdornerDecorator Grid.Row="1" >
+                                <ContentPresenter  controls:Breadcrumb.Use="True" />
+                            </AdornerDecorator>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
         </Setter>
     </Style>
 </ResourceDictionary>

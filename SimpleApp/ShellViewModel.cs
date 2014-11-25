@@ -16,12 +16,17 @@ namespace SimpleApp
     [VisualElements(typeof(ShellView))]
     public class ShellViewModel : BizViewModel
     {
+
         public override void ApplyView()
         {
+            if (Initialized) return;
+
             var list = new List<BizViewModel>();
             list.Add(new Vol04ViewModel());
             list.Add(new Vol05ViewModel());
             list.Add(new Vol09ViewModel());
+            list.Add(new Vol10ViewModel());
+
             
             ViewModels = new ListCollectionView(list);
             ViewModels.MoveCurrentToLast();

@@ -45,6 +45,7 @@ namespace uEN.UI
             if (viewModel != null)
             {
                 viewModel.LoadedView();
+                viewModel.Initialized = true;
             }
         }
         protected virtual void BuildBinding()

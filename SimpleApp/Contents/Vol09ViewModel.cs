@@ -32,6 +32,9 @@ namespace SimpleApp.Contents
 
             StatusMessage = "OK を押しました";
 
+            var navi = this.Navigator;
+            navi.GoHome();
+
         }
 
 
@@ -46,6 +49,7 @@ namespace SimpleApp.Contents
         private void YesAction()
         {
             StatusMessage = "はい を押しました";
+            Navigator.GoForward(new Vol04ViewModel());
 
         }
 

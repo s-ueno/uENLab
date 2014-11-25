@@ -85,11 +85,11 @@
     <Compile Include="UI\Binding\IRoutedEventPolicy.cs" />
     <Compile Include="UI\Binding\SimpleValueConverter.cs" />
     <Compile Include="UI\Binding\WaitCursorEventPolicy.cs" />
-    <Compile Include="UI\BreadcrumbNavigator.cs" />
     <Compile Include="UI\Controls\BrandColorView.xaml.cs">
       <DependentUpon>BrandColorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\BrandColorViewModel.cs" />
+    <Compile Include="UI\Controls\Breadcrumb.cs" />
     <Compile Include="UI\Controls\FontFamilyView.xaml.cs">
       <DependentUpon>FontFamilyView.xaml</DependentUpon>
     </Compile>
@@ -133,6 +133,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="UI\Themes\Assets\Breadcrumb.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Controls\BrandColorView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

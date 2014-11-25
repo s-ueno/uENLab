@@ -72,6 +72,18 @@
       <DependentUpon>Vol09View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contents\Vol09ViewModel.cs" />
+    <Compile Include="Contents\Vol10View.xaml.cs">
+      <DependentUpon>Vol10View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contents\Vol10ViewModel.cs" />
+    <Compile Include="Contents\Vol10_1View.xaml.cs">
+      <DependentUpon>Vol10_1View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contents\Vol10_1ViewModel.cs" />
+    <Compile Include="Contents\Vol10_2View.xaml.cs">
+      <DependentUpon>Vol10_2View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contents\Vol10_2ViewModel.cs" />
     <Compile Include="ExceptionPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -116,6 +128,15 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contents\Vol09View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contents\Vol10View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contents\Vol10_1View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contents\Vol10_2View.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShellView.xaml">

@@ -163,7 +163,7 @@ namespace uEN.UI.Controls
             opacityAnimation.From = 0;
             opacityAnimation.To = 1;
             opacityAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
-            slideAnimation.BeginTime = TimeSpan.FromMilliseconds(d * 100);
+            opacityAnimation.BeginTime = TimeSpan.FromMilliseconds(d * 100);
             Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(FrameworkElement.OpacityProperty));
             storyboard.Children.Add(opacityAnimation);
 

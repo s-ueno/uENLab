@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,28 +8,45 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using uEN.UI.AttachedProperties;
+using uEN.Utils;
 
 namespace uEN.UI
 {
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [ExportMetadata(Repository.Priority, int.MaxValue)]
+    [Export(typeof(ViewDataTemplateSelector))]
     public class ViewDataTemplateSelector : DataTemplateSelector
     {
         public ViewDataTemplateSelector()
         {
-            UseViewCache = false;
+            UseViewCache = true;
             TemplatedParentWidth = true;
             TemplatedParentHeight = true;
         }
         public bool UseViewCache { get; set; }
         public bool TemplatedParentWidth { get; set; }
         public bool TemplatedParentHeight { get; set; }
-        private Dictionary<Type, DataTemplate> cache = new Dictionary<Type, DataTemplate>();
+        private Dictionary<WeakReference, DataTemplate> cache = new Dictionary<WeakReference, DataTemplate>();
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item == null) return null;
-            var t = item.GetType();
-            if (UseViewCache && cache.ContainsKey(t))
+
+            if (UseViewCache)
             {
-                return cache[t];
+                DataTemplate dt = null;
+                foreach (var keyValue in cache.ToArray())
+                {
+                    if (keyValue.Key.Target == item)
+                    {
+                        dt = keyValue.Value;
+                    }
+                    else if (!keyValue.Key.IsAlive)
+                    {
+                        cache.Remove(keyValue.Key);
+                    }
+                }
+                if (dt != null)
+                    return dt;
             }
 
             var vm = item as BizViewModel;
@@ -48,7 +66,8 @@ namespace uEN.UI
                     new System.Windows.Data.Binding("ActualHeight") { RelativeSource = new RelativeSource(RelativeSourceMode.TemplatedParent) });
 
             template.Seal();
-            return cache[t] = template;
+
+            return UseViewCache ? cache[new WeakReference(item)] = template : template;
         }
     }
 }

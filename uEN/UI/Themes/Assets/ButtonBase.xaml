@@ -73,9 +73,13 @@
                         <ContentPresenter />
                     </TextBlock>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver"   Value="true" />
+                                <Condition Property="IsEnabled"     Value="true" />
+                            </MultiTrigger.Conditions>
                             <Setter TargetName="chrome" Property="TextBlock.TextDecorations" Value="Underline" />
-                        </Trigger>
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -163,7 +167,7 @@
                         <Ellipse x:Name="ellipse"
                                      Stroke="{TemplateBinding BorderBrush}"
                                      Fill="Transparent"
-                                     StrokeThickness="2.5"
+                                     StrokeThickness="{TemplateBinding BorderThickness}"
                                      VerticalAlignment="Stretch" >
                         </Ellipse>
                         <ContentPresenter Name="content" Margin="{TemplateBinding Padding}"/>
@@ -182,4 +186,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
+
 </ResourceDictionary>

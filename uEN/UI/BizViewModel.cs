@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using uEN.UI.Controls;
 using uEN.Utils;
 namespace uEN.UI
 {
@@ -67,6 +68,8 @@ namespace uEN.UI
         public virtual void ApplyView() { }
 
         public virtual void LoadedView() { }
+
+        public bool Initialized  { get; internal set; }
 
         async public Task<T> AsyncGenericAction<T>() { return await Task.FromResult(default(T)); }
 
@@ -194,18 +197,12 @@ namespace uEN.UI
 
         #endregion
 
-        public BreadcrumbNavigator Navigator
+        public Breadcrumb Navigator
         {
             get
             {
                 var win = Window.GetWindow(View);
-                var navi = BreadcrumbNavigator.GetBreadcrumbNavigator(win);
-                if (navi == null)
-                {
-                    navi = Repository.GetPriorityExport<BreadcrumbNavigator>();
-                }
-                win.SetValue(BreadcrumbNavigator.BreadcrumbNavigatorProperty, navi);
-                return navi;
+                return Breadcrumb.GetBreadcrumb(win);
             }
         }
 
