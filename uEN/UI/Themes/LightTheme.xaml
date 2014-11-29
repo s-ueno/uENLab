@@ -15,18 +15,27 @@
     <SolidColorBrush x:Key="AppDisabled"            Color="#eeeeee" />
 
     <!-- ボタンー -->
-    <SolidColorBrush x:Key="ButtonBackground"       Color="{DynamicResource AppBrandColor}" Opacity="0.1"/>
-    <SolidColorBrush x:Key="ButtonBorder"           Color="#cccccc" />
-    <SolidColorBrush x:Key="ButtonBackgroundHover"  Color="#dddddd" />
-    <SolidColorBrush x:Key="ButtonBorderHover"      Color="#cccccc" />
-    <SolidColorBrush x:Key="ButtonTextHover"        Color="{DynamicResource AppBrandColor}" />
-    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{DynamicResource AppBrandColor}" />
-    <SolidColorBrush x:Key="ButtonBorderPressed"    Color="{DynamicResource AppBrandColor}" />
-    <SolidColorBrush x:Key="ButtonTextPressed"      Color="#ffffff" />
+    <SolidColorBrush x:Key="Button.Background"       Color="{DynamicResource AppBrandColor}" Opacity="0.1"/>
+    <SolidColorBrush x:Key="Button.Border"           Color="#cccccc" />
+    <SolidColorBrush x:Key="Button.BackgroundHover"  Color="#dddddd" />
+    <SolidColorBrush x:Key="Button.BorderHover"      Color="#cccccc" />
+    <SolidColorBrush x:Key="Button.TextHover"        Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="Button.BackgroundPressed" Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="Button.BorderPressed"    Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="Button.TextPressed"      Color="#ffffff" />
 
     <!-- Modern Listbox -->
-    <SolidColorBrush x:Key="ListboxForeground"       Color="#ffffff" />
-    <SolidColorBrush x:Key="ListboxBackground"       Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="Listbox.Foreground"       Color="#ffffff" />
+    <SolidColorBrush x:Key="Listbox.Background"       Color="{DynamicResource AppBrandColor}" />
+
+    <!-- Modern TextBox -->
+    <SolidColorBrush x:Key="TextBox.Background"       Color="Transparent"/>
+    <SolidColorBrush x:Key="TextBox.BorderBrush"      Color="#FFABAdB3"/>
+    <SolidColorBrush x:Key="TextBox.SelectionBrush"   Color="{DynamicResource AppBrandColor}" />
+
+    <SolidColorBrush x:Key="TextBox.Focus.Border"         Color="{DynamicResource AppBrandColor}"/>
+    <SolidColorBrush x:Key="TextBox.MouseOver.Background" Color="Transparent"/>
+
 
 
 </ResourceDictionary>
