@@ -20,7 +20,7 @@ namespace uEN.UI
         }
 
 
-        public void Start(BizViewModel mainViewModel, AppStyle style = AppStyle.Modern, AppTheme theme = AppTheme.Light)
+        public void Start(BizViewModel mainViewModel, AppStyle style = AppStyle.Modern, AppTheme theme = AppTheme.Dark)
         {
             ShutdownMode = System.Windows.ShutdownMode.OnMainWindowClose;
 

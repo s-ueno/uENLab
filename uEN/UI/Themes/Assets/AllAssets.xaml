@@ -11,5 +11,6 @@
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/ListContent.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/Breadcrumb.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/TextBox.xaml" />
+        <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/RadioButton.xaml" />
     </ResourceDictionary.MergedDictionaries> 
 </ResourceDictionary>
