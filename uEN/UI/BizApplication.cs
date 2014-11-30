@@ -20,12 +20,13 @@ namespace uEN.UI
         }
 
 
-        public void Start(BizViewModel mainViewModel, AppStyle style = AppStyle.Modern, AppTheme theme = AppTheme.Dark)
+        public void Start(BizViewModel mainViewModel, AppStyle style = AppStyle.Modern, AppTheme theme = AppTheme.Light)
         {
             ShutdownMode = System.Windows.ShutdownMode.OnMainWindowClose;
 
             ThemeManager.Style = style;
-            ThemeManager.Theme = theme;
+            if (!ThemeManager.Theme.HasValue)
+                ThemeManager.Theme = theme;
 
 
             var window = new Window();

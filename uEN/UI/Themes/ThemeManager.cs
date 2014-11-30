@@ -196,7 +196,7 @@ namespace uEN.UI
 
         public AppTheme? Theme
         {
-            get { return this.GetBackingStore() as AppTheme? ?? AppTheme.Light; }
+            get { return this.GetBackingStore() as AppTheme?; }
             set
             {
                 SetAppTheme(value);

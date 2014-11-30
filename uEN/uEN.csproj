@@ -102,6 +102,10 @@
     <Compile Include="UI\Controls\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\ThemeColorView.xaml.cs">
+      <DependentUpon>ThemeColorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\ThemeColorViewModel.cs" />
     <Compile Include="UI\Converter\ColorToStringConverter.cs" />
     <Compile Include="UI\Converter\FontFamilyConverter.cs" />
     <Compile Include="UI\BizApplication.cs" />
@@ -133,6 +137,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="UI\Controls\ThemeColorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Themes\Assets\Breadcrumb.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

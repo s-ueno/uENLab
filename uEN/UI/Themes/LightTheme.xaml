@@ -52,6 +52,6 @@
     <SolidColorBrush x:Key="RadioButton.Disabled.Border"        Color="#FFBCBCBC"/>
     <SolidColorBrush x:Key="RadioButton.Disabled.Glyph"         Color="{DynamicResource AppBrandColor}" Opacity="0.5"/>
 
-    <SolidColorBrush x:Key="RadioButton.Focus.Underline"        Color="{DynamicResource AppBrandColor}"/>
+    <SolidColorBrush x:Key="RadioButton.Focus.Border"           Color="{DynamicResource AppBrandColor}"/>
 
 </ResourceDictionary>

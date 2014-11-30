@@ -20,7 +20,6 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="auto" />
                         </Grid.RowDefinitions>
 
                         <Border x:Name="radioButtonBorder" 
@@ -42,10 +41,9 @@
                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                    Margin="{TemplateBinding Padding}"  
                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                   VerticalAlignment="Center">                            
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}">                            
                             <ContentPresenter />
                         </TextBlock>
-                        <Border x:Name="FocusedUnderline" Grid.ColumnSpan="2" Grid.Row="1" Height="2" Background="{DynamicResource RadioButton.Focus.Underline}" Opacity="0" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasContent" Value="true">
@@ -73,7 +71,7 @@
                             <Setter Property="Opacity" TargetName="optionMark" Value="0.56"/>
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">
-                            <Setter TargetName="FocusedUnderline" Property="Opacity" Value="1" />
+                            <Setter TargetName="radioButtonBorder" Property="BorderBrush" Value="{DynamicResource RadioButton.Focus.Border}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
