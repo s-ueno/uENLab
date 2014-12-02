@@ -25,7 +25,8 @@ namespace uEN.UI
             ShutdownMode = System.Windows.ShutdownMode.OnMainWindowClose;
 
             ThemeManager.Style = style;
-            ThemeManager.Theme = theme;
+            if (!ThemeManager.Theme.HasValue)
+                ThemeManager.Theme = theme;
 
 
             var window = new Window();

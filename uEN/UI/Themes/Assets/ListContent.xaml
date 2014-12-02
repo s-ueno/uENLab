@@ -9,6 +9,7 @@
         <Setter Property="Foreground"                   Value="{DynamicResource AppForeground}"/>
         <Setter Property="FontFamily"                   Value="{DynamicResource AppFont}"/>
         <Setter Property="FontSize"                     Value="{DynamicResource AppFontSize}"/>
+        <Setter Property="FocusVisualStyle"             Value="{x:Null}" />
         <Setter Property="Background"                   Value="Transparent"/>
         <Setter Property="BorderBrush"                  Value="Transparent"/>
         <Setter Property="BorderThickness"              Value="0"/>
@@ -24,13 +25,19 @@
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Border x:Name="Underline" Grid.Column="0" Width="3" Margin="2,0,2,0" Background="Transparent" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <Border x:Name="Selectedline" Width="3" Margin="2,0,2,0" Background="Transparent" />
                         <TextBlock x:Name="Title" Grid.Column="1" 
                                    Text="{Binding Path=Description}"
                                    Foreground="{TemplateBinding Foreground}"
                                    FontFamily="{TemplateBinding FontFamily}"
                                    FontSize="{TemplateBinding FontSize}"
                                    />
+                        <Border x:Name="Focusedline" Grid.ColumnSpan="2" Grid.Row="1" Height="3" Margin="5,2,5,2" Background="Transparent" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
@@ -38,7 +45,7 @@
                                 <Condition Property="IsMouseOver" Value="True"/>
                             </MultiTrigger.Conditions>
                             <Setter Property="Foreground" TargetName="Title"        Value="{DynamicResource AppBrandOpacity5}"/>
-                            <Setter Property="Background" TargetName="Underline"    Value="{DynamicResource AppBrandOpacity5}"/>
+                            <Setter Property="Background" TargetName="Selectedline" Value="{DynamicResource AppBrandOpacity5}"/>
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -46,10 +53,13 @@
                             </MultiTrigger.Conditions>
                             <Setter Property="Foreground" TargetName="Title"        Value="{DynamicResource AppForeground}" />
                             <Setter Property="FontWeight" TargetName="Title"        Value="Bold" />
-                            <Setter Property="Background" TargetName="Underline"    Value="{DynamicResource AppBrand}"/>
+                            <Setter Property="Background" TargetName="Selectedline" Value="{DynamicResource AppBrand}"/>
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" TargetName="Title"        Value="{DynamicResource AppForegroundDisabled}"/>
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter Property="Background" TargetName="Focusedline" Value="{DynamicResource AppBrandOpacity5}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

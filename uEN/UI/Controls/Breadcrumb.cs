@@ -263,7 +263,10 @@ namespace uEN.UI.Controls
 
         public virtual BizViewModel GoHome()
         {
-            var homeButton = Items.OfType<Button>().First();
+            var homeButton = Items.OfType<Button>().FirstOrDefault();
+            if (homeButton == null)
+                return null;
+
             var weakRef = (WeakReference)homeButton.GetValue(MainContentProperty);
             SetMainContent(this, Container.Content = weakRef.Target);
             Items.Clear();

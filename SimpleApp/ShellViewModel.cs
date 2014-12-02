@@ -29,7 +29,7 @@ namespace SimpleApp
 
             
             ViewModels = new ListCollectionView(list);
-            ViewModels.MoveCurrentToLast();
+            ViewModels.MoveCurrentToFirst();
 
             UserName = "User Name";
             Section = "Section";

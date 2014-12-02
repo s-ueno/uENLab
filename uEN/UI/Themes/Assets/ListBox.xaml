@@ -3,8 +3,8 @@
     
     
     <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-        <Setter Property="Foreground"                   Value="{DynamicResource ListboxForeground}"/>
-        <Setter Property="Background"                   Value="{DynamicResource ListboxBackground}"/>       
+        <Setter Property="Foreground"                   Value="{DynamicResource Listbox.Foreground}"/>
+        <Setter Property="Background"                   Value="{DynamicResource Listbox.Background}"/>       
         <Setter Property="FontFamily"                   Value="{DynamicResource AppFont}"/>
         <Setter Property="FontSize"                     Value="{DynamicResource AppFontSize}"/>
         <Setter Property="BorderBrush"                  Value="Transparent" />
@@ -20,8 +20,8 @@
     </Style>
     
     <Style TargetType="{x:Type ListBox}" BasedOn="{StaticResource {x:Type ListBox}}" >
-        <Setter Property="Foreground"                   Value="{DynamicResource ListboxForeground}"/>
-        <Setter Property="Background"                   Value="{DynamicResource ListboxBackground}"/>
+        <Setter Property="Foreground"                   Value="{DynamicResource Listbox.Foreground}"/>
+        <Setter Property="Background"                   Value="{DynamicResource Listbox.Background}"/>
         <Setter Property="FontFamily"                   Value="{DynamicResource AppFont}"/>
         <Setter Property="FontSize"                     Value="{DynamicResource AppFontSize}"/>
         <Setter Property="BorderBrush"                  Value="Transparent"/>

@@ -5,7 +5,7 @@
         <ResourceDictionary Source="/uEN;component/UI/Themes/Generic.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <!-- Windowカラー -->
-    <Color x:Key="WindowThemeColor">#333333</Color>
+    <Color x:Key="WindowThemeColor">#1d1d1d</Color>
     <SolidColorBrush x:Key="WindowTheme"  Color="{DynamicResource WindowThemeColor}" />
 
     <!-- 文字色ー -->
@@ -14,18 +14,43 @@
     <SolidColorBrush x:Key="AppDisabled"            Color="DimGray" />
 
     <!-- ボタンー -->
-    <SolidColorBrush x:Key="ButtonBackground"       Color="Transparent"/>
-    <SolidColorBrush x:Key="ButtonBorder"           Color="#cccccc" />
-    <SolidColorBrush x:Key="ButtonBackgroundHover"  Color="#dddddd" />
-    <SolidColorBrush x:Key="ButtonBorderHover"      Color="#cccccc" />
-    <SolidColorBrush x:Key="ButtonTextHover"        Color="{DynamicResource AppBrandColor}" />
-    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{DynamicResource AppBrandColor}" />
-    <SolidColorBrush x:Key="ButtonBorderPressed"    Color="{DynamicResource AppBrandColor}" />
-    <SolidColorBrush x:Key="ButtonTextPressed"      Color="#ffffff" />
+    <SolidColorBrush x:Key="Button.Background"       Color="Transparent"/>
+    <SolidColorBrush x:Key="Button.Border"           Color="#cccccc" />
+    <SolidColorBrush x:Key="Button.BackgroundHover"  Color="#dddddd" />
+    <SolidColorBrush x:Key="Button.BorderHover"      Color="#cccccc" />
+    <SolidColorBrush x:Key="Button.TextHover"        Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="Button.BackgroundPressed" Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="Button.BorderPressed"    Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="Button.TextPressed"      Color="#ffffff" />
 
     <!-- Modern Listbox -->
-    <SolidColorBrush x:Key="ListboxForeground"       Color="#ffffff" />
-    <SolidColorBrush x:Key="ListboxBackground"       Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="Listbox.Foreground"       Color="#ffffff" />
+    <SolidColorBrush x:Key="Listbox.Background"       Color="{DynamicResource AppBrandColor}" />
 
+    <!-- Modern TextBox -->
+    <SolidColorBrush x:Key="TextBox.Background"       Color="#2a2a2a"/>
+    <SolidColorBrush x:Key="TextBox.BorderBrush"      Color="Transparent"/>
+    <SolidColorBrush x:Key="TextBox.SelectionBrush" Color="{DynamicResource AppBrandColor}" />
+    
+    <SolidColorBrush x:Key="TextBox.Focus.Border"         Color="{DynamicResource AppBrandColor}"/>
+    <SolidColorBrush x:Key="TextBox.MouseOver.Background" Color="#2f2f2f"/>
+
+
+    <!-- Modern RadioButton -->
+    <SolidColorBrush x:Key="RadioButton.Static.Border"          Color="#FFABAdB3"/>
+    <SolidColorBrush x:Key="RadioButton.Static.Glyph"           Color="{DynamicResource AppBrandColor}"/>
+
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Background"   Color="#2f2f2f" />
+    <SolidColorBrush x:Key="RadioButton.MouseOver.Border"       Color="{DynamicResource AppBrandColor}"/>
+
+    <SolidColorBrush x:Key="RadioButton.Pressed.Background"     Color="#2f2f2f"/>
+    <SolidColorBrush x:Key="RadioButton.Pressed.Border"         Color="{DynamicResource AppBrandColor}"/>
+
+    <SolidColorBrush x:Key="RadioButton.Disabled.Background"    Color="#2f2f2f"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.Foreground"    Color="DarkGray"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.Border"        Color="#FFBCBCBC"/>
+    <SolidColorBrush x:Key="RadioButton.Disabled.Glyph"         Color="{DynamicResource AppBrandColor}" Opacity="0.5"/>
+
+    <SolidColorBrush x:Key="RadioButton.Focus.Border"           Color="{DynamicResource AppBrandColor}"/>
 
 </ResourceDictionary>

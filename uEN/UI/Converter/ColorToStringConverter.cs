@@ -179,7 +179,7 @@ namespace uEN.UI
             dic[(Color)ColorConverter.ConvertFromString("#838383")] = "鼠色 (ねずみいろ)\n#838383";
             dic[(Color)ColorConverter.ConvertFromString("#767676")] = "灰色 (はいいろ)\n#767676";
             dic[(Color)ColorConverter.ConvertFromString("#343434")] = "墨 (すみ)\n#343434";
-            dic[(Color)ColorConverter.ConvertFromString("#2A2A2A")] = "鉄黒 (てつぐろ)\n#2A2A2A";
+            //dic[(Color)ColorConverter.ConvertFromString("#2A2A2A")] = "鉄黒 (てつぐろ)\n#2A2A2A";
             dic[(Color)ColorConverter.ConvertFromString("#2A2A2A")] = "黒 (くろ)\n#2A2A2A";
         }
         private static readonly Dictionary<Color, string> dic = new Dictionary<Color, string>();
