@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
-            <Label Content="ViewModelでLob開発" FontSize="20"/>
+            <Label Content="ViewModelでLob開発" FontSize="20" Foreground="{DynamicResource AppForeground}"/>
         </StackPanel>
         <controls:ListContent Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="TabPresenter" Margin="15"/>
     </Grid>
