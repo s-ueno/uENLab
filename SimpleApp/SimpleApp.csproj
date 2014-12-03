@@ -60,6 +60,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contents\RadioButtonView.xaml.cs">
+      <DependentUpon>RadioButtonView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contents\RadioButtonViewModel.cs" />
     <Compile Include="Contents\Vol04View.xaml.cs">
       <DependentUpon>Vol04View.xaml</DependentUpon>
     </Compile>
@@ -121,6 +125,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Contents\RadioButtonView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Contents\Vol04View.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

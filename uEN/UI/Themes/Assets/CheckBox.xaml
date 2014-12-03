@@ -2,22 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    
-    <Style TargetType="{x:Type RadioButton}">
-        <Setter Property="Background"       Value="Transparent"/>
+    <Style TargetType="{x:Type CheckBox}">
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground"       Value="{DynamicResource AppForeground}"/>
-        <Setter Property="BorderBrush"      Value="{DynamicResource RadioButton.Static.Border}"/>
-        <Setter Property="BorderThickness"  Value="1"/>
+        <Setter Property="BorderBrush"      Value="{DynamicResource CheckBox.Static.Border}"/>
+        <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type RadioButton}">
+                <ControlTemplate TargetType="{x:Type CheckBox}">
                     <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Border x:Name="radioButtonBorder" CornerRadius="90"
+                        <Border x:Name="checkBoxBorder" 
                                 Width="25" Height="25"
                                 BorderBrush="{TemplateBinding BorderBrush}" 
                                 BorderThickness="{TemplateBinding BorderThickness}" 
@@ -55,18 +54,18 @@
                             <Setter Property="Padding" Value="4,-1,0,0"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource  RadioButton.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource RadioButton.MouseOver.Border}"/>
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource  CheckBox.MouseOver.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource CheckBox.MouseOver.Border}"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource RadioButton.Disabled.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource RadioButton.Disabled.Border}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource RadioButton.Disabled.Foreground}"/>
-                            <Setter Property="Fill" TargetName="optionMark" Value="{DynamicResource RadioButton.Disabled.Glyph}"/>
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource CheckBox.Disabled.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource CheckBox.Disabled.Border}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource CheckBox.Disabled.Foreground}"/>
+                            <Setter Property="Fill" TargetName="optionMark" Value="{DynamicResource CheckBox.Disabled.Glyph}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource RadioButton.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{DynamicResource RadioButton.Pressed.Border}"/>
+                            <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource CheckBox.Pressed.Background}"/>
+                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{DynamicResource CheckBox.Pressed.Border}"/>
                             <Setter Property="Opacity" TargetName="optionMark" Value="0.2"/>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="true">
@@ -76,7 +75,7 @@
                             <Setter Property="Opacity" TargetName="optionNullMark" Value="1"/>
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">
-                            <Setter TargetName="radioButtonBorder" Property="BorderBrush" Value="{DynamicResource RadioButton.Focus.Border}" />
+                            <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{DynamicResource CheckBox.Focus.Border}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
