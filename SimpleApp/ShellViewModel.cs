@@ -26,10 +26,11 @@ namespace SimpleApp
             list.Add(new Vol05ViewModel());
             list.Add(new Vol09ViewModel());
             list.Add(new Vol10ViewModel());
+            list.Add(new RadioButtonViewModel());
 
             
             ViewModels = new ListCollectionView(list);
-            ViewModels.MoveCurrentToFirst();
+            ViewModels.MoveCurrentToLast();
 
             UserName = "User Name";
             Section = "Section";

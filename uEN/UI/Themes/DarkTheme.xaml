@@ -53,4 +53,22 @@
 
     <SolidColorBrush x:Key="RadioButton.Focus.Border"           Color="{DynamicResource AppBrandColor}"/>
 
+
+    <!-- Modern CheckBox -->
+    <SolidColorBrush x:Key="CheckBox.Static.Border"          Color="#FFABAdB3"/>
+    <SolidColorBrush x:Key="CheckBox.Static.Glyph"           Color="{DynamicResource AppBrandColor}"/>
+
+    <SolidColorBrush x:Key="CheckBox.MouseOver.Background"   Color="#2f2f2f" />
+    <SolidColorBrush x:Key="CheckBox.MouseOver.Border"       Color="{DynamicResource AppBrandColor}"/>
+
+    <SolidColorBrush x:Key="CheckBox.Pressed.Background"     Color="#2f2f2f"/>
+    <SolidColorBrush x:Key="CheckBox.Pressed.Border"         Color="{DynamicResource AppBrandColor}"/>
+
+    <SolidColorBrush x:Key="CheckBox.Disabled.Background"    Color="#2f2f2f"/>
+    <SolidColorBrush x:Key="CheckBox.Disabled.Foreground"    Color="DarkGray"/>
+    <SolidColorBrush x:Key="CheckBox.Disabled.Border"        Color="#FFBCBCBC"/>
+    <SolidColorBrush x:Key="CheckBox.Disabled.Glyph"         Color="{DynamicResource AppBrandColor}" Opacity="0.5"/>
+
+    <SolidColorBrush x:Key="CheckBox.Focus.Border"           Color="{DynamicResource AppBrandColor}"/>
+
 </ResourceDictionary>
