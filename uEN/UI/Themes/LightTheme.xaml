@@ -37,40 +37,23 @@
     <SolidColorBrush x:Key="TextBox.MouseOver.Background" Color="Transparent"/>
 
 
-    <!-- Modern RadioButton -->
-    <SolidColorBrush x:Key="RadioButton.Static.Border"          Color="#FFABAdB3"/>
-    <SolidColorBrush x:Key="RadioButton.Static.Glyph"           Color="{DynamicResource AppBrandColor}"/>
+    <!-- Modern ToggleButton -->
+    <SolidColorBrush x:Key="ToggleButton.Static.Border"          Color="#FFABAdB3"/>
+    <SolidColorBrush x:Key="ToggleButton.Static.Glyph"           Color="{DynamicResource AppBrandColor}"/>
 
-    <SolidColorBrush x:Key="RadioButton.MouseOver.Background"   Color="Transparent" />
-    <SolidColorBrush x:Key="RadioButton.MouseOver.Border"       Color="{DynamicResource AppBrandColor}" Opacity="0.3"/>
+    <SolidColorBrush x:Key="ToggleButton.MouseOver.Background"   Color="Transparent" />
+    <SolidColorBrush x:Key="ToggleButton.MouseOver.Border"       Color="{DynamicResource AppBrandColor}" Opacity="0.3"/>
 
-    <SolidColorBrush x:Key="RadioButton.Pressed.Background"     Color="#FFD9ECFF"/>
-    <SolidColorBrush x:Key="RadioButton.Pressed.Border"         Color="#FF3C77DD"/>
-    
-    <SolidColorBrush x:Key="RadioButton.Disabled.Background"    Color="#FFE6E6E6"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.Foreground"    Color="#a1a1a1"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.Border"        Color="#FFBCBCBC"/>
-    <SolidColorBrush x:Key="RadioButton.Disabled.Glyph"         Color="{DynamicResource AppBrandColor}" Opacity="0.5"/>
+    <SolidColorBrush x:Key="ToggleButton.Pressed.Background"     Color="#FFD9ECFF"/>
+    <SolidColorBrush x:Key="ToggleButton.Pressed.Border"         Color="#FF3C77DD"/>
 
-    <SolidColorBrush x:Key="RadioButton.Focus.Border"           Color="{DynamicResource AppBrandColor}"/>
+    <SolidColorBrush x:Key="ToggleButton.Disabled.Background"    Color="#FFE6E6E6"/>
+    <SolidColorBrush x:Key="ToggleButton.Disabled.Foreground"    Color="#a1a1a1"/>
+    <SolidColorBrush x:Key="ToggleButton.Disabled.Border"        Color="#FFBCBCBC"/>
+    <SolidColorBrush x:Key="ToggleButton.Disabled.Glyph"         Color="{DynamicResource AppBrandColor}" Opacity="0.5"/>
 
+    <SolidColorBrush x:Key="ToggleButton.Focus.Border"           Color="{DynamicResource AppBrandColor}"/>
 
-    <!-- Modern CheckBox -->
-    <SolidColorBrush x:Key="CheckBox.Static.Border"          Color="#FFABAdB3"/>
-    <SolidColorBrush x:Key="CheckBox.Static.Glyph"           Color="{DynamicResource AppBrandColor}"/>
-
-    <SolidColorBrush x:Key="CheckBox.MouseOver.Background"   Color="Transparent" />
-    <SolidColorBrush x:Key="CheckBox.MouseOver.Border"       Color="{DynamicResource AppBrandColor}" Opacity="0.3"/>
-
-    <SolidColorBrush x:Key="CheckBox.Pressed.Background"     Color="#FFD9ECFF"/>
-    <SolidColorBrush x:Key="CheckBox.Pressed.Border"         Color="#FF3C77DD"/>
-
-    <SolidColorBrush x:Key="CheckBox.Disabled.Background"    Color="#FFE6E6E6"/>
-    <SolidColorBrush x:Key="CheckBox.Disabled.Foreground"    Color="#a1a1a1"/>
-    <SolidColorBrush x:Key="CheckBox.Disabled.Border"        Color="#FFBCBCBC"/>
-    <SolidColorBrush x:Key="CheckBox.Disabled.Glyph"         Color="{DynamicResource AppBrandColor}" Opacity="0.5"/>
-
-    <SolidColorBrush x:Key="CheckBox.Focus.Border"           Color="{DynamicResource AppBrandColor}"/>
 
 
 
