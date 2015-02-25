@@ -40,6 +40,7 @@
     <Reference Include="PresentationFramework.Aero">
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="presentationframework.aerolite">
       <Private>True</Private>
     </Reference>
@@ -60,6 +61,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contents\ComboBoxView.xaml.cs">
+      <DependentUpon>ComboBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contents\ComboBoxViewModel.cs" />
     <Compile Include="Contents\RadioButtonView.xaml.cs">
       <DependentUpon>RadioButtonView.xaml</DependentUpon>
     </Compile>
@@ -125,6 +130,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Contents\ComboBoxView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Contents\RadioButtonView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

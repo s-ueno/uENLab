@@ -12,5 +12,7 @@
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/Breadcrumb.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/TextBox.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/ToggleButton.xaml" />
+
+        <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/ComboBox.xaml" />
     </ResourceDictionary.MergedDictionaries> 
 </ResourceDictionary>

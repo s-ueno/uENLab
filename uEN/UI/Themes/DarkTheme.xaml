@@ -54,4 +54,14 @@
     <SolidColorBrush x:Key="ToggleButton.Focus.Border"           Color="{DynamicResource AppBrandColor}"/>
 
 
+    <!-- ComboBox -->
+    <SolidColorBrush x:Key="ComboBox.Static.Background"      Color="#2a2a2a"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Border"          Color="#FFABAdB3"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Glyph"           Color="{DynamicResource AppBrandColor}" />
+
+    <SolidColorBrush x:Key="ComboBox.Selected.Background"    Color="{DynamicResource AppBrandColor}" Opacity="0.3"/>
+
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Background"   Color="{DynamicResource AppBrandColor}" Opacity="0.1"/>
+    <SolidColorBrush x:Key="ComboBox.MouseOver.Border"       Color="{DynamicResource AppBrandColor}" />
+
 </ResourceDictionary>
