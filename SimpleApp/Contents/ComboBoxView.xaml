@@ -1,0 +1,37 @@
+﻿<uen:BizView
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:uen="clr-namespace:uEN.UI;assembly=uEN"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" 
+        x:Class="SimpleApp.Contents.ComboBoxView"
+        mc:Ignorable="d" 
+        d:DesignHeight="300" d:DesignWidth="300"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        
+        <StackPanel Margin="5" >
+            <TextBlock Text="IsEditable=False" Margin="5" Foreground="{DynamicResource AppForeground}" />
+            <ComboBox x:Name="SampleComboBox" Height="50" VerticalContentAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Margin="5" Grid.Row="1">
+            <TextBlock Text="IsEditable=True" Margin="5" Foreground="{DynamicResource AppForeground}" />
+            <ComboBox x:Name="EditableComboBox" IsEditable="True" Height="50" VerticalContentAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Margin="5" Grid.Row="2">
+            <TextBlock Text="IsEnabled=False" Margin="5" Foreground="{DynamicResource AppForeground}" />
+            <ComboBox x:Name="DisableComboBox" IsEnabled="False" Height="50" VerticalContentAlignment="Center" />
+        </StackPanel>
+
+
+    </Grid>
+</uen:BizView>
