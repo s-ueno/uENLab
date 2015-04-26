@@ -1,0 +1,10 @@
+﻿<uen:BizView x:Class="uEN.UI.Controls.SimpleDataGridView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:uen="clr-namespace:uEN.UI"
+        xmlns:controls="clr-namespace:uEN.UI.Controls"
+        mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        >
+    <DataGrid x:Name="PART_grid" />
+</uen:BizView>

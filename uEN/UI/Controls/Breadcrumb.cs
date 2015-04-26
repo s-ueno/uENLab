@@ -17,7 +17,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using uEN.Core;
 using uEN.UI.AttachedProperties;
-using uEN.Utils;
 
 namespace uEN.UI.Controls
 {

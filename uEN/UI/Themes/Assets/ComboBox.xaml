@@ -85,16 +85,15 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsSelectionActive" Value="true"/>
+                    <Condition Property="IsFocused" Value="true"/>
                 </MultiTrigger.Conditions>
                 <Setter Property="SelectionBrush" Value="{DynamicResource TextBox.SelectionBrush}"/>
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
-                    <Condition Property="IsSelectionActive" Value="false"/>
+                    <Condition Property="IsFocused" Value="true"/>
                 </MultiTrigger.Conditions>
-                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
             </MultiTrigger>
         </Style.Triggers>
     </Style>
@@ -179,6 +178,7 @@
                                       Style="{DynamicResource ComboBoxToggleButton}" />
                         <ContentPresenter x:Name="ContentSite"
                                 IsHitTestVisible="False"
+                                Margin="2"
                                 Content="{TemplateBinding SelectionBoxItem}"
                                 ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                 ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
@@ -188,6 +188,7 @@
                         <TextBox x:Name="PART_EditableTextBox"
                                 Style="{DynamicResource ComboBoxTextBox}"
                                 Visibility="Hidden"
+                                Padding="2"
                                  />
                         <Popup x:Name="Popup" Grid.ColumnSpan="2"
                                Placement="Bottom"

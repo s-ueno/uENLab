@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace uEN.UI.Binding
+namespace uEN.UI.DataBinding
 {
     public class WaitCursorEventPolicyAttribute : Attribute, IRoutedEventPolicy
     {

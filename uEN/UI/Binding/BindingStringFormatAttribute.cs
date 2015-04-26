@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace uEN.UI.Binding
+namespace uEN.UI.DataBinding
 {
     public class BindingStringFormatAttribute : Attribute
     {

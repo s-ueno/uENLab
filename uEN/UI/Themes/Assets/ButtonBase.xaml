@@ -156,9 +156,9 @@
         </Setter>
     </Style>
 
-    <Style x:Key="EllipseButtonStyle" TargetType="{x:Type Button}" >
+    <Style x:Key="EllipseButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ModernButtonStyle}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Padding"          Value="7"       />
+        <Setter Property="Background" Value="{DynamicResource WindowTheme}" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Template">
@@ -167,11 +167,15 @@
                     <Grid>
                         <Ellipse x:Name="ellipse"
                                      Stroke="{TemplateBinding BorderBrush}"
-                                     Fill="Transparent"
+                                     Fill="{TemplateBinding Background}"
                                      StrokeThickness="{TemplateBinding BorderThickness}"
                                      VerticalAlignment="Stretch" >
                         </Ellipse>
-                        <ContentPresenter Name="content" Margin="{TemplateBinding Padding}"/>
+                        <ContentPresenter Name="content" 
+                                          Margin="{TemplateBinding Padding}" 
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -182,12 +186,12 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.3"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
-
 </ResourceDictionary>

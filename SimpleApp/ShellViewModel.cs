@@ -28,6 +28,7 @@ namespace SimpleApp
             list.Add(new Vol10ViewModel());
             list.Add(new RadioButtonViewModel());
             list.Add(new ComboBoxViewModel());
+            list.Add(new ImeSampleViewModel());
             
             ViewModels = new ListCollectionView(list);
             ViewModels.MoveCurrentToLast();

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace uEN
 {
+    [Serializable]
     public class BizApplicationException : ApplicationException
     {
         public BizApplicationException(string message)

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace uEN.UI.Binding
+namespace uEN.UI.DataBinding
 {
     public interface IExceptionPolicy
     {
-        void Do(Exception ex);
+        void Do(object sender, Exception ex);
     }
 }

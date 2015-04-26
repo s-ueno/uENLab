@@ -8,7 +8,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using uEN.UI.AttachedProperties;
-using uEN.Utils;
 
 namespace uEN.UI
 {
@@ -70,4 +69,63 @@ namespace uEN.UI
             return UseViewCache ? cache[new WeakReference(item)] = template : template;
         }
     }
+
+    [PartCreationPolicy(CreationPolicy.Shared)]
+    [ExportMetadata(Repository.Priority, int.MaxValue)]
+    [Export(typeof(ViewModelWeakReference))]
+    public class ViewModelWeakReference
+    {
+        protected virtual IList<WeakReference> Collection { get { return _list; } }
+        private List<WeakReference> _list = new List<WeakReference>();
+
+        public void Push(BizViewModel viewModel)
+        {
+            Flush();
+
+            Collection.Add(new WeakReference(viewModel));
+        }
+
+        public void Pop(BizViewModel viewModel)
+        {
+            Flush();
+
+            WeakReference weakReference = null;
+            foreach (var each in Collection)
+            {
+                if (each.Target == viewModel)
+                {
+                    weakReference = each;
+                    break;
+                }
+            }
+            if (weakReference != null)
+                Collection.Remove(weakReference);
+        }
+
+        public IEnumerable<WeakReference> List()
+        {
+            Flush();
+            return Collection.ToArray();
+        }
+             
+        public void Flush()
+        {
+            var items = Collection.ToArray();
+            foreach (var each in items)
+            {
+                if (!each.IsAlive)
+                {
+                    Collection.Remove(each);
+                }
+
+                var target = each.Target as BizViewModel;
+                if (target != null && target.IsClosed)
+                {
+                    Collection.Remove(each);
+                }
+            }
+        }
+
+    }
+
 }

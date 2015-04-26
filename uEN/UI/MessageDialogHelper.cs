@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using uEN.Core;
 using uEN.UI.AttachedProperties;
-using uEN.UI.Binding;
+using uEN.UI.DataBinding;
 
 namespace uEN.UI
 {

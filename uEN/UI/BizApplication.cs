@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using uEN.Core;
-using uEN.Utils;
 
 namespace uEN.UI
 {
@@ -32,12 +31,14 @@ namespace uEN.UI
             var window = new Window();
             window.Content = mainViewModel;
             window.ContentTemplateSelector = new ViewDataTemplateSelector();
-
+            window.Closing += mainViewModel.OnClosing;
 
 
             Initialize(window, mainViewModel);
             Run(window);
         }
+
+       
 
         protected virtual void Initialize(Window mainWindow, BizViewModel mainViewModel)
         {
