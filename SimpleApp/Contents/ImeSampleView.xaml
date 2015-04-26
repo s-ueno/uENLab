@@ -1,0 +1,61 @@
+﻿<uen:BizView x:Class="SimpleApp.Contents.ImeSampleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:uen="clr-namespace:uEN.UI;assembly=uEN"
+        mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        d:DesignHeight="300" d:DesignWidth="300"
+        >
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="5">
+            <TextBlock Text="NoControl" />
+            <TextBox x:Name="NoControlTextBox" />
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Column="1">
+            <TextBlock Text="On"/>
+            <TextBox x:Name="OnTextBox" />
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Row="1">
+            <TextBlock Text="Off"/>
+            <TextBox x:Name="OffTextBox" />
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="Disable" />
+            <TextBox x:Name="DisableTextBox" />
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Column="0" Grid.Row="2">
+            <TextBlock Text="Hiragana" />
+            <TextBox x:Name="HiraganaTextBox" />
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Column="1" Grid.Row="2">
+            <TextBlock Text="Katakana" />
+            <TextBox x:Name="KatakanaTextBox" />
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Column="0" Grid.Row="3">
+            <TextBlock Text="KatakanaHalf" />
+            <TextBox x:Name="KatakanaHalfTextBox" />
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Column="1" Grid.Row="3">
+            <TextBlock Text="AlphaFull" />
+            <TextBox x:Name="AlphaFullTextBox" />
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Column="0" Grid.Row="4">
+            <TextBlock Text="Alpha" />
+            <TextBox x:Name="AlphaTextBox" 
+                        InputMethod.PreferredImeState="On"
+                     InputMethod.PreferredImeConversionMode="FullShape,Native"
+                     />
+        </StackPanel>
+    </Grid>
+</uen:BizView>

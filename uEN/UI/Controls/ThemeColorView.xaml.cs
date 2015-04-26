@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using uEN.UI;
-using uEN.Utils;
 
 namespace uEN.UI.Controls
 {

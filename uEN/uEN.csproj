@@ -9,11 +9,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>uEN</RootNamespace>
     <AssemblyName>uEN</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,11 +39,17 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ExternalFiles\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,9 +63,29 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\AuthenticationService.cs" />
     <Compile Include="Core\BizApplicationException.cs" />
     <Compile Include="Core\BackingStore.cs" />
+    <Compile Include="Core\BizProxy.cs" />
+    <Compile Include="Core\Crypto.cs" />
+    <Compile Include="Core\DataAnnotations\RequiredAnnotationAttribute.cs" />
+    <Compile Include="Core\DataAnnotations\IncludeCharAnnotationAttribute.cs" />
+    <Compile Include="Core\DataAnnotations\MaxLengthAnnotationAttribute.cs" />
+    <Compile Include="Core\Data\DbConnectionRepository.cs" />
+    <Compile Include="Core\DataAnnotations\NumericAnnotationAttribute.cs" />
+    <Compile Include="Core\DataAnnotations\ExcludeCharAnnotationAttribute.cs" />
+    <Compile Include="Core\Data\ExcelReader.cs" />
+    <Compile Include="Core\ILogService.cs" />
+    <Compile Include="Core\NotifiableImp.cs" />
+    <Compile Include="Core\ObjectDumper.cs" />
+    <Compile Include="Core\ObjectShredder.cs" />
+    <Compile Include="Core\DataAnnotations\RegexAnnotationAttribute.cs" />
     <Compile Include="Core\Singleton.cs" />
+    <Compile Include="Core\BizWebService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -69,14 +99,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\AttachedProperties\PasswordBoxProxy.cs" />
     <Compile Include="UI\AttachedProperties\ScrollIntoViewProxy.cs" />
+    <Compile Include="UI\AttachedProperties\SymbolButtonProxy.cs" />
+    <Compile Include="UI\AttachedProperties\SymbolTextBoxProxy.cs" />
+    <Compile Include="UI\AttachedProperties\TextInput\TextInputAnnotation.cs" />
+    <Compile Include="UI\AttachedProperties\TextInput\TextInputPolicy.cs" />
+    <Compile Include="UI\AttachedProperties\TextInput\TextInputObserver.cs" />
     <Compile Include="UI\AttachedProperties\ViewTransition.cs" />
     <Compile Include="UI\AttachedProperties\WindowProxy.cs" />
     <Compile Include="UI\Binding\ActionEventPolicy.cs" />
     <Compile Include="UI\Binding\BindingBehaviorCollection.cs" />
     <Compile Include="UI\Binding\BindingPolicy.cs" />
     <Compile Include="UI\Binding\BindingStringFormatAttribute.cs" />
+    <Compile Include="UI\Binding\DisplayMemberPathAttribute.cs" />
     <Compile Include="UI\Binding\GroupRegionAttribute.cs" />
+    <Compile Include="UI\Binding\IBindingAttribute.cs" />
     <Compile Include="UI\Binding\IExceptionPolicy.cs" />
     <Compile Include="UI\Binding\RoutedEventBehavior.cs" />
     <Compile Include="UI\Binding\BindingBehaviorBuilder.cs" />
@@ -90,6 +128,9 @@
     </Compile>
     <Compile Include="UI\Controls\BrandColorViewModel.cs" />
     <Compile Include="UI\Controls\Breadcrumb.cs" />
+    <Compile Include="UI\Controls\DialogWidget.xaml.cs">
+      <DependentUpon>DialogWidget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Controls\FontFamilyView.xaml.cs">
       <DependentUpon>FontFamilyView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +143,10 @@
     <Compile Include="UI\Controls\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\SimpleDataGridView.xaml.cs">
+      <DependentUpon>SimpleDataGridView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\SimpleDataGridViewModel.cs" />
     <Compile Include="UI\Controls\ThemeColorView.xaml.cs">
       <DependentUpon>ThemeColorView.xaml</DependentUpon>
     </Compile>
@@ -111,14 +156,18 @@
     <Compile Include="UI\BizApplication.cs" />
     <Compile Include="UI\BizView.cs" />
     <Compile Include="UI\BizViewModel.cs" />
+    <Compile Include="UI\AttachedProperties\TextInput\TextInputTextChangedWrapper.cs" />
+    <Compile Include="Core\DataAnnotations\DataGridColumnAnnotationAttribute.cs" />
     <Compile Include="UI\MessageDialogHelper.cs" />
+    <Compile Include="UI\Symbols.cs" />
     <Compile Include="UI\Themes\ThemeManager.cs" />
+    <Compile Include="UI\Validation\DataAnnotationRule.cs" />
     <Compile Include="UI\Validation\IValidationRuleProvider.cs" />
     <Compile Include="UI\Validation\RequiredRule.cs" />
     <Compile Include="UI\ViewDataTemplateSelector.cs" />
     <Compile Include="UI\VisualElementsAttribute.cs" />
     <Compile Include="Utils\BizUtils.cs" />
-    <Compile Include="Utils\ExpressionExtensions.cs" />
+    <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Utils\Repository.cs" />
     <Compile Include="Utils\UIElementExtensions.cs" />
     <Compile Include="Utils\ViewModelExtensions.cs" />
@@ -135,8 +184,17 @@
   <ItemGroup>
     <Resource Include="Properties\License.txt" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="UI\Infrastructure\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UI\Controls\DialogWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\SimpleDataGridView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Controls\ThemeColorView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,6 +231,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Themes\Assets\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Themes\Assets\ListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,6 +242,14 @@
     <Page Include="UI\Themes\Assets\ListContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Themes\Assets\PasswordBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Themes\Assets\DatePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Themes\Assets\Path.xaml">
       <SubType>Designer</SubType>
@@ -217,6 +287,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Extensions\Read Me.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

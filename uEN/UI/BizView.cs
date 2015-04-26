@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using uEN.UI.Binding;
+using uEN.UI.DataBinding;
 
 namespace uEN.UI
 {
@@ -17,6 +19,7 @@ namespace uEN.UI
         protected BizView()
         {
             DataContextChanged += OnBizViewDataContextChanged;
+            
         }
         protected virtual void OnBizViewDataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
@@ -35,8 +38,25 @@ namespace uEN.UI
                 each.Ensure();
             }
             viewModel.ApplyView();
+
+            viewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            viewModel.PropertyChanged += OnViewModelPropertyChanged;
+
+            viewModel.MessageNotify -= OnViewModelMessageNotify;
+            viewModel.MessageNotify += OnViewModelMessageNotify;
+
             this.Loaded -= BizView_Loaded;
             this.Loaded += BizView_Loaded;
+        }
+
+        protected virtual void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            
+        }
+
+        protected virtual void OnViewModelMessageNotify(object sender, MessageNotificationEventArgs e)
+        {
+            
         }
 
         void BizView_Loaded(object sender, RoutedEventArgs e)
@@ -46,6 +66,7 @@ namespace uEN.UI
             {
                 viewModel.LoadedView();
                 viewModel.Initialized = true;
+                viewModel.UpdateTarget();
             }
         }
         protected virtual void BuildBinding()
@@ -85,8 +106,14 @@ namespace uEN.UI
             var firstError = errors.FirstOrDefault();
             if (firstError != null)
             {
-                var errorBinding = firstError.BindingInError as BindingExpressionBase;
-                var uiElements = errorBinding.Target as UIElement;
+                var errorBinding = firstError.BindingInError as BindingExpression;
+                var pi = errorBinding.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
+                              .FirstOrDefault(x => x.Name == "Target");
+                var uiElements = pi.GetValue(errorBinding, null) as UIElement;
+                
+                
+                //var uiElements = errorBinding.Target as UIElement;
+                
                 if (uiElements != null)
                 {
                     uiElements.Focus();

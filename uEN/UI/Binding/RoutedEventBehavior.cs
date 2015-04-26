@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-
-namespace uEN.UI.Binding
+using uEN.Extensions;
+namespace uEN.UI.DataBinding
 {
     public class RoutedEventBehavior : IBindingBehavior
     {
@@ -48,7 +48,7 @@ namespace uEN.UI.Binding
         public IEnumerable<Attribute> ListAttribute(MethodInfo mi)
         {
             var list = new List<Attribute>();
-            var atts = mi.GetCustomAttributes<Attribute>();
+            var atts = mi.GetCustomAttributes(typeof(Attribute), false).OfType<Attribute>();
             if (atts != null && atts.Any())
             {
                 list.AddRange(atts);

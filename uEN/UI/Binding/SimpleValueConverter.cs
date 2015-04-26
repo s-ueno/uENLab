@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace uEN.UI.Binding
+namespace uEN.UI.DataBinding
 {
     public class SimpleValueConverter : IValueConverter
     {

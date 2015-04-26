@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using uEN.UI.DataBinding;
 
 namespace uEN.UI.Validation
 {
@@ -18,7 +19,7 @@ namespace uEN.UI.Validation
         public string ErrorMessage { get; private set; }
 
 
-        ValidationRule IValidationRuleProvider.Provide()
+        public virtual ValidationRule Provide(IBindingBehavior bindingBehavior)
         {
             var rule = new RequiredRule();
             rule.ErrorContent = ErrorMessage;

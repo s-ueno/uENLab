@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace uEN.UI.Binding
+namespace uEN.UI.DataBinding
 {
 
     public class BindingBehaviorCollection : List<IBindingBehavior>

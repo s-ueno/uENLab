@@ -29,7 +29,8 @@
     <SolidColorBrush x:Key="Listbox.Background"       Color="{DynamicResource AppBrandColor}" />
 
     <!-- Modern TextBox -->
-    <SolidColorBrush x:Key="TextBox.Background"       Color="Transparent"/>
+    <SolidColorBrush x:Key="TextBox.Background"       Color="{DynamicResource WindowThemeColor}"/>
+    <!--<SolidColorBrush x:Key="TextBox.Background"       Color="Transparent"/>-->
     <SolidColorBrush x:Key="TextBox.BorderBrush"      Color="#FFABAdB3"/>
     <SolidColorBrush x:Key="TextBox.SelectionBrush"   Color="{DynamicResource AppBrandColor}" />
 
@@ -64,6 +65,37 @@
 
     <SolidColorBrush x:Key="ComboBox.MouseOver.Background"   Color="{DynamicResource AppBrandColor}" Opacity="0.1"/>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Border"       Color="{DynamicResource AppBrandColor}" />
+
+
+    <!--DataGrid-->
+    <SolidColorBrush x:Key="DataGrid.Background"                     Color="Transparent" />
+    <SolidColorBrush x:Key="DataGrid.AlternatingRowBackgroundBrush"  Color="Transparent" />
+    <SolidColorBrush x:Key="DataGrid.RowBackgroundBrush"             Color="Transparent" />
+    <Thickness  x:Key="DataGrid.BorderThickness"  Bottom="0" Left="0" Right="0" Top="0" />
+    <SolidColorBrush x:Key="DataGrid.BorderBrush" Color="Transparent" />
+
+    <!--グリッド左上全選択マス-->
+    <SolidColorBrush x:Key="DataGrid.SelectAllButtonBackgroundBrush"    Color="Transparent" />
+
+    <!--DataGridRowHeader-->
+    <SolidColorBrush x:Key="DataGridRowHeader.BackgroundBrush" Color="Transparent" />
+    <SolidColorBrush x:Key="DataGridRowHeader.BorderBrush" Color="Transparent" />
+    <Thickness       x:Key="DataGridRowHeader.BorderThickness"  Bottom="0" Left="0" Right="0" Top="0" />
+
+    <!--DataGridColumnHeader-->
+    <SolidColorBrush x:Key="DataGridColumnHeader.BackgroundBrush"    Color="#e2e2e2" />
+    <SolidColorBrush x:Key="DataGridColumnHeader.BorderBrush"        Color="LightGray" />
+    <Thickness x:Key="DataGridColumnHeader.BorderThickness"     Bottom="1" Left="0" Right="1" Top="0" />
+
+
+    <!--DataGridCell-->
+    <SolidColorBrush x:Key="DataGridCell.BorderBrush"        Color="Transparent" />
+    <Thickness  x:Key="DataGridCell.BorderThickness"  Bottom="0" Left="0" Right="0" Top="0" />
+    <SolidColorBrush x:Key="DataGridCell.SelectedBackgroundBrush" Color="{DynamicResource AppBrandColor}" Opacity="0.5"/>
+    <SolidColorBrush x:Key="DataGridCell.SelectedForegroundBrush" Color="#333333" />
+    <SolidColorBrush x:Key="DataGridCell.IsReadOnlyBackground" Color="Transparent" />
+
+
 
 
 

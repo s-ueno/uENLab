@@ -9,9 +9,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using uEN.UI.Validation;
+using uEN.Extensions;
 
-
-namespace uEN.UI.Binding
+namespace uEN.UI.DataBinding
 {
     public class DependencyPropertyBehavior : IBindingBehavior
     {
@@ -27,7 +27,7 @@ namespace uEN.UI.Binding
         public LambdaExpression LambdaExpression { get; set; }
 
         public IEnumerable<Attribute> Attributes { get; protected set; }
-        public BindingExpressionBase BindingExpression { get; protected set; }
+        public BindingExpression BindingExpression { get; protected set; }
         public virtual void Ensure()
         {
             var binding = new System.Windows.Data.Binding(LambdaExpression.ToSymbol());
@@ -38,11 +38,13 @@ namespace uEN.UI.Binding
             binding.Mode = BindingPolicy.BindingMode;
             binding.ValidatesOnDataErrors = BindingPolicy.ValidatesOnDataErrors;
             binding.ValidatesOnExceptions = BindingPolicy.ValidatesOnExceptions;
-            binding.ValidatesOnNotifyDataErrors = BindingPolicy.ValidatesOnNotifyDataErrors;
+            //binding.ValidatesOnNotifyDataErrors = BindingPolicy.ValidatesOnNotifyDataErrors;
             if (BindingPolicy.UpdateSourceTrigger.HasValue)
                 binding.UpdateSourceTrigger = BindingPolicy.UpdateSourceTrigger.Value;
+            /*
             if (BindingPolicy.Delay.HasValue)
                 binding.Delay = BindingPolicy.Delay.Value;
+            */
             if (BindingPolicy.BindsDirectlyToSource.HasValue)
                 binding.BindsDirectlyToSource = BindingPolicy.BindsDirectlyToSource.Value;
             if (BindingPolicy.FallbackValue != null)
@@ -65,8 +67,10 @@ namespace uEN.UI.Binding
             {
                 binding.ValidationRules.Add(rule);
             }
-            BindingExpression = BindingOperations.SetBinding(Element, DependencyProperty, binding);
+            BindingExpression = BindingOperations.SetBinding(Element, DependencyProperty, binding) as BindingExpression;
             SetupTemplateSelecter();
+
+            BindingAttributes(Attributes);
         }
 
         protected virtual void SetupTemplateSelecter()
@@ -76,8 +80,20 @@ namespace uEN.UI.Binding
                 var tab = Element as TabControl;
                 tab.ContentTemplateSelector = new ViewDataTemplateSelector();
             }
+            else if (Element is ContentPresenter)
+            {
+                (Element as ContentPresenter).ContentTemplateSelector = new ViewDataTemplateSelector();
+            }
+
         }
 
+        protected virtual void BindingAttributes(IEnumerable<Attribute> atts)
+        {
+            foreach (var each in atts.OfType<IBindingAttribute>())
+            {
+                each.Binding(this);
+            }
+        }
 
         protected virtual IEnumerable<Attribute> ListAttributes()
         {
@@ -99,9 +115,15 @@ namespace uEN.UI.Binding
             {
                 yield return each;
             }
+
+            foreach (var each in Attributes.OfType<System.ComponentModel.DataAnnotations.ValidationAttribute>())
+            {
+                yield return new DataAnnotationRule(each);
+            }
+
             foreach (var each in Attributes.OfType<IValidationRuleProvider>())
             {
-                yield return each.Provide();
+                yield return each.Provide(this);
             }
         }
         protected virtual string GetStringFormat()
@@ -112,6 +134,9 @@ namespace uEN.UI.Binding
             var format = Attributes.FirstOrDefault(x => x is BindingStringFormatAttribute) as BindingStringFormatAttribute;
             return format != null ? format.Value : null;
         }
+
+
+        /*
         public virtual bool HasValidationError
         {
             get
@@ -119,6 +144,9 @@ namespace uEN.UI.Binding
                 return BindingExpression != null && BindingExpression.HasValidationError ? true : false;
             }
         }
+        */
+
+        /*
         public virtual ReadOnlyCollection<ValidationError> ValidationErrors
         {
             get
@@ -130,6 +158,20 @@ namespace uEN.UI.Binding
                 return BindingExpression.ValidationErrors;
             }
         }
+        */
+        public virtual ReadOnlyCollection<ValidationError> ValidationErrors
+        {
+            get
+            {
+                if (BindingExpression == null || BindingExpression.ValidationError == null)
+                {
+                    return new ReadOnlyCollection<ValidationError>(new List<ValidationError>());
+                }
+                return new ReadOnlyCollection<ValidationError>(new List<ValidationError>(new[] { BindingExpression.ValidationError }));
+            }
+        }
+
+
         public virtual void UpdateSource()
         {
             if (BindingExpression == null) return;

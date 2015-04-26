@@ -3,6 +3,7 @@
                     xmlns:ui="clr-namespace:uEN.UI"
                     xmlns:local="clr-namespace:uEN.UI.AttachedProperties"
                     xmlns:controls="clr-namespace:uEN.UI.Controls"
+                    xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
                     >
     <Style TargetType="{x:Type Window}">
         <Setter Property="Foreground"                   Value="{DynamicResource AppForeground}"/>
@@ -16,9 +17,9 @@
         <Setter Property="WindowStyle"                  Value="None" />
         <Setter Property="AllowsTransparency"           Value="True" />
         <Setter Property="ResizeMode"                   Value="CanResizeWithGrip" />
-        <Setter Property="WindowChrome.WindowChrome">
+        <Setter Property="shell:WindowChrome.WindowChrome">
             <Setter.Value>
-                <WindowChrome ResizeBorderThickness="10" />
+                <shell:WindowChrome ResizeBorderThickness="10" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -65,7 +66,12 @@
                                     </StackPanel>
                                 </Grid>
                             </Grid>
-                            <Grid x:Name="PART_WindowContent" >
+                           
+                            <Grid x:Name="PART_WindowContent" 
+                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
+                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
+                                  TextBlock.FontSize="{DynamicResource AppFontSize}"                                  
+                                  >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="*"/>
@@ -85,7 +91,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     <Border Margin="10,0,5,0" Width="10" Grid.Column="0" Grid.RowSpan="4" Background="{DynamicResource AppBrand}" >
@@ -102,12 +108,16 @@
                                             </TransformGroup>
                                         </Border.RenderTransform>
                                     </Border>
-                                    <StackPanel x:Name="PART_BlandPanel" Grid.Row="0" Grid.RowSpan="4" Grid.Column="2" Margin="20,15" Orientation="Vertical">
+                                    
+                                    
+                                    <StackPanel x:Name="PART_BlandPanel" Grid.Row="0" Grid.RowSpan="4" Grid.Column="2" Margin="20,15" Orientation="Vertical" >
                                         <TextBlock Text="{Binding Content.CompanyName, RelativeSource={RelativeSource TemplatedParent} }"
                                                FontSize="28" FontFamily="{DynamicResource AppBrandLogoFont}" Foreground="{DynamicResource AppForeground}"/>
                                         <TextBlock Text="{Binding Content.CompanyDescription, RelativeSource={RelativeSource TemplatedParent} }"
                                                FontSize="13" FontFamily="{DynamicResource AppBrandLogoFont}" Foreground="{DynamicResource AppForeground}"/>
                                     </StackPanel>
+                                    
+                                    
                                     <Border Grid.Row="3" Grid.ColumnSpan="4" Height="20" >
                                         <Border.Background>
                                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" >
@@ -189,6 +199,24 @@
                                                    />
                                 </Grid>
                             </Grid>
+
+
+                            <Grid x:Name="PART_DialogContentContainer"
+                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
+                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
+                                  TextBlock.FontSize="{DynamicResource AppFontSize}"
+                                  Visibility="Hidden"                                 
+                                  >
+                                <Grid.Background>
+                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
+                                </Grid.Background>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="5*" />
+                                </Grid.ColumnDefinitions>
+                                <controls:DialogWidget x:Name="dialogWidget" Grid.Column="1"                                                     
+                                                       />
+                            </Grid>
                         </Grid>
                     </Border>
                 </ControlTemplate>
@@ -212,9 +240,9 @@
         <Setter Property="WindowStyle"                  Value="None" />
         <Setter Property="AllowsTransparency"           Value="True" />
         <Setter Property="ResizeMode"                   Value="CanResizeWithGrip" />
-        <Setter Property="WindowChrome.WindowChrome">
+        <Setter Property="shell:WindowChrome.WindowChrome">
             <Setter.Value>
-                <WindowChrome ResizeBorderThickness="10" />
+                <shell:WindowChrome ResizeBorderThickness="10" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -229,15 +257,29 @@
                                 <RowDefinition Height="*"   />
                             </Grid.RowDefinitions>
 
-                            <TextBlock HorizontalAlignment="Stretch" 
+                            <Grid Background="{DynamicResource AppBrand}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock HorizontalAlignment="Stretch" 
                                        Padding="5"
                                        Text="{Binding Content.Description, RelativeSource={RelativeSource TemplatedParent} }"
                                        FontFamily="{TemplateBinding FontFamily}" 
                                        Foreground="White"
-                                       FontSize="24"
-                                       Background="{DynamicResource AppBrand}"
+                                       FontSize="14"
                                        />
-                            <AdornerDecorator Grid.Row="1" >
+
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal" Margin="3">
+                                    <Button Content="0" Style="{DynamicResource TitleButtonStyle}" local:WindowProxy.Command="Minimize" Focusable="False" Foreground="White"/>
+                                    <Button Style="{DynamicResource TitleButtonStyle}" local:WindowProxy.Command="RestoreOrMaximize" Focusable="False" Foreground="White"/>
+                                    <Button Content="r" Style="{DynamicResource TitleButtonStyle}" local:WindowProxy.Command="Close" Focusable="False" Foreground="White"/>
+                                </StackPanel>
+                            </Grid>
+                            
+
+                            <AdornerDecorator Grid.Row="1">
                                 <ContentPresenter  controls:Breadcrumb.Use="True" />
                             </AdornerDecorator>
                         </Grid>

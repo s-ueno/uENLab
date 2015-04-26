@@ -5,17 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using uEN.Utils;
-namespace uEN.UI.Binding
+namespace uEN.UI.DataBinding
 {
     public class ActionEventPolicyAttribute : Attribute, IRoutedEventPolicy
     {
         public ActionEventPolicyAttribute()
         {
-            this.Compose();
+            ExceptionPolicy = Repository.GetPriorityExport<IExceptionPolicy>();
         }
-        [Import(typeof(IExceptionPolicy))]
+
         public IExceptionPolicy ExceptionPolicy { get; set; }
+
+
         public int Priolity { get { return int.MinValue; } }
         public IRoutedEventPolicy NextPolicy { get; set; }
         public RoutedEventArgs EventArgs { get; set; }
@@ -31,7 +32,7 @@ namespace uEN.UI.Binding
             {
                 if (ExceptionPolicy != null)
                 {
-                    ExceptionPolicy.Do(ex);
+                    ExceptionPolicy.Do(behavior, ex);
                 }
                 else
                 {

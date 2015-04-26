@@ -6,12 +6,13 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace uEN.Utils
+namespace uEN
 {
     public static class Repository
     {
@@ -84,6 +85,15 @@ namespace uEN.Utils
             return mostPriority != null ? mostPriority.Value : default(T);
         }
         public const string Priority = "Priority";
+
+        public static object GetPriorityExport(string typeName)
+        {
+            var type = Type.GetType(typeName);
+            var mostPriority = container.GetExports(type, typeof(IPriority), null)
+                                .OrderBy(x => ((IPriority)x.Metadata).Priority)
+                                .FirstOrDefault();
+            return mostPriority != null ? mostPriority.Value : null;
+        }
     }
 
     public interface IPriority { int Priority { get; } }
