@@ -49,7 +49,7 @@ namespace uEN.UI
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
         protected bool SetProperty<T>(ref T storage, T value,
-            string propertyName = null)
+             [CallerMemberName] string propertyName = null)
         {
             if (object.Equals(storage, value))
                 return false;

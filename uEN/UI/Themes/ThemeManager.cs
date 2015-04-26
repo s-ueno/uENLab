@@ -37,7 +37,7 @@ namespace uEN.UI
             SetBrandColor(BrandColor);
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string propertyName = null)
+        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
@@ -57,7 +57,7 @@ namespace uEN.UI
         {
             get
             {
-                var stringFontFamily = this.GetBackingStore("Font") as string;
+                var stringFontFamily = this.GetBackingStore() as string;
                 if (!string.IsNullOrWhiteSpace(stringFontFamily))
                 {
                     FontFamily buff = null;
@@ -79,7 +79,7 @@ namespace uEN.UI
             set
             {
                 SetFont(value);
-                this.SetBackingStore(Convert.ToString(value), "Font");
+                this.SetBackingStore(Convert.ToString(value));
                 OnPropertyChanged();
             }
         }
@@ -97,13 +97,13 @@ namespace uEN.UI
         {
             get
             {
-                var storeItem = this.GetBackingStore("FontSize") as Double?;
+                var storeItem = this.GetBackingStore() as Double?;
                 return storeItem.HasValue ? storeItem.Value : 13d;
             }
             set
             {
                 SetFontSize(value);
-                this.SetBackingStore(value, "FontSize");
+                this.SetBackingStore(value);
                 OnPropertyChanged();
             }
         }
@@ -121,7 +121,7 @@ namespace uEN.UI
         {
             get
             {
-                var stringBrandColor = this.GetBackingStore("BrandColor") as string;
+                var stringBrandColor = this.GetBackingStore() as string;
                 if (!string.IsNullOrWhiteSpace(stringBrandColor))
                 {
                     Color? buff = null;
@@ -143,7 +143,7 @@ namespace uEN.UI
             set
             {
                 SetBrandColor(value);
-                this.SetBackingStore(Convert.ToString(value), "BrandColor");
+                this.SetBackingStore(Convert.ToString(value));
                 OnPropertyChanged();
             }
         }
@@ -162,11 +162,11 @@ namespace uEN.UI
 
         public AppStyle? Style
         {
-            get { return this.GetBackingStore("Style") as AppStyle? ?? AppStyle.Modern; }
+            get { return this.GetBackingStore() as AppStyle? ?? AppStyle.Modern; }
             set
             {
                 SetAppStyle(value);
-                this.SetBackingStore(value, "Style");
+                this.SetBackingStore(value);
                 OnPropertyChanged();
             }
         }
@@ -196,11 +196,11 @@ namespace uEN.UI
 
         public AppTheme? Theme
         {
-            get { return this.GetBackingStore("Theme") as AppTheme?; }
+            get { return this.GetBackingStore() as AppTheme?; }
             set
             {
                 SetAppTheme(value);
-                this.SetBackingStore(value, "Theme");
+                this.SetBackingStore(value);
                 OnPropertyChanged();
             }
         }

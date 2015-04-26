@@ -17,9 +17,9 @@
         <Setter Property="WindowStyle"                  Value="None" />
         <Setter Property="AllowsTransparency"           Value="True" />
         <Setter Property="ResizeMode"                   Value="CanResizeWithGrip" />
-        <Setter Property="shell:WindowChrome.WindowChrome">
+        <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
-                <shell:WindowChrome ResizeBorderThickness="10" />
+                <WindowChrome ResizeBorderThickness="10" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -240,9 +240,9 @@
         <Setter Property="WindowStyle"                  Value="None" />
         <Setter Property="AllowsTransparency"           Value="True" />
         <Setter Property="ResizeMode"                   Value="CanResizeWithGrip" />
-        <Setter Property="shell:WindowChrome.WindowChrome">
+        <Setter Property="WindowChrome.WindowChrome">
             <Setter.Value>
-                <shell:WindowChrome ResizeBorderThickness="10" />
+                <WindowChrome ResizeBorderThickness="10" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
