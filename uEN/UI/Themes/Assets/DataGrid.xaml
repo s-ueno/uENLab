@@ -25,7 +25,7 @@
                 <Setter Property="RowBackground" Value="{DynamicResource DataGrid.RowBackgroundBrush}" />
                 <Setter Property="AlternatingRowBackground" Value="{DynamicResource DataGrid.AlternatingRowBackgroundBrush}" />
             </Trigger>
-            
+
         </Style.Triggers>
     </Style>
 
@@ -78,10 +78,22 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="{x:Type DataGridColumnHeader}" TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"></Condition>
+                    <Condition Property="CanUserSort" Value="True"></Condition>
+                </MultiTrigger.Conditions>
+                <Setter Property="Cursor" Value="Hand"></Setter>
+            </MultiTrigger>
+        </Style.Triggers>
+
         <Setter Property="Background" Value="{DynamicResource DataGridColumnHeader.BackgroundBrush}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+
         <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="Padding" Value="2,0,0,0" />
+        <Setter Property="Padding" Value="2,3,3,3" />
         <Setter Property="BorderBrush" Value="{DynamicResource DataGridColumnHeader.BorderBrush}" />
         <Setter Property="BorderThickness" Value="{DynamicResource DataGridColumnHeader.BorderThickness}" />
         <Setter Property="Template">
@@ -129,7 +141,7 @@
     <Style x:Key="{x:Type DataGridCell}" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
         <Setter Property="BorderBrush" Value="{DynamicResource DataGridCell.BorderBrush}" />
         <Setter Property="BorderThickness" Value="{DynamicResource DataGridCell.BorderThickness}" />
-        <Style.Triggers>
+        <Style.Triggers>           
             <Trigger Property="IsReadOnly" Value="false">
                 <Setter Property="Background" Value="{DynamicResource DataGridCell.IsReadOnlyBackground}" />
             </Trigger>
@@ -139,7 +151,4 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-    
-
 </ResourceDictionary>

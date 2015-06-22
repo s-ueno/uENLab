@@ -31,6 +31,12 @@ namespace uEN.Core.Data
         {
             return DbProviderFactories.GetFactory(providerName);
         }
+        public static DbProviderFactory CreateFactory(string contextName = DefaultContext)
+        {
+            var repository = Repository.GetPriorityExport<DbConnectionRepository>();
+            var con = repository.CreateConnectionString(contextName);
+            return repository.CreateDbProviderFactory(con.ProviderName);
+        }
         public static DbConnectionHelper CreateDbHelper(string contextName = DefaultContext)
         {
             var repository = Repository.GetPriorityExport<DbConnectionRepository>();

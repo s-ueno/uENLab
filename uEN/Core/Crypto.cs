@@ -21,7 +21,7 @@ namespace uEN.Core
         public static string EncryptStringAES(string plainText, string sharedSecret)
         {
             if (string.IsNullOrEmpty(plainText))
-                throw new ArgumentNullException("plainText");
+                return null;
             if (string.IsNullOrEmpty(sharedSecret))
                 throw new ArgumentNullException("sharedSecret");
 
@@ -77,7 +77,7 @@ namespace uEN.Core
         public static string DecryptStringAES(string cipherText, string sharedSecret)
         {
             if (string.IsNullOrEmpty(cipherText))
-                throw new ArgumentNullException("cipherText");
+                return null;
             if (string.IsNullOrEmpty(sharedSecret))
                 throw new ArgumentNullException("sharedSecret");
 

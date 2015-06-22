@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using uEN.Core;
+using uEN.UI.AttachedProperties;
 
 namespace uEN.UI.Controls
 {
@@ -104,7 +106,20 @@ namespace uEN.UI.Controls
             get { return titleContent; }
             set
             {
+                if (this.titleContent != null)
+                {
+                    titleContent.SelectionChanged -= titleContent_SelectionChanged;
+                    //this.titleContent.ClearValue(CancelSelectionBehavior.TargetProperty);
+                    //this.titleContent.ClearValue(CancelSelectionBehavior.IsEnabledProperty);
+                }
                 titleContent = value;
+                if (this.titleContent != null)
+                {
+                    titleContent.SelectionChanged += titleContent_SelectionChanged;
+                    //CancelSelectionBehavior.SetIsEnabled(this.titleContent, true);
+                    //CancelSelectionBehavior.SetTarget(this.titleContent, this);
+                }
+
                 if (value != null)
                 {
                     var notifiable = titleContent.Items as INotifyCollectionChanged;
@@ -115,6 +130,36 @@ namespace uEN.UI.Controls
                     }
                 }
             }
+        }
+
+        public event CancelEventHandler Moving;
+        bool isInternalCall = false;
+        void titleContent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (isInternalCall)
+                return;
+
+            var newItem = e.AddedItems.OfType<object>().FirstOrDefault();
+            var oldItem = e.RemovedItems.OfType<object>().FirstOrDefault();
+
+            if (Moving != null)
+            {
+                isInternalCall = true;
+                titleContent.SelectedItem = oldItem;
+                isInternalCall = false;
+                var c = new CancelEventArgs();
+                Moving(this, c);
+                if (!c.Cancel)
+                {
+                    isInternalCall = true;
+                    titleContent.SelectedItem = newItem;
+                    isInternalCall = false;
+
+                }
+
+            }
+
+
         }
         private ListBox titleContent;
         void notifiable_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -155,7 +200,7 @@ namespace uEN.UI.Controls
             }
             slideAnimation.EasingFunction = new BackEase() { EasingMode = EasingMode.EaseOut, Amplitude = 0.3 };
             slideAnimation.BeginTime = TimeSpan.FromMilliseconds(d * 100);
-            
+
             Storyboard.SetTargetProperty(slideAnimation, new PropertyPath(FrameworkElement.MarginProperty));
             storyboard.Children.Add(slideAnimation);
 

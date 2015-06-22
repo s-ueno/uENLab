@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace uEN.UI.AttachedProperties
 {
@@ -39,8 +40,23 @@ namespace uEN.UI.AttachedProperties
             var content = new Grid();
             content.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
             content.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(1, GridUnitType.Star) });
-            content.Children.Add(new TextBlock() { FontFamily = new System.Windows.Media.FontFamily("Segoe UI Symbol"), Text = Convert.ToChar(symbol).ToString() });
-            content.Children.Add(new TextBlock() { Text = text });
+
+            var symbolText = new TextBlock()
+            {
+                Text = Convert.ToChar(symbol).ToString(),
+            };
+            symbolText.SetBinding(TextBlock.ForegroundProperty, new Binding("Foreground")
+            {
+                RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(Button), 1)
+            });
+            symbolText.SetResourceReference(TextBlock.StyleProperty, "SegoeUISymbolTextBlockKey");
+            content.Children.Add(symbolText);
+
+            content.Children.Add(new TextBlock()
+            {
+                Text = text,
+                VerticalAlignment = VerticalAlignment.Center,
+            });
 
             Grid.SetColumn(content.Children[1], 1);
             button.Content = content;

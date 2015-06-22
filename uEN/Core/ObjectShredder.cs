@@ -167,7 +167,7 @@ namespace uEN.Core
                     // Add the property as a column in the table if it doesn't exist
                     // already.
                     DataColumn dc = table.Columns.Contains(p.Name) ? table.Columns[p.Name]
-                        : table.Columns.Add(p.Name, p.PropertyType);
+                        : table.Columns.Add(p.Name, ResolveType(p.PropertyType));
 
                     // Add the property to the ordinal map.
                     _ordinalMap.Add(p.Name, dc.Ordinal);
@@ -176,6 +176,14 @@ namespace uEN.Core
 
             // Return the table.
             return table;
+        }
+
+
+        private Type ResolveType(Type type)
+        {
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+                return ResolveType(type.GetGenericArguments()[0]);
+            return type;
         }
     }
 

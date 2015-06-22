@@ -4,7 +4,9 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace uEN.UI.DataBinding
@@ -38,6 +40,14 @@ namespace uEN.UI.DataBinding
                 {
                     yield return child;
                 }   
+            }
+        }
+
+        public void EnsureBinding()
+        {
+            foreach (var each in this)
+            {
+                each.Ensure();
             }
         }
     }

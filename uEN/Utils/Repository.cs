@@ -88,7 +88,10 @@ namespace uEN
 
         public static object GetPriorityExport(string typeName)
         {
-            var type = Type.GetType(typeName);
+            return GetPriorityExport(Type.GetType(typeName));
+        }
+        public static object GetPriorityExport(Type type)
+        {
             var mostPriority = container.GetExports(type, typeof(IPriority), null)
                                 .OrderBy(x => ((IPriority)x.Metadata).Priority)
                                 .FirstOrDefault();

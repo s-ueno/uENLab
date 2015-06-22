@@ -1,6 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style x:Key="ToggleButtonBase" TargetType="{x:Type ToggleButton}">
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"/>
+                    <Condition Property="IsEnabled" Value="True"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Cursor" Value="Hand" />
+            </MultiTrigger>
+        </Style.Triggers>
         <Setter Property="Background"       Value="Transparent"/>
         <Setter Property="Foreground"       Value="{DynamicResource AppForeground}"/>
         <Setter Property="BorderBrush"      Value="{DynamicResource ToggleButton.Static.Border}"/>
@@ -25,15 +34,17 @@
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                             <Grid>
                                 <Viewbox Stretch="Fill" Margin="2,-5,-2,2">
-                                    <Path Style="{DynamicResource PathButtonStyle}" x:Name="optionMark"
+                                    <Path x:Name="optionMark"
                                       Fill="{DynamicResource ToggleButton.Static.Glyph}"
                                       Opacity="0"
+                                      Stretch="Fill"
                                       Data="F1 M 23.7501,33.25L 34.8334,44.3333L 52.2499,22.1668L 56.9999,26.9168L 34.8334,53.8333L 19.0001,38L 23.7501,33.25 Z " />
                                 </Viewbox>
                                 <Viewbox Stretch="Fill" Margin="2">
-                                    <Path Style="{DynamicResource PathButtonStyle}" x:Name="optionNullMark"
+                                    <Path x:Name="optionNullMark"
                                       Fill="{DynamicResource ToggleButton.Static.Glyph}"
                                       Opacity="0"
+                                      Stretch="Fill"
                                       Data="F1 M 31.6667,19L 44.3333,19L 57,31.6667L 57,44.3333L 44.3333,57L 31.6667,57L 19,44.3333L 19,31.6667L 31.6667,19 Z M 26.4762,45.0454L 30.9546,49.5238L 38,42.4783L 45.0454,49.5238L 49.5237,45.0454L 42.4783,38L 49.5238,30.9546L 45.0454,26.4763L 38,33.5217L 30.9546,26.4762L 26.4762,30.9546L 33.5217,38L 26.4762,45.0454 Z " />
                                 </Viewbox>
                             </Grid>
@@ -82,8 +93,100 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type CheckBox}"       BasedOn="{StaticResource ToggleButtonBase}" />
+    <Style TargetType="{x:Type CheckBox}"       BasedOn="{StaticResource ToggleButtonBase}" >
+       
+    </Style>
     <Style TargetType="{x:Type RadioButton}"    BasedOn="{StaticResource ToggleButtonBase}" >
+        
         <Setter Property="Border.CornerRadius" Value="45" />
     </Style>
+
+    <Style x:Key="SliderCheckBoxStyle" TargetType="{x:Type CheckBox}">
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"/>
+                    <Condition Property="IsEnabled" Value="True"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Cursor" Value="Hand" />
+            </MultiTrigger>
+        </Style.Triggers>
+        <Setter Property="Background"       Value="Transparent"/>
+        <Setter Property="Foreground"       Value="{DynamicResource AppForeground}"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="SlideTo">
+                            <DoubleAnimationUsingKeyFrames BeginTime="0" 
+                                                           Storyboard.TargetName="sliderTranslate" 
+                                                           Storyboard.TargetProperty="X">
+                                <SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="55"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                        <Storyboard x:Key="SlideFrom">
+                            <DoubleAnimationUsingKeyFrames BeginTime="0" 
+                                                           Storyboard.TargetName="sliderTranslate" 
+                                                           Storyboard.TargetProperty="X">
+                                <SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Grid.Row="0" Grid.ColumnSpan="2"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                    Content="{TemplateBinding Content}" 
+                                    ContentStringFormat="{TemplateBinding ContentStringFormat}" 
+                                    ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                    RecognizesAccessKey="True" 
+                                    VerticalAlignment="Center"/>
+                        <TextBlock x:Name="statusText" 
+                                   Text="OFF" FontWeight="Bold"
+                                   Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}"
+                                   Grid.Row="1" Grid.Column="0" />
+                        <Grid Grid.Row="1" Grid.Column="1" Width="70" HorizontalAlignment="Left">
+                            <Border Background="White" />
+                            <Border x:Name="sliderStatusBrush" Margin="1.5" Background="Gray" />
+                            <Border x:Name="slider" 
+                                    HorizontalAlignment="Left" 
+                                    Width="15" CornerRadius="0" 
+                                    Background="Black"
+                                    >
+                                <Border.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform X="0" Y="0" x:Name="sliderTranslate"/>
+                                    </TransformGroup>
+                                </Border.RenderTransform>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource SlideTo}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource SlideFrom}"/>
+                            </Trigger.ExitActions>
+                            <Setter TargetName="statusText" Property="TextBlock.Text" Value="ON" />
+                            <Setter TargetName="sliderStatusBrush" Property="Background" Value="#3498db" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

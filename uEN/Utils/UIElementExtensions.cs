@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
@@ -7,11 +8,25 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
+using uEN.UI;
 
 namespace uEN
 {
     public static class UIElementExtensions
     {
+        public static bool IsParentAndChild(DependencyObject parent, DependencyObject child)
+        {
+            
+            if (parent == null || child == null)
+                return false;
+            var p = VisualTreeHelper.GetParent(child);
+            if (p == null)
+                return false;
+            if (p == parent)
+                return true;
+            return IsParentAndChild(parent, p);
+        }
+
         public static T FindVisualParent<T>(this DependencyObject target) where T : DependencyObject
         {
             if (!(target is Visual))
@@ -28,12 +43,12 @@ namespace uEN
             {
                 yield break;
             }
-                
+
             var cnt = VisualTreeHelper.GetChildrenCount(target);
             for (int i = 0; i < cnt; i++)
             {
                 var result = VisualTreeHelper.GetChild(target, i);
-                if (result  is T)
+                if (result is T)
                 {
                     yield return (T)result;
                 }
@@ -44,7 +59,7 @@ namespace uEN
             }
         }
 
-      
+
 
         //http://msdn.microsoft.com/ja-jp/library/system.windows.threading.dispatcher.pushframe.aspx
         [SecurityPermissionAttribute(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]

@@ -2,6 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:uEN.UI.Controls"
+    xmlns:attached="clr-namespace:uEN.UI.AttachedProperties"
     xmlns:ui="clr-namespace:uEN.UI"
     >
 
@@ -44,6 +45,7 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True"/>
                             </MultiTrigger.Conditions>
+                            <Setter Property="Cursor" Value="Hand"></Setter>
                             <Setter Property="Foreground" TargetName="Title"        Value="{DynamicResource AppBrandOpacity5}"/>
                             <Setter Property="Background" TargetName="Selectedline" Value="{DynamicResource AppBrandOpacity5}"/>
                         </MultiTrigger>
@@ -69,6 +71,7 @@
 
     <ui:ViewDataTemplateSelector x:Key="templateSelector" />
     <ControlTemplate x:Key="ListContentVerticalStyle" TargetType="{x:Type local:ListContent}">
+        
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />

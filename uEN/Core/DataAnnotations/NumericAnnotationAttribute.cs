@@ -53,6 +53,7 @@ namespace uEN.Core
             if (string.IsNullOrEmpty(s)) return true; //Nullableに対して、必須入力チェックではない。
 
             if (!Unsigned && s == "-") return true;
+            if (Scale == 0 && s.Contains(".")) return false;
 
             decimal dec;
             var ret = decimal.TryParse(Convert.ToString(value), out dec);

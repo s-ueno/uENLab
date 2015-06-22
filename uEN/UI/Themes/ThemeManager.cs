@@ -35,9 +35,11 @@ namespace uEN.UI
             SetFont(Font);
             SetFontSize(FontSize);
             SetBrandColor(BrandColor);
+
+            AlternatingRowBackgroundChanged();
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void OnPropertyChanged(string propertyName = null)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
@@ -57,7 +59,7 @@ namespace uEN.UI
         {
             get
             {
-                var stringFontFamily = this.GetBackingStore() as string;
+                var stringFontFamily = this.GetBackingStore("Font") as string;
                 if (!string.IsNullOrWhiteSpace(stringFontFamily))
                 {
                     FontFamily buff = null;
@@ -79,7 +81,7 @@ namespace uEN.UI
             set
             {
                 SetFont(value);
-                this.SetBackingStore(Convert.ToString(value));
+                this.SetBackingStore(Convert.ToString(value), "Font");
                 OnPropertyChanged();
             }
         }
@@ -97,13 +99,13 @@ namespace uEN.UI
         {
             get
             {
-                var storeItem = this.GetBackingStore() as Double?;
+                var storeItem = this.GetBackingStore("FontSize") as Double?;
                 return storeItem.HasValue ? storeItem.Value : 13d;
             }
             set
             {
                 SetFontSize(value);
-                this.SetBackingStore(value);
+                this.SetBackingStore(value, "FontSize");
                 OnPropertyChanged();
             }
         }
@@ -121,7 +123,7 @@ namespace uEN.UI
         {
             get
             {
-                var stringBrandColor = this.GetBackingStore() as string;
+                var stringBrandColor = this.GetBackingStore("BrandColor") as string;
                 if (!string.IsNullOrWhiteSpace(stringBrandColor))
                 {
                     Color? buff = null;
@@ -143,7 +145,7 @@ namespace uEN.UI
             set
             {
                 SetBrandColor(value);
-                this.SetBackingStore(Convert.ToString(value));
+                this.SetBackingStore(Convert.ToString(value), "BrandColor");
                 OnPropertyChanged();
             }
         }
@@ -157,16 +159,57 @@ namespace uEN.UI
 
         #endregion
 
+        #region AlternatingRowBackground
+
+        public bool UseAlternatingRowBackground
+        {
+            get
+            {
+                return (this.GetBackingStore("UseAlternatingRowBackground") as bool?).GetValueOrDefault();
+            }
+            set
+            {
+                this.SetBackingStore(value, "UseAlternatingRowBackground");
+            }
+        }
+        public void AlternatingRowBackgroundChanged()
+        {
+            if (UseAlternatingRowBackground)
+            {
+                var brand = BrandColor;
+                var brush = new SolidColorBrush(brand.Value) { Opacity = 0.2 };
+                AlternatingRowBackground = brush;
+            }
+            else
+            {
+                AlternatingRowBackground = Brushes.Transparent;
+            }
+        }
+        public Brush AlternatingRowBackground
+        {
+            get
+            {
+                if (!IsValid) return Brushes.Transparent;
+                return Application.Current.Resources["DataGrid.AlternatingRowBackgroundBrush"] as Brush;
+            }
+            set
+            {
+                if (!IsValid) return;
+                Application.Current.Resources["DataGrid.AlternatingRowBackgroundBrush"] = value;
+            }
+        }
+
+        #endregion
 
         #region AppStyle
 
         public AppStyle? Style
         {
-            get { return this.GetBackingStore() as AppStyle? ?? AppStyle.Modern; }
+            get { return this.GetBackingStore("Style") as AppStyle? ?? AppStyle.Modern; }
             set
             {
                 SetAppStyle(value);
-                this.SetBackingStore(value);
+                this.SetBackingStore(value, "Style");
                 OnPropertyChanged();
             }
         }
@@ -196,11 +239,11 @@ namespace uEN.UI
 
         public AppTheme? Theme
         {
-            get { return this.GetBackingStore() as AppTheme?; }
+            get { return this.GetBackingStore("Theme") as AppTheme?; }
             set
             {
                 SetAppTheme(value);
-                this.SetBackingStore(value);
+                this.SetBackingStore(value, "Theme");
                 OnPropertyChanged();
             }
         }

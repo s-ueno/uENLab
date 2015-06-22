@@ -96,7 +96,17 @@
     <SolidColorBrush x:Key="DataGridCell.IsReadOnlyBackground" Color="Transparent" />
 
 
+    <!--ScrollBar-->
+    <SolidColorBrush x:Key="ScrollBar.Thumb.Background" Color="{DynamicResource AppBrandColor}" Opacity="0.1"/>
+    <SolidColorBrush x:Key="ScrollBar.Thumb.Border" Color="#cccccc" />
+    <SolidColorBrush x:Key="ScrollBar.Thumb.BackgroundHover" Color="{DynamicResource AppBrandColor}" Opacity="0.2"/>
+    <SolidColorBrush x:Key="ScrollBar.Thumb.BackgroundDragging" Color="{DynamicResource AppBrandColor}" Opacity="0.4"/>
+    <SolidColorBrush x:Key="ScrollBar.Thumb.BorderBrushDragging" Color="{DynamicResource AppBrandColor}" />
 
+    <SolidColorBrush x:Key="ScrollBar.Button.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="ScrollBar.Button.Border" Color="Transparent" />
+    <SolidColorBrush x:Key="ScrollBar.Button.MouseOver.Foreground" Color="{DynamicResource AppBrandColor}" Opacity="0.5"/>
+    <SolidColorBrush x:Key="ScrollBar.Button.Pressed.Foreground" Color="{DynamicResource AppBrandColor}"/>
 
-
+    <SolidColorBrush x:Key="ScrollBar.Background" Color="{DynamicResource WindowThemeColor}" Opacity="0.5"/>
 </ResourceDictionary>

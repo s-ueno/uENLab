@@ -59,11 +59,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\AsyncAwaitAdapter.cs" />
     <Compile Include="Core\AuthenticationService.cs" />
     <Compile Include="Core\BizApplicationException.cs" />
     <Compile Include="Core\BackingStore.cs" />
     <Compile Include="Core\BizProxy.cs" />
     <Compile Include="Core\Crypto.cs" />
+    <Compile Include="Core\DataAnnotations\KanaAnnotationAttribute.cs" />
     <Compile Include="Core\DataAnnotations\RequiredAnnotationAttribute.cs" />
     <Compile Include="Core\DataAnnotations\IncludeCharAnnotationAttribute.cs" />
     <Compile Include="Core\DataAnnotations\MaxLengthAnnotationAttribute.cs" />
@@ -76,10 +78,12 @@
     <Compile Include="Core\ObjectDumper.cs" />
     <Compile Include="Core\ObjectShredder.cs" />
     <Compile Include="Core\DataAnnotations\RegexAnnotationAttribute.cs" />
+    <Compile Include="Core\PropertyInfoUtil.cs" />
     <Compile Include="Core\Singleton.cs" />
     <Compile Include="Core\BizWebService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,6 +99,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\AttachedProperties\AutoHideBehavior.cs" />
     <Compile Include="UI\AttachedProperties\PasswordBoxProxy.cs" />
     <Compile Include="UI\AttachedProperties\ScrollIntoViewProxy.cs" />
     <Compile Include="UI\AttachedProperties\SymbolButtonProxy.cs" />
@@ -119,6 +124,10 @@
     <Compile Include="UI\Binding\IRoutedEventPolicy.cs" />
     <Compile Include="UI\Binding\SimpleValueConverter.cs" />
     <Compile Include="UI\Binding\WaitCursorEventPolicy.cs" />
+    <Compile Include="UI\Controls\AdvancedOptionView.xaml.cs">
+      <DependentUpon>AdvancedOptionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\AdvancedOptionViewModel.cs" />
     <Compile Include="UI\Controls\BrandColorView.xaml.cs">
       <DependentUpon>BrandColorView.xaml</DependentUpon>
     </Compile>
@@ -127,6 +136,7 @@
     <Compile Include="UI\Controls\DialogWidget.xaml.cs">
       <DependentUpon>DialogWidget.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\ExtendedContainer.cs" />
     <Compile Include="UI\Controls\FontFamilyView.xaml.cs">
       <DependentUpon>FontFamilyView.xaml</DependentUpon>
     </Compile>
@@ -135,7 +145,11 @@
       <DependentUpon>FontSizeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\FontSizeViewModel.cs" />
+    <Compile Include="UI\Controls\GenericPresenter.xaml.cs">
+      <DependentUpon>GenericPresenter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Controls\ListContent.cs" />
+    <Compile Include="UI\Controls\MetroProgress.cs" />
     <Compile Include="UI\Controls\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -164,6 +178,8 @@
     <Compile Include="UI\VisualElementsAttribute.cs" />
     <Compile Include="Utils\BizUtils.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Utils\CopyCloneUtil.cs" />
+    <Compile Include="Utils\ExpressionExtensions.cs" />
     <Compile Include="Utils\Repository.cs" />
     <Compile Include="Utils\UIElementExtensions.cs" />
     <Compile Include="Utils\ViewModelExtensions.cs" />
@@ -184,9 +200,21 @@
     <Folder Include="UI\Infrastructure\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\Controls\AdvancedOptionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\Controls\DialogWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\GenericPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Controls\MetroProgress.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Controls\SimpleDataGridView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -250,6 +278,18 @@
     <Page Include="UI\Themes\Assets\Path.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Themes\Assets\ScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Themes\Assets\TabItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Themes\Assets\TextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Themes\Assets\TextBox.xaml">
       <SubType>Designer</SubType>

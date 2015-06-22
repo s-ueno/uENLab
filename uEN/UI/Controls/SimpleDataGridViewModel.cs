@@ -9,15 +9,25 @@ using System.Windows.Data;
 using uEN.Core;
 using uEN.UI;
 using uEN.UI.AttachedProperties;
+using uEN.UI.Controls;
 using uEN.UI.Validation;
 
-namespace uEN.UI.Controls
+namespace uEN.UI
 {
+    public interface ISimpleGrid : IDisposable
+    {
+        int FrozenColumnCount { get; set; }
+        DataGridSelectionMode SelectionMode { get; set; }
+        ListCollectionView GridSource { get; set; }
+        event EventHandler<System.EventArgs> DoubleClick;
+        object Current { get; }
+    }
+
     /// <summary>
     /// 
     /// </summary>
     [VisualElements(typeof(SimpleDataGridView))]
-    public class SimpleDataGridViewModel : BizViewModel
+    public class SimpleDataGridViewModel : BizViewModel, ISimpleGrid
     {
         public SimpleDataGridViewModel()
         {
@@ -54,5 +64,20 @@ namespace uEN.UI.Controls
         public DataGridSelectionMode SelectionMode { get; set; }
         public ListCollectionView GridSource { get; set; }
         public List<DataGridColumnAnnotationAttribute> ColumnAnnotation { get; set; }
+        public event EventHandler<EventArgs> DoubleClick;
+        public void SelectAction()
+        {
+            OnDoubleClick(new EventArgs());
+        }
+        protected void OnDoubleClick(EventArgs e)
+        {
+            if (DoubleClick != null)
+                DoubleClick(this, e);
+        }
+
+
+        public object Current { get { return GridSource.CurrentItem; } }
+
+
     }
 }

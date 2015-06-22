@@ -13,14 +13,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ListBox x:Name="ColorCollection" 
-                 attached:ScrollIntoViewProxy.IsEnabled="true">
+        <ListBox x:Name="ColorCollection">
+            <attached:ScrollIntoViewProxy.Instance>
+                <attached:ScrollIntoViewProxy />
+            </attached:ScrollIntoViewProxy.Instance>            
             <ListBox.Resources>
                 <uen:ColorToStringConverter x:Key="colorConvertor" />
-                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem} }">
-                    <Setter Property="Padding" Value="0" />
-                </Style>
             </ListBox.Resources>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Padding" Value="0" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"  Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource colorConvertor}}"

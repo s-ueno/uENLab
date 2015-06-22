@@ -19,7 +19,7 @@ namespace uEN.UI
         protected BizView()
         {
             DataContextChanged += OnBizViewDataContextChanged;
-            
+            BindingOperations.SetBinding(this, UIElement.IsEnabledProperty, new Binding("IsEnabled"));
         }
         protected virtual void OnBizViewDataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
@@ -33,10 +33,9 @@ namespace uEN.UI
             viewModel.View = this;
             BindingBehaviors = new BindingBehaviorCollection();
             BuildBinding();
-            foreach (var each in BindingBehaviors)
-            {
-                each.Ensure();
-            }
+
+            BindingBehaviors.EnsureBinding();
+
             viewModel.ApplyView();
 
             viewModel.PropertyChanged -= OnViewModelPropertyChanged;
@@ -98,7 +97,6 @@ namespace uEN.UI
             }
             return list;
         }
-
         public virtual void ThrowValidationError(string groupRegion = null)
         {
             var list = UpdateSource(groupRegion);
@@ -107,13 +105,14 @@ namespace uEN.UI
             if (firstError != null)
             {
                 var errorBinding = firstError.BindingInError as BindingExpression;
+
+                /* .Net 4.0
                 var pi = errorBinding.GetType().GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
                               .FirstOrDefault(x => x.Name == "Target");
                 var uiElements = pi.GetValue(errorBinding, null) as UIElement;
-                
-                
-                //var uiElements = errorBinding.Target as UIElement;
-                
+                */
+
+                var uiElements = errorBinding.Target as UIElement;
                 if (uiElements != null)
                 {
                     uiElements.Focus();

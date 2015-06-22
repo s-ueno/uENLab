@@ -29,6 +29,22 @@ namespace uEN.UI.Controls
         public SimpleDataGridView()
         {
             InitializeComponent();
+            PART_grid.SelectionUnit = DataGridSelectionUnit.FullRow;
+            PART_grid.MouseDoubleClick -= PART_grid_MouseDoubleClick;
+            PART_grid.MouseDoubleClick += PART_grid_MouseDoubleClick;
+        }
+
+        void PART_grid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var dataGrid = (DataGrid)sender;
+            var obj = e.OriginalSource as DependencyObject;
+            if (obj == null) return;
+
+            var parentIsRow = obj.FindVisualParent<DataGridRow>();
+            if (parentIsRow == null)
+            {
+                e.Handled = true;   
+            }
         }
 
         protected override void BuildBinding()
@@ -38,7 +54,10 @@ namespace uEN.UI.Controls
             builder.Element(PART_grid)
                    .Binding(DataGrid.FrozenColumnCountProperty, x => x.FrozenColumnCount)
                    .Binding(DataGrid.SelectionModeProperty, x => x.SelectionMode)
-                   .Binding(DataGrid.ItemsSourceProperty, x => x.GridSource);
+                   .Binding(DataGrid.ItemsSourceProperty, x => x.GridSource)
+                   .Binding(DataGrid.MouseDoubleClickEvent, x => x.SelectAction);
+
+
         }
 
         protected override void OnViewModelMessageNotify(object sender, MessageNotificationEventArgs e)
@@ -46,6 +65,8 @@ namespace uEN.UI.Controls
             if (e.Message == "GenerateColumns")
             {
                 PART_grid.BeginInit();
+                PART_grid.Columns.Clear();
+
                 var factory = Repository.GetPriorityExport<IDataGridColumnFactory>();
                 var atts = (IEnumerable<DataGridColumnAnnotationAttribute>)e.UserState;
                 foreach (var each in atts.OrderBy(x => x.Idntity))

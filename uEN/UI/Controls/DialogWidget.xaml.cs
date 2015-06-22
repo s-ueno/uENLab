@@ -70,7 +70,7 @@ namespace uEN.UI.Controls
                 ViewTransition.Play(Container, TransitionStyle.SlideOut,
                     new Action(() => Container.Visibility = System.Windows.Visibility.Hidden));
             }
-            vm.Close();
+            vm.Collapse();
         }
 
 

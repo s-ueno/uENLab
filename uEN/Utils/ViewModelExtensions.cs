@@ -57,9 +57,8 @@ namespace uEN.UI
         }
         public static void ShowMessage<T>(this T vm, string title, string message, params MessageDialogHelper.Command[] commands) where T : BizViewModel
         {
-            var helper = new MessageDialogHelper(vm.View as DependencyObject);
+            var helper = MessageDialogHelper.Create(Window.GetWindow(vm.View), vm.View);
             helper.Show(title, message, commands);
         }
-
     }
 }

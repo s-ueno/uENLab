@@ -25,6 +25,7 @@ namespace uEN.Core
 
 
         [WebMethod]
+        [ExtractSoapExtension]
         public virtual byte[] Execute(string typeName, byte[] request)
         {
             var facade = Repository.GetPriorityExport(typeName) as IBizServiceFacade;
@@ -48,10 +49,18 @@ namespace uEN.Core
         }
     }
 
-    [Export(typeof(BizWebServiceClientProtocol))]
+    public interface IBizWebServiceClientInvoker
+    {
+        byte[] Execute(string typeName, byte[] request);
+        void ExecuteAsync(string commandTypeName, byte[] request, SendOrPostCallback callback, object userState = null);
+    }
+
+
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [Export(typeof(IBizWebServiceClientInvoker))]
     [ExportMetadata(Repository.Priority, int.MaxValue)]
     [WebServiceBindingAttribute(Name = "XmlBizWebService", Namespace = "http://tempuri.org/")]
-    public class BizWebServiceClientProtocol : SoapHttpClientProtocol
+    public class BizWebServiceClientProtocol : SoapHttpClientProtocol, IBizWebServiceClientInvoker
     {
         private readonly string DefaultUrl = BizUtils.AppSettings("BizWebServiceClient.Url", "");
         private readonly int DefaultTimeOut = BizUtils.AppSettings("BizWebServiceClient.TimeOut", 1000 * 6);
@@ -65,16 +74,11 @@ namespace uEN.Core
                     CookieContainer.DefaultCookieLimit * 10,
                     CookieContainer.DefaultPerDomainCookieLimit * 10,
                     CookieContainer.DefaultCookieLengthLimit * 10);
-
             this.Timeout = DefaultTimeOut;
-
-
-            foreach (var each in BizUtils.AdditionalInfo.Keys)
-            {
-                SetCookie(each, BizUtils.AdditionalInfo[each]);
-            }
+            SetCookie();
         }
 
+        [ExtractSoapExtension]
         [SoapDocumentMethodAttribute("http://tempuri.org/Execute",
             RequestNamespace = "http://tempuri.org/",
             ResponseNamespace = "http://tempuri.org/",
@@ -82,20 +86,41 @@ namespace uEN.Core
             ParameterStyle = SoapParameterStyle.Wrapped)]
         public byte[] Execute(string typeName, byte[] request)
         {
-            object[] results = this.Invoke("Execute", new object[] { typeName, request });
+            object[] results;
+            try
+            {
+                results = this.Invoke("Execute", new object[] { typeName, request });
+            }
+            catch (SoapException ex)
+            {
+                if (ex.InnerException != null)
+                    throw ex.InnerException;
+                throw;
+            }
             return ((byte[])(results[0]));
         }
 
+        [ExtractSoapExtension]
         public void ExecuteAsync(string commandTypeName, byte[] request, SendOrPostCallback callback, object userState = null)
         {
             this.InvokeAsync("Execute", new object[] { commandTypeName, request }, callback, userState);
         }
-
+        private void SetCookie()
+        {
+            foreach (var each in BizUtils.AdditionalInfo.Keys)
+            {
+                SetCookie(each, BizUtils.AdditionalInfo[each]);
+            }
+        }
         public void SetCookie(string key, string value)
         {
+            if (string.IsNullOrWhiteSpace(this.Url))
+            {
+                Trace.TraceWarning("BizWebServiceClientProtocol.SetCookie...URL が無効です。");
+                return;
+            }
             CookieContainer.Add(new Uri(this.Url), new Cookie(key, HttpUtility.UrlEncode(value)));
         }
-
     }
 
     public class BizWebServiceTypeNameAttribute : Attribute
@@ -127,9 +152,9 @@ namespace uEN.Core
         public String TypeName { get; private set; }
 
 
-        public TResponse Execute(TRequest request)
+        public virtual TResponse Execute(TRequest request)
         {
-            var clientProtocol = Repository.GetPriorityExport<BizWebServiceClientProtocol>();
+            var clientProtocol = Repository.GetPriorityExport<IBizWebServiceClientInvoker>();
 
             var serializedRequest = request.ToByteSerialize();
             var result = clientProtocol.Execute(TypeName, serializedRequest);
@@ -138,9 +163,9 @@ namespace uEN.Core
         }
 
 
-        public void ExecuteAsync(TRequest request, Action<TResponse> callback = null)
+        public virtual void ExecuteAsync(TRequest request, Action<TResponse> callback = null)
         {
-            var clientProtocol = Repository.GetPriorityExport<BizWebServiceClientProtocol>();
+            var clientProtocol = Repository.GetPriorityExport<IBizWebServiceClientInvoker>();
 
             var serializedRequest = request.ToByteSerialize();
 

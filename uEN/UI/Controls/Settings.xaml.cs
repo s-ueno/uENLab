@@ -33,25 +33,28 @@ namespace uEN.UI.Controls
         {
             base.OnApplyTemplate();
 
-            var list = ConfigurationManager.GetSection("Settings.ViewModel") as NameValueCollection;
-            foreach (var each in list.AllKeys)
+            if (!settingTypes.Any())
             {
-                var type = LoadType(each);
-                if (type != null)
+                var list = ConfigurationManager.GetSection("Settings.ViewModel") as NameValueCollection;
+                foreach (var each in list.AllKeys)
                 {
-                    settingTypes.Add(type);
+                    var type = LoadType(each);
+                    if (type != null)
+                    {
+                        settingTypes.Add(type);
+                    }
                 }
             }
-
             var viewModels = settingTypes.Select(x => CreateViewModel(x))
-                             .Where(x => x != null)
-                             .ToArray();
+                                         .Where(x => x != null)
+                                         .ToArray();
             IconButton.Click -= IconButton_Click;
             IconButton.Click += IconButton_Click;
             SettingViewModels.ItemsSource = viewModels;
             SettingViewModels.DisplayMemberPath = "Description";
             SettingViewModels.SelectionChanged -= SettingViewModels_SelectionChanged;
             SettingViewModels.SelectionChanged += SettingViewModels_SelectionChanged;
+
         }
         private static Type LoadType(string s)
         {
@@ -74,6 +77,7 @@ namespace uEN.UI.Controls
             }
             catch (Exception ex)
             {
+                BizUtils.TraceError(ex);
             }
             return vm;
         }
@@ -102,7 +106,7 @@ namespace uEN.UI.Controls
 
                 Caption.Text = "Settings";
                 ViewTransition.Play(Caption, TransitionStyle.Slide);
-                ViewTransition.Play(SettingViewModels, TransitionStyle.Slide);
+                ViewTransition.Play(SettingViewModels, TransitionStyle.Slide, () => SettingViewModels.Focus());
             }
             else
             {
@@ -117,7 +121,10 @@ namespace uEN.UI.Controls
                 ViewModelPresenter.Content = vm;
                 ViewTransition.Play(ViewModelPresenter, TransitionStyle.Slide);
                 ViewTransition.Play(Caption, TransitionStyle.Slide,
-                    () => SettingViewModels.SelectedIndex = -1);
+                    () =>
+                    {
+                        SettingViewModels.SelectedIndex = -1;
+                    });
             }
         }
     }

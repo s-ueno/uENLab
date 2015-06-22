@@ -82,62 +82,52 @@ namespace uEN.UI.AttachedProperties
             return storyboard;
         }
 
+        //private static readonly double slideAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.SlideAnimationTimeSpan", 0.2d);
+        //private static readonly double opacityAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.OpacityAnimationTimeSpan", 0.3d);
+        private static readonly double slideAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.SlideAnimationTimeSpan", 0.15d);
+        private static readonly double opacityAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.OpacityAnimationTimeSpan", 0.2d);
+        private static readonly double SlideMargin = BizUtils.AppSettings("ViewTransition.Margin", 30d);
+
         private static Storyboard CreateSlideStoryboard(bool isFadeIn = true)
         {
-            var storyboard = new Storyboard();
-
-            var fromThickness = isFadeIn ? new Thickness(30, 0, -30, 0) : new Thickness(0);
-            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(30, 0, -30, 0);
-
-            var slideAnimation = new ThicknessAnimation();
-            slideAnimation.From = fromThickness;
-            slideAnimation.To = toThickness;
-            slideAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
-
-            Storyboard.SetTargetProperty(slideAnimation, new PropertyPath(FrameworkElement.MarginProperty));
-            storyboard.Children.Add(slideAnimation);
-
+            var fromThickness = isFadeIn ? new Thickness(SlideMargin, 0, -SlideMargin, 0) : new Thickness(0);
+            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(SlideMargin, 0, -SlideMargin, 0);
             var fromOpacity = isFadeIn ? 0 : 1;
             var toOpacity = isFadeIn ? 1 : 0;
 
-            var opacityAnimation = new DoubleAnimation();
-            opacityAnimation.From = fromOpacity;
-            opacityAnimation.To = toOpacity;
-            opacityAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
-            Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(FrameworkElement.OpacityProperty));
-            storyboard.Children.Add(opacityAnimation);
-
-            return storyboard;
+            return CreateSlideStoryboard(fromThickness, toThickness, fromOpacity, toOpacity);
         }
 
         private static Storyboard CreateVerticalSlideStoryboard(bool isFadeIn = true)
         {
+            var fromThickness = isFadeIn ? new Thickness(0, SlideMargin, 0, -SlideMargin) : new Thickness(0);
+            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(0, SlideMargin, 0, -SlideMargin);
+            var fromOpacity = isFadeIn ? 0 : 1;
+            var toOpacity = isFadeIn ? 1 : 0;
+
+            return CreateSlideStoryboard(fromThickness, toThickness, fromOpacity, toOpacity);
+        }
+
+        public static Storyboard CreateSlideStoryboard(Thickness fromThickness, Thickness toThickness, double fromOpacity, double toOpacity, double? slideTimeSpan = null, double? opacityTimeSpan = null)
+        {
             var storyboard = new Storyboard();
-
-            var fromThickness = isFadeIn ? new Thickness(0, 30, 0, -30) : new Thickness(0);
-            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(0, 30, 0, -30);
-
 
             var slideAnimation = new ThicknessAnimation();
             slideAnimation.From = fromThickness;
             slideAnimation.To = toThickness;
-            slideAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
+            slideAnimation.Duration = new Duration(TimeSpan.FromSeconds(slideTimeSpan ?? slideAnimationTimeSpan));
 
             Storyboard.SetTargetProperty(slideAnimation, new PropertyPath(FrameworkElement.MarginProperty));
             storyboard.Children.Add(slideAnimation);
 
-            var fromOpacity = isFadeIn ? 0 : 1;
-            var toOpacity = isFadeIn ? 1 : 0;
-
             var opacityAnimation = new DoubleAnimation();
             opacityAnimation.From = fromOpacity;
             opacityAnimation.To = toOpacity;
-            opacityAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
+            opacityAnimation.Duration = new Duration(TimeSpan.FromSeconds(opacityTimeSpan ?? opacityAnimationTimeSpan));
             Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(FrameworkElement.OpacityProperty));
             storyboard.Children.Add(opacityAnimation);
 
             return storyboard;
         }
-
     }
 }
