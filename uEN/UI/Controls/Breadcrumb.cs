@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using uEN.Core;
 using uEN.UI.AttachedProperties;
+using uEN.UI.Controls;
 
 namespace uEN.UI.Controls
 {
@@ -54,9 +56,18 @@ namespace uEN.UI.Controls
     [Export(typeof(Breadcrumb))]
     public class Breadcrumb : ItemsControl
     {
+
         static Breadcrumb()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Breadcrumb), new FrameworkPropertyMetadata(typeof(Breadcrumb)));
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            HomeButton = Template.FindName("HomeButton", this) as Button;
+            NewWindowButton = Template.FindName("NewWindowButton", this) as Button;
         }
 
         #region Use
@@ -85,14 +96,6 @@ namespace uEN.UI.Controls
 
         #endregion
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-
-            HomeButton = Template.FindName("HomeButton", this) as Button;
-            NewWindowButton = Template.FindName("NewWindowButton", this) as Button;
-        }
-
         #region HomeButton
 
         public Button HomeButton
@@ -108,11 +111,15 @@ namespace uEN.UI.Controls
                 }
             }
         }
+
         private Button _homeButton;
         private void OnHomeButtonClick(object sender, RoutedEventArgs e)
         {
+
             GoHome();
         }
+
+        private bool IsCreatingNewWIndow;
 
         #endregion
 
@@ -132,16 +139,38 @@ namespace uEN.UI.Controls
             }
         }
         private Button _newWindowButton;
+
+        public static readonly RoutedEvent NewWindowCreationEvent = EventManager.RegisterRoutedEvent("NewWindowCreation"
+            , RoutingStrategy.Bubble, typeof(GeneralRoutedEventHandler), typeof(Breadcrumb));
+
         void OnNewWindowButtonClick(object sender, RoutedEventArgs e)
         {
-            var content = GetMainContent(this);
-            GoBack();
+            try
+            {
+                IsCreatingNewWIndow = true;
+                var content = GetMainContent(this);
+                GoBack();
 
-            var window = new Window();
-            window.SetResourceReference(Window.StyleProperty, "ChildWndowStyle");
-            window.ContentTemplateSelector = Repository.GetPriorityExport<ViewDataTemplateSelector>();
-            window.Content = content;
-            window.Show();
+                var window = new Window();
+
+                this.RaiseEvent(new GeneralRoutedEventArgs(window) { RoutedEvent = NewWindowCreationEvent });
+
+                var vm = content as BizViewModel;
+                if (vm != null)
+                {
+                    vm.IsWindowContent = true;
+                    vm.UpdateSource();
+                }
+
+                Keyboard.ClearFocus();
+
+                window.SetResourceReference(Window.StyleProperty, "ChildWndowStyle");
+                window.ContentTemplateSelector = Repository.GetPriorityExport<ViewDataTemplateSelector>();
+                window.Content = content;
+
+                window.Show();
+            }
+            finally { IsCreatingNewWIndow = false; }
         }
 
         #endregion
@@ -168,9 +197,14 @@ namespace uEN.UI.Controls
         {
             return obj.GetValue(MainContentProperty);
         }
+
+        public event EventHandler Navigated;
         public static void SetMainContent(DependencyObject obj, object value)
         {
             obj.SetValue(MainContentProperty, value);
+            var b = obj as Breadcrumb;
+            if (b.Navigated != null)
+                b.Navigated(value, EventArgs.Empty);
         }
         public static readonly DependencyProperty MainContentProperty =
             DependencyProperty.RegisterAttached("MainContent", typeof(object), typeof(Breadcrumb), new PropertyMetadata(null));
@@ -179,13 +213,15 @@ namespace uEN.UI.Controls
 
         public virtual void GoForward(BizViewModel viewModel, string caption = null)
         {
+            if (RaiseMoving().Cancel)
+                return;
             if (Container.Content != this)
             {
                 var button = new Button();
-                button.SetValue(MainContentProperty, new WeakReference(Container.Content));
+                button.SetValue(MainContentProperty, Container.Content);
                 button.SetResourceReference(Button.StyleProperty, "ModernButtonStyle");
                 button.Content = "Home";
-                button.Click += (sender, e) => GoHome();
+                button.Click += (sender, ex) => GoHome();
                 Items.Add(button);
 
                 Container.Content = this;
@@ -203,6 +239,22 @@ namespace uEN.UI.Controls
             AddItem(CreateArrowPath(), false);
             AddItem(CreateTextBlock(newDescription));
             SetMainContent(this, viewModel);
+        }
+
+        private CancelRoutedEventArgs RaiseMoving()
+        {
+            var e = new CancelRoutedEventArgs(MovingEvent, this);
+            if (!IsCreatingNewWIndow)
+                this.RaiseEvent(e);
+            return e;
+        }
+        public static readonly RoutedEvent MovingEvent =
+            EventManager.RegisterRoutedEvent("Moving", RoutingStrategy.Bubble,
+            typeof(CancelRoutedEventHandler), typeof(Breadcrumb));
+        public event CancelRoutedEventHandler Moving
+        {
+            add { AddHandler(MovingEvent, value); }
+            remove { RemoveHandler(MovingEvent, value); }
         }
 
         protected virtual FrameworkElement CreateArrowPath()
@@ -231,45 +283,58 @@ namespace uEN.UI.Controls
         protected virtual FrameworkElement CreateButton(string description)
         {
             var button = new Button();
-            button.SetValue(MainContentProperty, new WeakReference(GetMainContent(this)));
+            button.SetValue(MainContentProperty, GetMainContent(this));
             button.SetResourceReference(Button.StyleProperty, "ModernButtonStyle");
             button.Content = description;
-            button.Click += (sender, e) =>
+
+            button.Click += (sender, ex) =>
             {
-                var b = (Button)sender;
-                var index = Items.IndexOf(b);
+                var vm = GetMainContent(this) as BizViewModel;
+                var isHome = Items.Count == 0;
+
+                if (RaiseMoving().Cancel)
+                    return;
+
+                var text = button.Content as string;
+                var clicked = (Button)sender;
+                var index = Items.IndexOf(clicked);
                 foreach (var each in Items.OfType<DependencyObject>().Skip(index).ToArray())
                 {
                     Items.Remove(each);
                 }
-                var weakRef = (WeakReference)b.GetValue(MainContentProperty);
-                SetMainContent(this, weakRef.Target);
-                AddItem(CreateTextBlock(button.Content as string));
+                SetMainContent(this, clicked.GetValue(MainContentProperty));
+                AddItem(CreateTextBlock(text));
             };
-
             return button;
         }
 
-        public virtual BizViewModel GoBack()
+        public virtual void GoBack()
         {
+            if (!Items.OfType<Button>().Any())
+                return;
+            var vm = GetMainContent(this) as BizViewModel;
+
+            if (RaiseMoving().Cancel)
+                return;
+
             var button = Items.OfType<Button>().LastOrDefault();
             if (button != null)
             {
                 button.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
-            return GetMainContent(this) as BizViewModel;
         }
 
-        public virtual BizViewModel GoHome()
+        public virtual void GoHome()
         {
             var homeButton = Items.OfType<Button>().FirstOrDefault();
             if (homeButton == null)
-                return null;
+                return;
+            if (RaiseMoving().Cancel)
+                return;
 
-            var weakRef = (WeakReference)homeButton.GetValue(MainContentProperty);
-            SetMainContent(this, Container.Content = weakRef.Target);
+            var vm = GetMainContent(this) as BizViewModel;
+            SetMainContent(this, Container.Content = homeButton.GetValue(MainContentProperty));
             Items.Clear();
-            return Container.Content as BizViewModel;
         }
 
         protected virtual void AddItem(FrameworkElement element, bool isSlideAnimation = true, bool isFadeAnimation = true)
@@ -313,3 +378,4 @@ namespace uEN.UI.Controls
 
     }
 }
+

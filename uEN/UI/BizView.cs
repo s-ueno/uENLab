@@ -19,7 +19,28 @@ namespace uEN.UI
         protected BizView()
         {
             DataContextChanged += OnBizViewDataContextChanged;
-            BindingOperations.SetBinding(this, UIElement.IsEnabledProperty, new Binding("IsEnabled"));
+            Unloaded += BizView_Unloaded;
+        }
+
+        void BizView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            var viewModel = DataContext as BizViewModel;
+            if (viewModel != null)
+            {
+                ViewViewModelEventUnRegister(viewModel);
+            }
+            if (BindingBehaviors != null)
+                BindingBehaviors.Dispose();
+
+            BindingBehaviors = null;
+        }
+        //Viewが要素ツリーから削除（画面上に表示不要）となっただけで、ViewModelは独立して存在する。
+        //ViewはWPFエンジンによって生成もすれば破棄もする。
+        //ただし、固のインスタンスされたView-ViewModelのイベントをここで破棄する。
+        protected virtual void ViewViewModelEventUnRegister(BizViewModel viewModel)
+        {
+            viewModel.PropertyChanged -= OnViewModelPropertyChanged;
+            viewModel.MessageNotify -= OnViewModelMessageNotify;
         }
         protected virtual void OnBizViewDataContextChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
@@ -76,7 +97,10 @@ namespace uEN.UI
 
         protected virtual BindingBehaviorBuilder<T> CreateBindingBuilder<T>() where T : BizViewModel
         {
-            return new BindingBehaviorBuilder<T>(this);
+            var ret = new BindingBehaviorBuilder<T>(this);
+            ret.Element(this).Binding(NavigationAggregator.NavigatingEvent, x => x.NavigatingActionInternal);
+            ret.Element(this).Binding(UIElement.IsEnabledProperty, x => x.IsEnabled);
+            return ret;
         }
 
         public virtual IEnumerable<DependencyPropertyBehavior> UpdateSource(string groupRegion = null)
@@ -121,7 +145,5 @@ namespace uEN.UI
             }
 
         }
-
-
     }
 }

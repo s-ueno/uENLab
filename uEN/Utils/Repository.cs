@@ -71,7 +71,7 @@ namespace uEN
             return type;
         }
 
-        private static CompositionContainer container;
+        public static CompositionContainer container;
         public static void Compose(this object obj)
         {
             container.ComposeParts(obj);

@@ -20,7 +20,25 @@ namespace uEN.UI
             var vmr = Repository.GetPriorityExport<ViewModelWeakReference>();
             vmr.Push(this);
         }
+        public bool IsWindowContent { get; set; }
+        public Window GetWindow()
+        {
+            Window window = null;
+            if (this.View != null)
+                window = Window.GetWindow(this.View);
+            if (window != null)
+                return window;
+            if (Application.Current != null)
+                return Application.Current.MainWindow;
+            return null;
+        }
 
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            set { SetProperty(ref _isEnabled, value, "IsEnabled"); }
+        }
+        private bool _isEnabled = true;
         private VisualElementsAttribute visualElements;
         public VisualElementsAttribute VisualElements
         {
@@ -216,7 +234,6 @@ namespace uEN.UI
             return string.IsNullOrWhiteSpace(Description) ? base.ToString() : Description;
         }
 
-        public event EventHandler Collapsed;
         public void Collapse()
         {
             var view = this.View;
@@ -224,8 +241,6 @@ namespace uEN.UI
             {
                 view.SetCurrentValue(BizView.VisibilityProperty, Visibility.Collapsed);
             }
-            if (Collapsed != null)
-                Collapsed(this, new EventArgs());
         }
         public void UnCollapse()
         {
@@ -235,41 +250,19 @@ namespace uEN.UI
                 view.SetCurrentValue(BizView.VisibilityProperty, Visibility.Visible);
             }
         }
-
-        public event CancelEventHandler Closing;
-        public event EventHandler Closed;
         public void Close()
         {
-            if (IsClosed)
-                return;
-
-            var e = new CancelEventArgs();
-            OnClosing(this, e);
-
-            if (e.Cancel)
-                return;
-
-            Collapse();
-            this.View.BindingBehaviors.Clear();
-            this.View = null;
-            IsClosed = true;
-
-            if (Closed != null)
-                Closed(this, new EventArgs());
-            return;
-        }
-        protected internal bool IsClosed = false;
-        protected internal virtual void OnClosing(object sender, CancelEventArgs e)
-        {
-            if (Closing != null)
-                Closing(sender, e);
+            var w = this.GetWindow();
+            if (w != null)
+                w.Close();
+            else
+                this.Collapse();
         }
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         protected virtual void Dispose(bool disposing)
         {
             if (disposed)
@@ -277,7 +270,7 @@ namespace uEN.UI
 
             if (disposing)
             {
-                Close();
+                this.View = null;
 
                 var vmr = Repository.GetPriorityExport<ViewModelWeakReference>();
                 vmr.Pop(this);
@@ -286,6 +279,21 @@ namespace uEN.UI
         }
         bool disposed = false;
 
+        public void ShowChildWindow(Action<Window> preAction = null, Action<Window> postAction = null)
+        {
+            var window = new Window();
+            window.SetResourceReference(Window.StyleProperty, "ChildWndowStyle");
+            window.ContentTemplateSelector = Repository.GetPriorityExport<ViewDataTemplateSelector>();
+            window.Content = this;
+
+            if (preAction != null)
+                preAction(window);
+
+            window.Show();
+
+            if (postAction != null)
+                postAction(window);
+        }
 
         /// <summary>
         /// メッセージキューを処理します。
@@ -320,6 +328,12 @@ namespace uEN.UI
             vm.EnsureItemsSource(source);
             return vm;
         }
+
+        internal void NavigatingActionInternal(RoutedEventArgs e)
+        {
+            NavigatingAction(e as NavigatingEventArgs);
+        }
+        public virtual void NavigatingAction(NavigatingEventArgs e) { }
     }
 
     public class MessageNotificationEventArgs : EventArgs

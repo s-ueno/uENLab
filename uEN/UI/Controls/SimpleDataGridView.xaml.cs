@@ -54,7 +54,7 @@ namespace uEN.UI.Controls
             builder.Element(PART_grid)
                    .Binding(DataGrid.FrozenColumnCountProperty, x => x.FrozenColumnCount)
                    .Binding(DataGrid.SelectionModeProperty, x => x.SelectionMode)
-                   .Binding(DataGrid.ItemsSourceProperty, x => x.GridSource)
+                   .Binding(DataGrid.ItemsSourceProperty, x => x.GridSource).IsAsync()
                    .Binding(DataGrid.MouseDoubleClickEvent, x => x.SelectAction);
 
 

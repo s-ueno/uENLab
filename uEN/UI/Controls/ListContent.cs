@@ -108,17 +108,12 @@ namespace uEN.UI.Controls
             {
                 if (this.titleContent != null)
                 {
-                    titleContent.SelectionChanged -= titleContent_SelectionChanged;
-                    //this.titleContent.ClearValue(CancelSelectionBehavior.TargetProperty);
-                    //this.titleContent.ClearValue(CancelSelectionBehavior.IsEnabledProperty);
+                    var notifiable = titleContent.Items as INotifyCollectionChanged;
+                    if (notifiable != null)
+                        notifiable.CollectionChanged -= notifiable_CollectionChanged;
                 }
+
                 titleContent = value;
-                if (this.titleContent != null)
-                {
-                    titleContent.SelectionChanged += titleContent_SelectionChanged;
-                    //CancelSelectionBehavior.SetIsEnabled(this.titleContent, true);
-                    //CancelSelectionBehavior.SetTarget(this.titleContent, this);
-                }
 
                 if (value != null)
                 {
@@ -130,36 +125,6 @@ namespace uEN.UI.Controls
                     }
                 }
             }
-        }
-
-        public event CancelEventHandler Moving;
-        bool isInternalCall = false;
-        void titleContent_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (isInternalCall)
-                return;
-
-            var newItem = e.AddedItems.OfType<object>().FirstOrDefault();
-            var oldItem = e.RemovedItems.OfType<object>().FirstOrDefault();
-
-            if (Moving != null)
-            {
-                isInternalCall = true;
-                titleContent.SelectedItem = oldItem;
-                isInternalCall = false;
-                var c = new CancelEventArgs();
-                Moving(this, c);
-                if (!c.Cancel)
-                {
-                    isInternalCall = true;
-                    titleContent.SelectedItem = newItem;
-                    isInternalCall = false;
-
-                }
-
-            }
-
-
         }
         private ListBox titleContent;
         void notifiable_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

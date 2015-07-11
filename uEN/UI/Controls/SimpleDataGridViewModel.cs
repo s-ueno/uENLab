@@ -53,7 +53,6 @@ namespace uEN.UI
                     }
                 }
             }
-            OnMessageNotify("GenerateColumns", ColumnAnnotation);
             UpdateTarget();
         }
         public override void LoadedView()

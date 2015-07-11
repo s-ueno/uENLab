@@ -12,7 +12,7 @@ using System.Windows.Input;
 namespace uEN.UI.DataBinding
 {
 
-    public class BindingBehaviorCollection : List<IBindingBehavior>
+    public class BindingBehaviorCollection : List<IBindingBehavior>, IDisposable
     {
         public IEnumerable<T> ListBehaviors<T>(string groupRegion) where T : IBindingBehavior
         {
@@ -43,11 +43,21 @@ namespace uEN.UI.DataBinding
             }
         }
 
+        
+
         public void EnsureBinding()
         {
             foreach (var each in this)
             {
                 each.Ensure();
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var each in this)
+            {
+                
             }
         }
     }

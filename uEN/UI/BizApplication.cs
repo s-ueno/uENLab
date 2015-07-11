@@ -31,8 +31,8 @@ namespace uEN.UI
             var window = new Window();
             window.Content = mainViewModel;
             window.ContentTemplateSelector = new ViewDataTemplateSelector();
-            window.Closing += mainViewModel.OnClosing;
 
+            mainViewModel.IsWindowContent = true;
 
             Initialize(window, mainViewModel);
             Run(window);

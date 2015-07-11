@@ -151,16 +151,50 @@ namespace uEN.UI.DataBinding
                 return BindingExpression.ValidationErrors;
             }
         }
+
+        public event EventHandler<System.EventArgs> UpdatingSource;
         public virtual void UpdateSource()
         {
             if (BindingExpression == null) return;
+            if (UpdatingSource != null)
+                UpdatingSource(this, new EventArgs());
             BindingExpression.UpdateSource();
         }
+
+        public event EventHandler<System.EventArgs> UpdatingTarget;
         public virtual void UpdateTarget()
         {
             if (BindingExpression == null) return;
+            if (UpdatingTarget != null)
+                UpdatingTarget(this, new EventArgs());
             BindingExpression.UpdateTarget();
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                if (Element != null && DependencyProperty != null)
+                    BindingOperations.ClearBinding(Element, DependencyProperty);
+
+                Element = null;
+                LambdaExpression = null;
+                ViewModel = null;
+                Attributes = null;
+                Binding = null;
+                BindingExpression = null;
+            }
+            disposed = true;
+        }
+        bool disposed = false;
 
     }
 

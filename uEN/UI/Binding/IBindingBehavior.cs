@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace uEN.UI.DataBinding
 {
-    public interface IBindingBehavior
+    public interface IBindingBehavior : IDisposable
     {
         object ViewModel { get; set; }
         DependencyObject Element { get; set; }

@@ -61,8 +61,8 @@
   <ItemGroup>
     <Compile Include="Core\AsyncAwaitAdapter.cs" />
     <Compile Include="Core\AuthenticationService.cs" />
-    <Compile Include="Core\BizApplicationException.cs" />
     <Compile Include="Core\BackingStore.cs" />
+    <Compile Include="Core\BizApplicationException.cs" />
     <Compile Include="Core\BizProxy.cs" />
     <Compile Include="Core\Crypto.cs" />
     <Compile Include="Core\DataAnnotations\KanaAnnotationAttribute.cs" />
@@ -99,9 +99,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\AggregateNavigation\ListContentNavigation.cs" />
+    <Compile Include="UI\AggregateNavigation\NavigatingEvent.cs" />
+    <Compile Include="UI\AggregateNavigation\NavigationAggregator.cs" />
+    <Compile Include="UI\AggregateNavigation\WindowNavigation.cs" />
     <Compile Include="UI\AttachedProperties\AutoHideBehavior.cs" />
     <Compile Include="UI\AttachedProperties\PasswordBoxProxy.cs" />
     <Compile Include="UI\AttachedProperties\ScrollIntoViewProxy.cs" />
+    <Compile Include="UI\AttachedProperties\SelectionChangingBehavior.cs" />
+    <Compile Include="UI\AttachedProperties\StarMarkBehavior.cs" />
     <Compile Include="UI\AttachedProperties\SymbolButtonProxy.cs" />
     <Compile Include="UI\AttachedProperties\SymbolTextBoxProxy.cs" />
     <Compile Include="UI\AttachedProperties\TextInput\TextInputAnnotation.cs" />
@@ -124,6 +130,7 @@
     <Compile Include="UI\Binding\IRoutedEventPolicy.cs" />
     <Compile Include="UI\Binding\SimpleValueConverter.cs" />
     <Compile Include="UI\Binding\WaitCursorEventPolicy.cs" />
+    <Compile Include="UI\CancelRoutedEventArgs.cs" />
     <Compile Include="UI\Controls\AdvancedOptionView.xaml.cs">
       <DependentUpon>AdvancedOptionView.xaml</DependentUpon>
     </Compile>
@@ -168,6 +175,7 @@
     <Compile Include="UI\BizViewModel.cs" />
     <Compile Include="UI\AttachedProperties\TextInput\TextInputTextChangedWrapper.cs" />
     <Compile Include="Core\DataAnnotations\DataGridColumnAnnotationAttribute.cs" />
+    <Compile Include="UI\GeneralRoutedEvent.cs" />
     <Compile Include="UI\MessageDialogHelper.cs" />
     <Compile Include="UI\Symbols.cs" />
     <Compile Include="UI\Themes\ThemeManager.cs" />

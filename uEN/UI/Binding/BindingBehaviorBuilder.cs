@@ -102,7 +102,7 @@ namespace uEN.UI.DataBinding
             current.BindingPolicy.FallbackValue = value;
             return this;
         }
-        public BindingBehaviorBuilder<T> IsAsync(bool value)
+        public BindingBehaviorBuilder<T> IsAsync(bool value = true)
         {
             var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
             current.BindingPolicy.IsAsync = value;
