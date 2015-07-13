@@ -39,11 +39,11 @@ namespace uEN.UI.DataBinding
                 foreach (var child in each.ValidationErrors)
                 {
                     yield return child;
-                }   
+                }
             }
         }
 
-        
+
 
         public void EnsureBinding()
         {
@@ -55,10 +55,23 @@ namespace uEN.UI.DataBinding
 
         public void Dispose()
         {
-            foreach (var each in this)
-            {
-                
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                foreach (var each in this)
+                {
+                    each.Dispose();
+                }
+            }
+            disposed = true;
+        }
+        bool disposed = false;
     }
 }
