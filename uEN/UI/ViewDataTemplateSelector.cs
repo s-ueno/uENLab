@@ -117,12 +117,6 @@ namespace uEN.UI
                 {
                     Collection.Remove(each);
                 }
-
-                var target = each.Target as BizViewModel;
-                if (target != null && target.IsClosed)
-                {
-                    Collection.Remove(each);
-                }
             }
         }
 

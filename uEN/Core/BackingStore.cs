@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -22,6 +23,11 @@ namespace uEN.Core
                 appStore.CreateDirectory(directoryPath);
             }
 
+            if (value == null)
+            {
+                Trace.TraceInformation(string.Format("value is NULL. SetBackingStore -> {0}", Path.Combine(directoryPath, key)));
+                return;
+            }
             using (var stream = new IsolatedStorageFileStream(Path.Combine(directoryPath, key), FileMode.OpenOrCreate, appStore))
             {
                 var formatter = new BinaryFormatter();
@@ -40,15 +46,22 @@ namespace uEN.Core
             object result = null;
             try
             {
-                using (var stream = new IsolatedStorageFileStream(Path.Combine(directoryPath, key), FileMode.OpenOrCreate, appStore))
+                var path = Path.Combine(directoryPath, key);
+                using (var stream = new IsolatedStorageFileStream(path, FileMode.OpenOrCreate, appStore))
                 {
+                    if (stream.Length == 0)
+                    {
+                        Trace.TraceInformation(string.Format("item is null. GetBackingStore -> {0}", path));
+                        return result;
+                    }
                     var formatter = new BinaryFormatter();
                     result = formatter.Deserialize(stream);
                 }
             }
             catch (Exception ex)
             {
-
+                Trace.TraceInformation(ex.Message);
+                //Trace.TraceError(ex.ToString());
             }
             return result;
         }

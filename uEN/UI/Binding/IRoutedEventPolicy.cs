@@ -13,5 +13,19 @@ namespace uEN.UI.DataBinding
         void Action(RoutedEventBehavior behavior);
     }
 
-
+    public abstract class RoutedEventPolicyAttribute : Attribute, IRoutedEventPolicy
+    {
+        IRoutedEventPolicy IRoutedEventPolicy.NextPolicy { get; set; }
+        void IRoutedEventPolicy.Action(RoutedEventBehavior behavior)
+        {
+            Behavior = behavior;
+            Action(() => (this as IRoutedEventPolicy).NextPolicy.Action(behavior));
+        }
+        protected RoutedEventBehavior Behavior { get; set; }
+        public virtual int Priolity
+        {
+            get { return int.MaxValue - 100; }
+        }
+        protected abstract void Action(Action action);
+    }
 }

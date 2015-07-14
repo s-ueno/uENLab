@@ -102,7 +102,7 @@ namespace uEN.UI.DataBinding
             current.BindingPolicy.FallbackValue = value;
             return this;
         }
-        public BindingBehaviorBuilder<T> IsAsync(bool value)
+        public BindingBehaviorBuilder<T> IsAsync(bool value = true)
         {
             var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
             current.BindingPolicy.IsAsync = value;
@@ -154,23 +154,26 @@ namespace uEN.UI.DataBinding
 
 
 
-        public BindingBehaviorBuilder<T> Converter(IValueConverter converter)
+        public BindingBehaviorBuilder<T> Converter(IValueConverter converter, object parameter = null)
         {
             var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
             current.BindingPolicy.Converter = converter;
+            current.BindingPolicy.ConverterParameter = parameter;
             return this;
         }
         public BindingBehaviorBuilder<T> Convert(
             Func<object, Type, object, CultureInfo, object> convert = null,
-            Func<object, Type, object, CultureInfo, object> convertBack = null)
+            Func<object, Type, object, CultureInfo, object> convertBack = null, 
+            object parameter = null)
         {
             var current = ValidateCurrentBehavior<DependencyPropertyBehavior>();
             var converter = new SimpleValueConverter()
             {
                 ConvertMethod = convert,
-                ConvertBackMethod = convertBack
+                ConvertBackMethod = convertBack,
             };
             current.BindingPolicy.Converter = converter;
+            current.BindingPolicy.ConverterParameter = parameter;
             return this;
         }
 

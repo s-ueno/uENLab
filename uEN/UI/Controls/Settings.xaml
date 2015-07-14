@@ -30,7 +30,17 @@
             </Button>
             <TextBlock x:Name="Caption" Text="Settings" FontSize="20" VerticalAlignment="Center"/>
         </StackPanel>
-        <ListBox Grid.Row="1" x:Name="SettingViewModels" Visibility="Visible" />
+        <ListBox Grid.Row="1" x:Name="SettingViewModels" Visibility="Visible" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"  Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
         <ContentPresenter Grid.Row="1" x:Name="ViewModelPresenter"  
                           ContentTemplateSelector="{StaticResource templateSelector}"
                           />

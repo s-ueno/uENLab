@@ -34,6 +34,7 @@ namespace uEN.UI.DataBinding
         public bool ValidatesOnExceptions { get; set; }
         public bool ValidatesOnNotifyDataErrors { get; set; }
         public IValueConverter Converter { get; set; }
+        public object ConverterParameter { get; set; }
         public int? Delay { get; set; }
         public bool? BindsDirectlyToSource { get; set; }
         public object FallbackValue { get; set; }

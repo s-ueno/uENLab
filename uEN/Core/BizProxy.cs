@@ -182,11 +182,14 @@ namespace uEN.Core
         }
     }
 
+    [Serializable]
     public sealed class NullRequest
     {
         private NullRequest() { }
         public static readonly NullRequest Value = new NullRequest();
     }
+
+    [Serializable]
     public sealed class NullResponse
     {
         private NullResponse() { }

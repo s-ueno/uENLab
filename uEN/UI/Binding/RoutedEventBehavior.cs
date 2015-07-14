@@ -93,5 +93,33 @@ namespace uEN.UI.DataBinding
             };
             policies.First().Action(this);
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                var uiElement = Element as UIElement;
+                if (uiElement != null && RoutedEvent != null)
+                    uiElement.RemoveHandler(RoutedEvent, new RoutedEventHandler(OnEventInternal));
+
+                Element = null;
+                RoutedEvent = null;
+                ViewModel = null;                
+                LambdaExpression = null;
+                Attributes = null;
+                Method = null;
+                ArgsMethod = null;
+            }
+            disposed = true;
+        }
+        bool disposed = false;
     }
 }

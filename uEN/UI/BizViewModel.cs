@@ -20,7 +20,25 @@ namespace uEN.UI
             var vmr = Repository.GetPriorityExport<ViewModelWeakReference>();
             vmr.Push(this);
         }
+        public bool IsWindowContent { get; set; }
+        public Window GetWindow()
+        {
+            Window window = null;
+            if (this.View != null)
+                window = Window.GetWindow(this.View);
+            if (window != null)
+                return window;
+            if (Application.Current != null)
+                return Application.Current.MainWindow;
+            return null;
+        }
 
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            set { SetProperty(ref _isEnabled, value, "IsEnabled"); }
+        }
+        private bool _isEnabled = true;
         private VisualElementsAttribute visualElements;
         public VisualElementsAttribute VisualElements
         {
@@ -82,8 +100,6 @@ namespace uEN.UI
 
         public bool Initialized { get; internal set; }
 
-        //async public Task<T> AsyncGenericAction<T>() { return await Task.FromResult(default(T)); }
-
         #region StatusMessage
 
         public string StatusMessage
@@ -91,51 +107,27 @@ namespace uEN.UI
             get { return statusMessage; }
             set
             {
-                SetProperty(ref statusMessage, value);
+                SetProperty(ref statusMessage, value, "StatusMessage");
                 SetRootProperty(x => x.StatusMessage = value);
             }
         }
         private string statusMessage;
 
-        public string SubStatusMessage1
+        public string SubStatusMessage
         {
-            get { return subStatusMessage1; }
+            get { return subStatusMessage; }
             set
             {
-                SetProperty(ref subStatusMessage1, value);
-                SetRootProperty(x => x.SubStatusMessage1 = value);
+                SetProperty(ref subStatusMessage, value, "SubStatusMessage");
+                SetRootProperty(x => x.SubStatusMessage = value);
             }
         }
-        private string subStatusMessage1;
-
-        public string SubStatusMessage2
-        {
-            get { return subStatusMessage2; }
-            set
-            {
-                SetProperty(ref subStatusMessage2, value);
-                SetRootProperty(x => x.SubStatusMessage2 = value);
-            }
-        }
-        private string subStatusMessage2;
-
-        public string SubStatusMessage3
-        {
-            get { return subStatusMessage3; }
-            set
-            {
-                SetProperty(ref subStatusMessage3, value);
-                SetRootProperty(x => x.SubStatusMessage3 = value);
-            }
-        }
-        private string subStatusMessage3;
+        private string subStatusMessage;
 
         public void ClearStatusMessage()
         {
             StatusMessage =
-            SubStatusMessage1 =
-            SubStatusMessage2 =
-            SubStatusMessage3 = string.Empty;
+            SubStatusMessage = string.Empty;
         }
 
         #endregion
@@ -165,57 +157,6 @@ namespace uEN.UI
         private string companyDescription = BizUtils.AppSettings("CompanyDescription", "");
 
         #endregion
-
-        //#region
-
-        //public BizViewModel HeaderContent
-        //{
-        //    get
-        //    {
-        //        var win = Window.GetWindow(this.View);
-        //        if (win != null)
-        //        {
-        //            var vm = win.Content as BizViewModel;
-        //            if (vm != null)
-        //            {
-        //                var content = win.Template.FindName("PART_BlandContentPresenter", win) as System.Windows.Controls.ContentPresenter;
-        //                if (content != null)
-        //                {
-        //                    var templateSelector = content.ContentTemplateSelector;
-        //                    if (templateSelector == null)
-        //                    {
-        //                        content.ContentTemplateSelector = Repository.GetPriorityExport<ViewDataTemplateSelector>();
-        //                    }
-        //                    return content.Content as BizViewModel;
-        //                }
-        //            }
-        //        }
-        //        return null;
-        //    }
-        //    set
-        //    {
-        //        var win = Window.GetWindow(this.View);
-        //        if (win != null)
-        //        {
-        //            var vm = win.Content as BizViewModel;
-        //            if (vm != null)
-        //            {
-        //                var content = win.Template.FindName("PART_BlandContentPresenter", win) as System.Windows.Controls.ContentPresenter;
-        //                if (content != null)
-        //                {
-        //                    var templateSelector = content.ContentTemplateSelector;
-        //                    if (templateSelector == null)
-        //                    {
-        //                        content.ContentTemplateSelector = Repository.GetPriorityExport<ViewDataTemplateSelector>();
-        //                    }
-        //                    content.Content = value;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-        //#endregion
 
         #region User
 
@@ -277,15 +218,22 @@ namespace uEN.UI
             }
         }
 
-
+        public ExtendedContainer ExtendedNavigator
+        {
+            get
+            {
+                var win = Window.GetWindow(View);
+                return new ExtendedContainer(win);
+            }
+        }
 
         public virtual string Description { get { return string.Empty; } }
+
         public override string ToString()
         {
             return string.IsNullOrWhiteSpace(Description) ? base.ToString() : Description;
         }
 
-        public event EventHandler Collapsed;
         public void Collapse()
         {
             var view = this.View;
@@ -293,8 +241,6 @@ namespace uEN.UI
             {
                 view.SetCurrentValue(BizView.VisibilityProperty, Visibility.Collapsed);
             }
-            if (Collapsed != null)
-                Collapsed(this, new EventArgs());
         }
         public void UnCollapse()
         {
@@ -304,41 +250,19 @@ namespace uEN.UI
                 view.SetCurrentValue(BizView.VisibilityProperty, Visibility.Visible);
             }
         }
-
-        public event CancelEventHandler Closing;
-        public event EventHandler Closed;
         public void Close()
         {
-            if (IsClosed)
-                return;
-
-            var e = new CancelEventArgs();
-            OnClosing(this, e);
-
-            if (e.Cancel)
-                return;
-
-            Collapse();
-            this.View.BindingBehaviors.Clear();
-            this.View = null;
-            IsClosed = true;
-
-            if (Closed != null)
-                Closed(this, new EventArgs());
-            return;
-        }
-        protected internal bool IsClosed = false;
-        protected internal virtual void OnClosing(object sender, CancelEventArgs e)
-        {
-            if (Closing != null)
-                Closing(sender, e);
+            var w = this.GetWindow();
+            if (w != null)
+                w.Close();
+            else
+                this.Collapse();
         }
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         protected virtual void Dispose(bool disposing)
         {
             if (disposed)
@@ -346,7 +270,7 @@ namespace uEN.UI
 
             if (disposing)
             {
-                Close();
+                this.View = null;
 
                 var vmr = Repository.GetPriorityExport<ViewModelWeakReference>();
                 vmr.Pop(this);
@@ -355,6 +279,21 @@ namespace uEN.UI
         }
         bool disposed = false;
 
+        public void ShowChildWindow(Action<Window> preAction = null, Action<Window> postAction = null)
+        {
+            var window = new Window();
+            window.SetResourceReference(Window.StyleProperty, "ChildWndowStyle");
+            window.ContentTemplateSelector = Repository.GetPriorityExport<ViewDataTemplateSelector>();
+            window.Content = this;
+
+            if (preAction != null)
+                preAction(window);
+
+            window.Show();
+
+            if (postAction != null)
+                postAction(window);
+        }
 
         /// <summary>
         /// メッセージキューを処理します。
@@ -375,6 +314,26 @@ namespace uEN.UI
 
             return e.Result;
         }
+
+        protected ISimpleGrid InitializeSimpleGrid<T>(int frozenColumnCount = 0, bool isSingleSelection = true)
+        {
+            return CreateSimpleGrid(new T[] { }, frozenColumnCount, isSingleSelection);
+        }
+        protected ISimpleGrid CreateSimpleGrid<T>(IEnumerable<T> source,
+            int frozenColumnCount = 0, bool isSingleSelection = true)
+        {
+            var vm = new SimpleDataGridViewModel();
+            vm.FrozenColumnCount = frozenColumnCount;
+            vm.SelectionMode = isSingleSelection ? System.Windows.Controls.DataGridSelectionMode.Single : System.Windows.Controls.DataGridSelectionMode.Extended;
+            vm.EnsureItemsSource(source);
+            return vm;
+        }
+
+        internal void NavigatingActionInternal(RoutedEventArgs e)
+        {
+            NavigatingAction(e as NavigatingEventArgs);
+        }
+        public virtual void NavigatingAction(NavigatingEventArgs e) { }
     }
 
     public class MessageNotificationEventArgs : EventArgs

@@ -18,7 +18,7 @@ namespace SimpleApp.Contents
         public void GoBackAction()
         {
 
-            var backViewModel = Navigator.GoBack();
+            Navigator.GoBack();
 
         }
     }

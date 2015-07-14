@@ -27,50 +27,49 @@ namespace uEN.UI.DataBinding
         public LambdaExpression LambdaExpression { get; set; }
 
         public IEnumerable<Attribute> Attributes { get; protected set; }
+        public Binding Binding { get; private set; }
         public BindingExpression BindingExpression { get; protected set; }
         public virtual void Ensure()
         {
-            var binding = new System.Windows.Data.Binding(LambdaExpression.ToSymbol());
+            Binding = new System.Windows.Data.Binding(LambdaExpression.ToSymbol());
             Attributes = ListAttributes();
 
-            binding.StringFormat = GetStringFormat();
-            binding.Converter = BindingPolicy.Converter;
-            binding.Mode = BindingPolicy.BindingMode;
-            binding.ValidatesOnDataErrors = BindingPolicy.ValidatesOnDataErrors;
-            binding.ValidatesOnExceptions = BindingPolicy.ValidatesOnExceptions;
-            //binding.ValidatesOnNotifyDataErrors = BindingPolicy.ValidatesOnNotifyDataErrors;
+            Binding.StringFormat = GetStringFormat();
+            Binding.Converter = BindingPolicy.Converter;
+            Binding.ConverterParameter = BindingPolicy.ConverterParameter ?? Element;
+            Binding.Mode = BindingPolicy.BindingMode;
+            Binding.ValidatesOnDataErrors = BindingPolicy.ValidatesOnDataErrors;
+            Binding.ValidatesOnExceptions = BindingPolicy.ValidatesOnExceptions;
+            Binding.ValidatesOnNotifyDataErrors = BindingPolicy.ValidatesOnNotifyDataErrors;
             if (BindingPolicy.UpdateSourceTrigger.HasValue)
-                binding.UpdateSourceTrigger = BindingPolicy.UpdateSourceTrigger.Value;
-            /*
+                Binding.UpdateSourceTrigger = BindingPolicy.UpdateSourceTrigger.Value;
             if (BindingPolicy.Delay.HasValue)
-                binding.Delay = BindingPolicy.Delay.Value;
-            */
+                Binding.Delay = BindingPolicy.Delay.Value;
             if (BindingPolicy.BindsDirectlyToSource.HasValue)
-                binding.BindsDirectlyToSource = BindingPolicy.BindsDirectlyToSource.Value;
+                Binding.BindsDirectlyToSource = BindingPolicy.BindsDirectlyToSource.Value;
             if (BindingPolicy.FallbackValue != null)
-                binding.FallbackValue = BindingPolicy.FallbackValue;
+                Binding.FallbackValue = BindingPolicy.FallbackValue;
             if (BindingPolicy.IsAsync.HasValue)
-                binding.IsAsync = BindingPolicy.IsAsync.Value;
+                Binding.IsAsync = BindingPolicy.IsAsync.Value;
             if (BindingPolicy.NotifyOnSourceUpdated.HasValue)
-                binding.NotifyOnSourceUpdated = BindingPolicy.NotifyOnSourceUpdated.Value;
+                Binding.NotifyOnSourceUpdated = BindingPolicy.NotifyOnSourceUpdated.Value;
             if (BindingPolicy.NotifyOnTargetUpdated.HasValue)
-                binding.NotifyOnTargetUpdated = BindingPolicy.NotifyOnTargetUpdated.Value;
+                Binding.NotifyOnTargetUpdated = BindingPolicy.NotifyOnTargetUpdated.Value;
             if (BindingPolicy.NotifyOnValidationError.HasValue)
-                binding.NotifyOnValidationError = BindingPolicy.NotifyOnValidationError.Value;
+                Binding.NotifyOnValidationError = BindingPolicy.NotifyOnValidationError.Value;
             if (BindingPolicy.RelativeSource != null)
-                binding.RelativeSource = BindingPolicy.RelativeSource;
+                Binding.RelativeSource = BindingPolicy.RelativeSource;
             if (BindingPolicy.TargetNullValue != null)
-                binding.TargetNullValue = BindingPolicy.TargetNullValue;
+                Binding.TargetNullValue = BindingPolicy.TargetNullValue;
             if (BindingPolicy.UpdateSourceExceptionFilter != null)
-                binding.UpdateSourceExceptionFilter = BindingPolicy.UpdateSourceExceptionFilter;
+                Binding.UpdateSourceExceptionFilter = BindingPolicy.UpdateSourceExceptionFilter;
             foreach (var rule in GetValidationRules())
             {
-                binding.ValidationRules.Add(rule);
+                Binding.ValidationRules.Add(rule);
             }
-            BindingExpression = BindingOperations.SetBinding(Element, DependencyProperty, binding) as BindingExpression;
             SetupTemplateSelecter();
-
             BindingAttributes(Attributes);
+            BindingExpression = BindingOperations.SetBinding(Element, DependencyProperty, Binding) as BindingExpression;
         }
 
         protected virtual void SetupTemplateSelecter()
@@ -134,9 +133,6 @@ namespace uEN.UI.DataBinding
             var format = Attributes.FirstOrDefault(x => x is BindingStringFormatAttribute) as BindingStringFormatAttribute;
             return format != null ? format.Value : null;
         }
-
-
-        /*
         public virtual bool HasValidationError
         {
             get
@@ -144,9 +140,6 @@ namespace uEN.UI.DataBinding
                 return BindingExpression != null && BindingExpression.HasValidationError ? true : false;
             }
         }
-        */
-
-        /*
         public virtual ReadOnlyCollection<ValidationError> ValidationErrors
         {
             get
@@ -158,30 +151,50 @@ namespace uEN.UI.DataBinding
                 return BindingExpression.ValidationErrors;
             }
         }
-        */
-        public virtual ReadOnlyCollection<ValidationError> ValidationErrors
-        {
-            get
-            {
-                if (BindingExpression == null || BindingExpression.ValidationError == null)
-                {
-                    return new ReadOnlyCollection<ValidationError>(new List<ValidationError>());
-                }
-                return new ReadOnlyCollection<ValidationError>(new List<ValidationError>(new[] { BindingExpression.ValidationError }));
-            }
-        }
 
-
+        public event EventHandler<System.EventArgs> UpdatingSource;
         public virtual void UpdateSource()
         {
             if (BindingExpression == null) return;
+            if (UpdatingSource != null)
+                UpdatingSource(this, new EventArgs());
             BindingExpression.UpdateSource();
         }
+
+        public event EventHandler<System.EventArgs> UpdatingTarget;
         public virtual void UpdateTarget()
         {
             if (BindingExpression == null) return;
+            if (UpdatingTarget != null)
+                UpdatingTarget(this, new EventArgs());
             BindingExpression.UpdateTarget();
         }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                if (Element != null && DependencyProperty != null)
+                    BindingOperations.ClearBinding(Element, DependencyProperty);
+
+                Element = null;
+                LambdaExpression = null;
+                ViewModel = null;
+                Attributes = null;
+                Binding = null;
+                BindingExpression = null;
+            }
+            disposed = true;
+        }
+        bool disposed = false;
 
     }
 

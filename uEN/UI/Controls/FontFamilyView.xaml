@@ -13,14 +13,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ListBox x:Name="FontCollection" 
-                 attached:ScrollIntoViewProxy.IsEnabled="true">
+        <ListBox x:Name="FontCollection">
+            <attached:ScrollIntoViewProxy.Instance>
+                <attached:ScrollIntoViewProxy />
+            </attached:ScrollIntoViewProxy.Instance>            
             <ListBox.Resources>
                 <uen:FontFamilyConverter x:Key="FontFamilyConverter" />
             </ListBox.Resources>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"  Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
+
                 <DataTemplate>
-                    <TextBlock FontFamily="{Binding}" Text="{Binding Converter={StaticResource FontFamilyConverter}}" />
+                    <TextBlock FontFamily="{Binding}" Text="{Binding Converter={StaticResource FontFamilyConverter}}" >
+                    </TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Threading;
 using uEN.Core;
 using uEN.UI.AttachedProperties;
 using uEN.UI.DataBinding;
@@ -38,18 +40,17 @@ namespace uEN.UI
         public static readonly DependencyProperty CommandValueProperty =
             DependencyProperty.RegisterAttached("CommandValue", typeof(Command), typeof(MessageDialogHelper), new PropertyMetadata(null));
 
-
-
-        public MessageDialogHelper(DependencyObject caller)
+        public static MessageDialogHelper Create(Window win, DependencyObject caller)
         {
-            Caller = caller;
-            var win = Window.GetWindow(caller);
+            MessageDialogHelper helper = new MessageDialogHelper();
+            helper.Caller = caller;
 
-            Container = win.Template.FindName("PART_MessageContentContainer", win) as Grid;
-            WindowContent = win.Template.FindName("PART_WindowContent", win) as Grid;
-            Title = win.Template.FindName("PART_MessageTitle", win) as TextBlock;
-            Message = win.Template.FindName("PART_MessageDescription", win) as TextBlock;
-            MessageButtons = win.Template.FindName("PART_MessageButtons", win) as StackPanel;
+            helper.Container = win.Template.FindName("PART_MessageContentContainer", win) as Grid;
+            helper.WindowContent = win.Template.FindName("PART_WindowContent", win) as Grid;
+            helper.Title = win.Template.FindName("PART_MessageTitle", win) as TextBlock;
+            helper.Message = win.Template.FindName("PART_MessageDescription", win) as TextBlock;
+            helper.MessageButtons = win.Template.FindName("PART_MessageButtons", win) as StackPanel;
+            return helper;
         }
         private DependencyObject Caller { get; set; }
         private Grid Container { get; set; }
@@ -57,55 +58,83 @@ namespace uEN.UI
         private TextBlock Title { get; set; }
         private TextBlock Message { get; set; }
         private StackPanel MessageButtons { get; set; }
-
-
-        public bool IsValid { get { return Container != null; } }
-
-
-
         public void Show(string title, string message, params Command[] commands)
         {
-            Title.Text = title;
-            Message.Text = message;
-            MessageButtons.Children.Clear();
-            foreach (var each in commands)
+            var temp = Mouse.OverrideCursor;
+            try
             {
-                var button = new Button();
-                button.Style = Application.Current.Resources["FlatButtonStyle"] as Style;
-                button.Content = each.Caption;
-                button.MinWidth = 80;
-                button.Padding = new Thickness(1);
-                button.Margin = new Thickness(10);
-                button.Click -= OnButtonClick;
-                button.Click += OnButtonClick;
-                button.SetValue(CommandValueProperty, each);
-                MessageButtons.Children.Add(button);
-                if (each.IsDefaultFocus)
+                Mouse.OverrideCursor = null;
+
+                Title.Text = title;
+                Message.Text = message;
+                MessageButtons.Children.Clear();
+                foreach (var each in commands)
                 {
-                    button.Loaded += (sender, e) => (sender as Button).Focus();
+                    var button = new Button();
+                    button.SetResourceReference(Button.StyleProperty, "FlatButtonStyle");
+                    button.Content = each.Caption;
+                    button.MinWidth = 80;
+                    button.Padding = new Thickness(1);
+                    button.Margin = new Thickness(10);
+                    button.Click -= OnButtonClick;
+                    button.Click += OnButtonClick;
+                    button.SetValue(CommandValueProperty, each);
+                    MessageButtons.Children.Add(button);
+                    if (each.IsDefaultFocus)
+                    {
+                        button.Loaded += (sender, e) => (sender as Button).Focus();
+                    }
                 }
+                if (!commands.Any(x => x.IsDefaultFocus))
+                {
+                    MessageButtons.Children.OfType<Button>().Last().Loaded += (sender, e) => (sender as Button).Focus();
+                }
+
+                Container.Visibility = Visibility.Visible;
+                ViewTransition.Play(Container, TransitionStyle.Slide);
+
+                wait();
             }
-            if (!commands.Any(x => x.IsDefaultFocus))
+            finally
             {
-                MessageButtons.Children.OfType<Button>().Last().Loaded += (sender, e) => (sender as Button).Focus();
+                Mouse.OverrideCursor = temp;
             }
-            Container.Visibility = Visibility.Visible;
-            ViewTransition.Play(Container, TransitionStyle.Slide);
         }
+
+        private void wait()
+        {
+            while (true)
+            {
+                Thread.Yield();
+                UIElementExtensions.DoEvents(null);
+                if (flg == true) break;
+            }
+        }
+        bool flg = false;
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
         {
+            foreach (var each in MessageButtons.Children.OfType<Button>())
+            {
+                each.Click -= OnButtonClick;
+            }
             var button = (Button)sender;
             var command = GetCommandValue(button);
-
             ViewTransition.Play(Container, TransitionStyle.SlideOut, () =>
             {
                 Container.Visibility = Visibility.Collapsed;
+                flg = true;
             });
-            if (command.Action != null)
+
+            Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
             {
-                WaitCursorEventPolicyAttribute.Action(command.Action);
-            }
+                if (command.Action != null)
+                {
+                    WaitCursorEventPolicyAttribute.Action(command.Action);
+                }
+
+            }), DispatcherPriority.Background, null);
+
         }
     }
 }

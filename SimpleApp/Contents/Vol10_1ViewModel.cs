@@ -23,7 +23,7 @@ namespace SimpleApp.Contents
 
         public void GoBackAction()
         {
-            var b = Navigator.GoBack();
+            Navigator.GoBack();
         }
     }
 }

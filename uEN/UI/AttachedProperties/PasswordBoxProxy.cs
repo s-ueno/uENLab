@@ -23,7 +23,7 @@ namespace uEN.UI.AttachedProperties
 
         // Using a DependencyProperty as the backing store for IsEnabled.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsEnabledProperty =
-            DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(PasswordBoxProxy), 
+            DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(PasswordBoxProxy),
             new UIPropertyMetadata(false, OnIsEnabledChanged));
 
         private static void OnIsEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -36,25 +36,26 @@ namespace uEN.UI.AttachedProperties
             if (!value.HasValue || value.Value == false)
             {
                 p.PasswordChanged -= OnPasswordChanged;
-                p.KeyDown -= OnKeyDown;   
+                p.KeyDown -= OnKeyDown;
                 return;
             }
-                
+
             p.PasswordChanged -= OnPasswordChanged;
             p.PasswordChanged += OnPasswordChanged;
 
-            p.KeyDown -= OnKeyDown;   
-            p.KeyDown += OnKeyDown;   
+            p.KeyDown -= OnKeyDown;
+            p.KeyDown += OnKeyDown;
         }
 
         public static readonly DependencyProperty TextProperty =
             DependencyProperty.RegisterAttached("Text", typeof(string), typeof(PasswordBoxProxy),
-            new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            new FrameworkPropertyMetadata(null,
+                FrameworkPropertyMetadataOptions.Journal | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
         private static void OnPasswordChanged(object sender, RoutedEventArgs e)
         {
             var obj = sender as PasswordBox;
             if (null == obj) return;
-            obj.SetCurrentValue(PasswordBoxProxy.TextProperty, obj.Password);            
+            obj.SetCurrentValue(PasswordBoxProxy.TextProperty, obj.Password);
         }
 
 
@@ -69,7 +70,7 @@ namespace uEN.UI.AttachedProperties
                 if (be != null)
                     be.UpdateSource();
                 obj.RaiseEvent(new RoutedEventArgs(PasswordBoxProxy.EnterActionEvent));
-            }            
+            }
         }
     }
 }

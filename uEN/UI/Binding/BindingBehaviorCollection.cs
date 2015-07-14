@@ -4,13 +4,15 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace uEN.UI.DataBinding
 {
 
-    public class BindingBehaviorCollection : List<IBindingBehavior>
+    public class BindingBehaviorCollection : List<IBindingBehavior>, IDisposable
     {
         public IEnumerable<T> ListBehaviors<T>(string groupRegion) where T : IBindingBehavior
         {
@@ -37,8 +39,39 @@ namespace uEN.UI.DataBinding
                 foreach (var child in each.ValidationErrors)
                 {
                     yield return child;
-                }   
+                }
             }
         }
+
+
+
+        public void EnsureBinding()
+        {
+            foreach (var each in this)
+            {
+                each.Ensure();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                foreach (var each in this)
+                {
+                    each.Dispose();
+                }
+            }
+            disposed = true;
+        }
+        bool disposed = false;
     }
 }

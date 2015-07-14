@@ -12,8 +12,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ListBox x:Name="FontSizeCollection" 
-                 attached:ScrollIntoViewProxy.IsEnabled="true">
+        <ListBox x:Name="FontSizeCollection">
+            <attached:ScrollIntoViewProxy.Instance>
+                <attached:ScrollIntoViewProxy />
+            </attached:ScrollIntoViewProxy.Instance>            
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"  Value="True">
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock FontFamily="{DynamicResource AppFont}" 

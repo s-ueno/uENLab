@@ -10,6 +10,8 @@ using uEN.UI.DataBinding;
 
 namespace SimpleApp
 {
+    [PartCreationPolicy(CreationPolicy.Shared)]
+    [ExportMetadata(Repository.Priority, int.MaxValue)]
     [Export(typeof(IExceptionPolicy))]
     public class ExceptionPolicy : IExceptionPolicy
     {

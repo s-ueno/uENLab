@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace uEN.UI.AttachedProperties
 {
@@ -37,11 +39,21 @@ namespace uEN.UI.AttachedProperties
             var button = textBox.Template.FindName("SymbolButton", textBox) as Button;
             if (button == null) return;
 
-            button.Content = Convert.ToChar(GetSymbol(textBox));
+            textBox.Padding = new Thickness(2, 2, 20, 2);
+
+            var symbolText = new TextBlock()
+            {
+                Text = Convert.ToChar(GetSymbol(textBox)).ToString(),
+            };
+            symbolText.SetResourceReference(TextBlock.StyleProperty, "SegoeUISymbolTextBlockKey");
+            button.Content = symbolText;
+
             button.Visibility = Visibility.Visible;
             button.Click -= OnButtonClick;
             button.Click += OnButtonClick;
 
+            textBox.KeyDown -= OnKeyDown;
+            textBox.KeyDown += OnKeyDown;  
         }
         static void OnButtonClick(object sender, RoutedEventArgs e)
         {
@@ -54,6 +66,20 @@ namespace uEN.UI.AttachedProperties
         }
         public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(
             "Click", RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(SymbolTextBoxProxy));
+
+        public static readonly RoutedEvent EnterEvent = EventManager.RegisterRoutedEvent(
+            "Enter", RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(SymbolTextBoxProxy));
+        private static void OnKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                var obj = (TextBox)sender;
+                var be = BindingOperations.GetBindingExpression(obj, TextBox.TextProperty);
+                if (be != null)
+                    be.UpdateSource();
+                obj.RaiseEvent(new RoutedEventArgs(SymbolTextBoxProxy.EnterEvent));
+            }
+        }        
 
     }
 }

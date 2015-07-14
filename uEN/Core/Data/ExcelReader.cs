@@ -32,23 +32,25 @@ namespace uEN.Core.Data
             get { return string.Format(_accDBConnectionString, Path); }
         }
 
-        public DataSet List()
+        protected T ConnectionAction<T>(Func<OleDbConnection, T> action)
         {
-            var ds = new DataSet("Excel");
+            var result = default(T);
             try
             {
-                using (var con = new OleDbConnection(JecConnectionString))
+                using (var cnn = new OleDbConnection(JecConnectionString))
                 {
-                    Load(ds, con);
+                    cnn.Open();
+                    result = action(cnn);
                 }
             }
             catch
             {
                 try
                 {
-                    using (var con = new OleDbConnection(AccDbConnectionString))
+                    using (var cnn = new OleDbConnection(AccDbConnectionString))
                     {
-                        Load(ds, con);
+                        cnn.Open();
+                        result = action(cnn);
                     }
                 }
                 catch (Exception ex)
@@ -57,11 +59,16 @@ namespace uEN.Core.Data
                     throw;
                 }
             }
-            return ds;
+            return result;
         }
-        private void Load(DataSet ds, OleDbConnection con)
+
+        public DataSet List()
         {
-            con.Open();
+            return ConnectionAction(Load);
+        }
+        private DataSet Load(OleDbConnection con)
+        {
+            var ds = new DataSet("ExcelData");
             var tbls = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, null, "TABLE" });
             foreach (DataRow row in tbls.Rows)
             {
@@ -71,48 +78,57 @@ namespace uEN.Core.Data
                 if (ds.Tables.Contains(tableName)) continue;
 
                 var table = ListByQuery(string.Format("select * from [{0}$]", tableName));
+                table.TableName = tableName;
                 ds.Tables.Add(table);
             }
+            return ds;
         }
-
         public DataTable ListByQuery(string sql)
         {
-            var ds = new DataSet("Excel");
-            try
+            return ConnectionAction(new Func<OleDbConnection, DataTable>(con =>
             {
-                using (var con = new OleDbConnection(JecConnectionString))
-                {
-                    Load(sql, ds, con);
-                }
-            }
-            catch
-            {
-                try
-                {
-                    using (var con = new OleDbConnection(AccDbConnectionString))
-                    {
-                        Load(sql, ds, con);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Trace.TraceError(ex.ToString());
-                    throw;
-                }
-            }
-            var table = ds.Tables[0];
-            ds.Tables.Clear();
-            return table;
+                var ds = new DataSet("Excel");
+
+                var adapter = new OleDbDataAdapter(sql, con);
+                adapter.Fill(ds);
+
+                var table = ds.Tables[0];
+                ds.Tables.Clear();
+                return table;
+            }));
         }
-        private static void Load(string sql, DataSet ds, OleDbConnection con)
+
+
+        public IEnumerable<string> ListSheetNames()
         {
-            con.Open();
-            var adapter = new OleDbDataAdapter(sql, con);
-            adapter.Fill(ds);
+            return ConnectionAction(ListSheetNames);
+        }
+        private IEnumerable<string> ListSheetNames(OleDbConnection con)
+        {
+            var list = new List<string>();
+
+            var tbls = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, null, "TABLE" });
+            foreach (DataRow row in tbls.Rows)
+            {
+                string tableName = (string)row["TABLE_NAME"];
+                if (!tableName.EndsWith("$")) continue;
+                tableName = tableName.Substring(0, tableName.Length - 1);
+                if (list.Contains(tableName)) continue;
+
+                list.Add(tableName);
+            }
+            return list;
         }
 
-
-        
-
+        public int Count(string sheetName)
+        {
+            return ConnectionAction(new Func<OleDbConnection, int>(con =>
+            {
+                var sql = string.Format("select count(*) as CNT from [{0}$]", sheetName);
+                var table = ListByQuery(sql);
+                var count = Convert.ToInt32(table.Rows[0][0]);
+                return count;
+            }));
+        }
     }
 }

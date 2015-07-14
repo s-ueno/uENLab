@@ -6,6 +6,7 @@ using System.Text;
 
 namespace uEN.Core
 {
+    [Serializable]
     public abstract class NotifiableImp : INotifyPropertyChanged
     {
         [field:NonSerialized]

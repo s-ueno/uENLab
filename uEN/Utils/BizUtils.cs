@@ -154,5 +154,22 @@ namespace uEN
             System.Threading.Thread.CurrentPrincipal =
                 new GenericPrincipal(new GenericIdentity(userName), Roles);
         }
+
+
+        public static T GetValueOrDefault<T>(object obj, T defaultValue)
+        {
+            var result = defaultValue;
+            try
+            {
+                var value = Convert.ToString(obj);
+                result = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFrom(value);
+            }
+            catch
+            {
+                //error free
+            }
+            return result;
+        }
+
     }
 }

@@ -56,7 +56,7 @@
 
     <!-- ComboBox -->
     <SolidColorBrush x:Key="ComboBox.Static.Background"      Color="#2a2a2a"/>
-    <SolidColorBrush x:Key="ComboBox.Static.Border"          Color="#FFABAdB3"/>
+    <SolidColorBrush x:Key="ComboBox.Static.Border"          Color="#333333"/>
     <SolidColorBrush x:Key="ComboBox.Static.Glyph"           Color="{DynamicResource AppBrandColor}" />
 
     <SolidColorBrush x:Key="ComboBox.Selected.Background"    Color="{DynamicResource AppBrandColor}" Opacity="0.3"/>
@@ -80,8 +80,8 @@
     <Thickness       x:Key="DataGridRowHeader.BorderThickness"  Bottom="0" Left="0" Right="0" Top="0" />
 
     <!--DataGridColumnHeader-->
-    <SolidColorBrush x:Key="DataGridColumnHeader.BackgroundBrush"    Color="#707070" />
-    <SolidColorBrush x:Key="DataGridColumnHeader.BorderBrush"        Color="DarkGray" />
+    <SolidColorBrush x:Key="DataGridColumnHeader.BackgroundBrush"    Color="#333333" />
+    <SolidColorBrush x:Key="DataGridColumnHeader.BorderBrush"        Color="#4d4d4d" />
     <Thickness x:Key="DataGridColumnHeader.BorderThickness"     Bottom="1" Left="0" Right="1" Top="0" />
 
 
@@ -93,6 +93,18 @@
     <SolidColorBrush x:Key="DataGridCell.IsReadOnlyBackground" Color="Transparent" />
 
 
+    <!--ScrollBar-->
+    <SolidColorBrush x:Key="ScrollBar.Thumb.Background" Color="DimGray"/>
+    <SolidColorBrush x:Key="ScrollBar.Thumb.Border" Color="Transparent" />
+    <SolidColorBrush x:Key="ScrollBar.Thumb.BackgroundHover" Color="Gray" />
+    <SolidColorBrush x:Key="ScrollBar.Thumb.BackgroundDragging" Color="DarkGray" />
+    <SolidColorBrush x:Key="ScrollBar.Thumb.BorderBrushDragging" Color="{DynamicResource AppBrandColor}" />
 
+    <SolidColorBrush x:Key="ScrollBar.Button.Background" Color="Transparent" />
+    <SolidColorBrush x:Key="ScrollBar.Button.Border" Color="Transparent" />
+    <SolidColorBrush x:Key="ScrollBar.Button.MouseOver.Foreground" Color="{DynamicResource AppBrandColor}" Opacity="0.5"/>
+    <SolidColorBrush x:Key="ScrollBar.Button.Pressed.Foreground" Color="{DynamicResource AppBrandColor}"/>
+
+    <SolidColorBrush x:Key="ScrollBar.Background" Color="{DynamicResource WindowThemeColor}" Opacity="0.5"/>
 
 </ResourceDictionary>

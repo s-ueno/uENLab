@@ -32,7 +32,10 @@
                                       VerticalScrollBarVisibility="Hidden"/>
                         </Border>
 
-                        <Button x:Name="SymbolButton" Grid.Column="1" Margin="4" FontFamily="Segoe UI Symbol" Visibility="Collapsed">
+                        <Button x:Name="SymbolButton" Grid.Column="1" Margin="4" 
+                                FontFamily="Segoe UI Symbol" Visibility="Collapsed"
+                                Height="15"
+                                >
                             &#xE11A;
                         </Button>
                     </Grid>
@@ -53,18 +56,14 @@
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsSelectionActive" Value="true"/>
                     <Condition Property="IsFocused" Value="true"/>
                 </MultiTrigger.Conditions>
                 <Setter Property="SelectionBrush" Value="{DynamicResource TextBox.SelectionBrush}"/>
             </MultiTrigger>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
-                    <Condition Property="IsSelectionActive" Value="false"/>
                     <Condition Property="IsFocused" Value="false"/>
                 </MultiTrigger.Conditions>
-                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
                 <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
             </MultiTrigger>
 
