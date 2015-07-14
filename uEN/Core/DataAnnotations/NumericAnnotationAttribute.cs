@@ -50,16 +50,19 @@ namespace uEN.Core
         public override bool IsValid(object value)
         {
             var s = Convert.ToString(value);
-            if (string.IsNullOrEmpty(s)) return true; //Nullableに対して、必須入力チェックではない。
-
-            if (!Unsigned && s == "-") return true;
-            if (Scale == 0 && s.Contains(".")) return false;
+            if (string.IsNullOrEmpty(s)) return true; //必須入力チェックではない。
 
             decimal dec;
-            var ret = decimal.TryParse(Convert.ToString(value), out dec);
-            if (!ret) return false;
+            if (!TryParse(s, out dec)) return false;
 
-            if (Unsigned && dec < 0) return false;
+            //if (!Unsigned && s == "-") return true;
+            //if (Scale == 0 && s.Contains(".")) return false;
+
+            //decimal dec;
+            //var ret = decimal.TryParse(Convert.ToString(value), out dec);
+            //if (!ret) return false;
+
+            //if (Unsigned && dec < 0) return false;
 
             //http://stackoverflow.com/questions/763942/calculate-system-decimal-precision-and-scale
             uint[] bits = (uint[])(object)decimal.GetBits(dec);
@@ -80,6 +83,22 @@ namespace uEN.Core
                 precision = scale + 1;
             }
             return precision <= Precision && scale <= Scale;
+        }
+
+        bool TryParse(string s, out decimal d)
+        {
+            d = -1;
+            var ret = false;
+            var conv = new CustomDecimalConverter();
+            try
+            {
+                d = (decimal)conv.ConvertFrom(s);
+                ret = true;
+            }
+            catch
+            {
+            }
+            return ret;
         }
 
     }

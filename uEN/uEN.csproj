@@ -64,6 +64,15 @@
     <Compile Include="Core\BackingStore.cs" />
     <Compile Include="Core\BizApplicationException.cs" />
     <Compile Include="Core\BizProxy.cs" />
+    <Compile Include="Core\Converter\CustomDecimalConverter.cs" />
+    <Compile Include="Core\Converter\CustomDoubleConverter.cs" />
+    <Compile Include="Core\Converter\CustomInt16Converter.cs" />
+    <Compile Include="Core\Converter\CustomInt32Converter.cs" />
+    <Compile Include="Core\Converter\CustomInt64Converter.cs" />
+    <Compile Include="Core\Converter\CustomSingleConverter.cs" />
+    <Compile Include="Core\Converter\CustomUInt16Converter.cs" />
+    <Compile Include="Core\Converter\CustomUInt32Converter.cs" />
+    <Compile Include="Core\Converter\CustomUInt64Converter.cs" />
     <Compile Include="Core\Crypto.cs" />
     <Compile Include="Core\DataAnnotations\KanaAnnotationAttribute.cs" />
     <Compile Include="Core\DataAnnotations\RequiredAnnotationAttribute.cs" />

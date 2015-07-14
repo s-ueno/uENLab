@@ -19,7 +19,10 @@ namespace uEN.Core
     /// </summary>
     public class KatakanaHalfAnnotationAttribute : RegexAnnotationAttribute
     {
-        public KatakanaHalfAnnotationAttribute() : base(@"(^([｡-ﾟ -~])+$)") { }
+        public KatakanaHalfAnnotationAttribute(bool containsAlphanumeric = true)
+            : base(containsAlphanumeric ? @"(^([｡-ﾟ -~])+$)" : @"(^([｡-ﾟ])+$)")
+        {
+        }
     }
 
     /// <summary>
