@@ -57,7 +57,12 @@ namespace uEN.UI.Controls
                    .Binding(DataGrid.ItemsSourceProperty, x => x.GridSource).IsAsync()
                    .Binding(DataGrid.MouseDoubleClickEvent, x => x.SelectAction);
 
-
+            var vm = DataContext as SimpleDataGridViewModel;
+            if (vm != null)
+            {
+                vm.Grid = PART_grid;
+                vm.OnAssigned();
+            }
         }
 
         protected override void OnViewModelMessageNotify(object sender, MessageNotificationEventArgs e)

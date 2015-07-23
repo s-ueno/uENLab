@@ -14,6 +14,11 @@ using uEN.UI.Validation;
 
 namespace uEN.UI
 {
+    public interface ISimpleGridVisualElements
+    {
+        DataGrid Grid { get; }
+        event EventHandler Assigned;
+    }
     public interface ISimpleGrid : IDisposable
     {
         int FrozenColumnCount { get; set; }
@@ -21,13 +26,16 @@ namespace uEN.UI
         ListCollectionView GridSource { get; set; }
         event EventHandler<System.EventArgs> DoubleClick;
         object Current { get; }
+        List<DataGridColumnAnnotationAttribute> ColumnAnnotation { get; }
+        void Refresh();
     }
 
     /// <summary>
     /// 
     /// </summary>
     [VisualElements(typeof(SimpleDataGridView))]
-    public class SimpleDataGridViewModel : BizViewModel, ISimpleGrid
+    public class SimpleDataGridViewModel
+        : BizViewModel, ISimpleGrid, ISimpleGridVisualElements
     {
         public SimpleDataGridViewModel()
         {
@@ -38,7 +46,7 @@ namespace uEN.UI
         public void EnsureItemsSource<T>(IEnumerable<T> source)
         {
             GridSource = new ListCollectionView(source.ToList());
-            ColumnAnnotation = new List<DataGridColumnAnnotationAttribute>();
+            var columnAnnotation = new List<DataGridColumnAnnotationAttribute>();
             foreach (var each in GridSource.ItemProperties)
             {
                 var descriptor = each.Descriptor as PropertyDescriptor;
@@ -49,11 +57,11 @@ namespace uEN.UI
                     {
                         att.PropertyInfo = each;
 
-                        ColumnAnnotation.Add(att);
+                        columnAnnotation.Add(att);
                     }
                 }
             }
-            UpdateTarget();
+            ColumnAnnotation = columnAnnotation.OrderBy(x => x.Idntity).ToList();
         }
         public override void LoadedView()
         {
@@ -73,10 +81,28 @@ namespace uEN.UI
             if (DoubleClick != null)
                 DoubleClick(this, e);
         }
-
-
         public object Current { get { return GridSource.CurrentItem; } }
 
+        public void Refresh()
+        {
+            LoadedView();
+        }
+
+        #region ISimpleGridVisualElements
+
+        public DataGrid Grid
+        {
+            get;
+            internal set;
+        }
+        public event EventHandler Assigned;
+        internal void OnAssigned()
+        {
+            if (Assigned != null)
+                Assigned(this, new EventArgs());
+        }
+
+        #endregion
 
     }
 }

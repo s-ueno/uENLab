@@ -129,6 +129,7 @@
     <Compile Include="UI\Binding\BindingPolicy.cs" />
     <Compile Include="UI\Binding\BindingStringFormatAttribute.cs" />
     <Compile Include="UI\Binding\DisplayMemberPathAttribute.cs" />
+    <Compile Include="UI\Binding\DraggableDataGridRowBehavior.cs" />
     <Compile Include="UI\Binding\GroupRegionAttribute.cs" />
     <Compile Include="UI\Binding\IBindingAttribute.cs" />
     <Compile Include="UI\Binding\IExceptionPolicy.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="UI\Binding\IBindingBehavior.cs" />
     <Compile Include="UI\Binding\IRoutedEventPolicy.cs" />
     <Compile Include="UI\Binding\SimpleValueConverter.cs" />
+    <Compile Include="UI\Binding\UpdateTargetProxyAttribute.cs" />
     <Compile Include="UI\Binding\WaitCursorEventPolicy.cs" />
     <Compile Include="UI\CancelRoutedEventArgs.cs" />
     <Compile Include="UI\Controls\AdvancedOptionView.xaml.cs">
