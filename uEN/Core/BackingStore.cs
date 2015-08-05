@@ -26,7 +26,7 @@ namespace uEN.Core
 
             if (value == null)
             {
-                Trace.TraceInformation(string.Format("値はNULLです。 SetBackingStore -> {0}", Path.Combine(directoryPath, key)));
+                Trace.TraceInformation(string.Format("value is NULL. SetBackingStore -> {0}", Path.Combine(directoryPath, key)));
                 return;
             }
             using (var stream = new IsolatedStorageFileStream(Path.Combine(directoryPath, key), FileMode.OpenOrCreate, appStore))
@@ -52,7 +52,7 @@ namespace uEN.Core
                 {
                     if (stream.Length == 0)
                     {
-                        Trace.TraceInformation(string.Format("値は空です。 GetBackingStore -> {0}", path));
+                        Trace.TraceInformation(string.Format("value is Empty. GetBackingStore -> {0}", path));
                         return result;
                     }
                     var formatter = new BinaryFormatter();
