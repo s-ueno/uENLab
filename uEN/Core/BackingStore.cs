@@ -15,7 +15,7 @@ namespace uEN.Core
 {
     public static class BackingStore
     {
-        public static void SetBackingStore<T>(this T obj, object value, string key) where T : class
+        public static void SetBackingStore<T>(this T obj, object value, [CallerMemberName] string key = null) where T : class
         {
             var appStore = CreateStore();
             var directoryPath = typeof(T).FullName;
@@ -35,7 +35,7 @@ namespace uEN.Core
                 formatter.Serialize(stream, value);
             }
         }
-        public static object GetBackingStore<T>(this T obj, string key) where T : class
+        public static object GetBackingStore<T>(this T obj, [CallerMemberName] string key = null) where T : class
         {
             var appStore = CreateStore();
             var directoryPath = typeof(T).FullName;
