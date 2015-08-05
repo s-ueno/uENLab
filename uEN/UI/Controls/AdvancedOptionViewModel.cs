@@ -28,5 +28,24 @@ namespace uEN.UI.Controls
         {
             Singleton<ThemeManager>.Value.AlternatingRowBackgroundChanged();
         }
+        public bool UseDataGridAsyncBinding
+        {
+            get { return Singleton<AsyncBindingOption>.Value.AllowDataGridItemsSource; }
+            set { Singleton<AsyncBindingOption>.Value.AllowDataGridItemsSource = value; }
+        }
+    }
+
+}
+
+namespace uEN.UI
+{
+    internal class AsyncBindingOption
+    {
+        public bool AllowDataGridItemsSource
+        {
+            get { return (this.GetBackingStore("AllowDataGridItemsSource") as bool?).GetValueOrDefault(true); }
+            set { this.SetBackingStore(value, "AllowDataGridItemsSource"); }
+        }
     }
 }
+

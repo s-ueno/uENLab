@@ -54,8 +54,33 @@ namespace uEN.UI.AttachedProperties
                     button.Content = w.WindowState == WindowState.Maximized ? "2" : "1";
                 };
             }
-            button.AddHandler(Button.ClickEvent, new RoutedEventHandler(OnCommandActio));
+
+            button.Loaded -= OnButtonLoaded;
+            button.Loaded += OnButtonLoaded;
+
+            button.Click -= OnCommandActio;
+            button.Click += OnCommandActio;
         }
+
+        static void OnButtonLoaded(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var command = button.GetValue(CommandProperty) as Commands?;
+
+            if (!command.HasValue) return;
+
+            var win = Window.GetWindow(button);
+            if (win.ResizeMode == ResizeMode.NoResize)
+            {
+                if (command.Value == Commands.Minimize ||
+                    command.Value == Commands.RestoreOrMaximize)
+                {
+                    button.Visibility = Visibility.Collapsed;
+                }
+            }
+
+        }
+
 
         private static void OnCommandActio(object sender, RoutedEventArgs e)
         {
@@ -108,27 +133,24 @@ namespace uEN.UI.AttachedProperties
                 var settings = win.Template.FindName("settings", win) as uEN.UI.Controls.Settings;
                 settings.ShowContents(true);
 
+                var pane = element.FindName("darkPane") as Border;
                 element.Visibility = Visibility.Visible;
                 ViewTransition.Play(element, TransitionStyle.Slide, () =>
                 {
-                    win.MouseDown -= win_MouseDown;
-                    win.MouseDown += win_MouseDown;
+                    pane.MouseDown -= OnSettingFadeOutClick;
+                    pane.MouseDown += OnSettingFadeOutClick;
                 });
             }
         }
 
-        static void win_MouseDown(object sender, MouseButtonEventArgs e)
+        static void OnSettingFadeOutClick(object sender, MouseButtonEventArgs e)
         {
-            var win = (Window)sender;
-            var element = win.Template.FindName("SettingArea", win) as FrameworkElement;
-            if (element != null &&
-                element.Visibility == Visibility.Visible &&
-                !element.IsMouseOver)
-            {
-                win.MouseDown -= win_MouseDown;
-                ViewTransition.Play(element, TransitionStyle.SlideOut, 
-                    () => element.Visibility = Visibility.Collapsed);
-            }
+            var pane = sender as Border;
+            var settingArea = pane.Parent as Grid;
+
+            pane.MouseDown -= OnSettingFadeOutClick;
+            ViewTransition.Play(settingArea, TransitionStyle.SlideOut,
+                () => settingArea.Visibility = Visibility.Collapsed);
         }
 
 

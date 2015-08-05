@@ -119,6 +119,7 @@
     <Compile Include="UI\AttachedProperties\StarMarkBehavior.cs" />
     <Compile Include="UI\AttachedProperties\SymbolButtonProxy.cs" />
     <Compile Include="UI\AttachedProperties\SymbolTextBoxProxy.cs" />
+    <Compile Include="UI\AttachedProperties\TabControlBehavior.cs" />
     <Compile Include="UI\AttachedProperties\TextInput\TextInputAnnotation.cs" />
     <Compile Include="UI\AttachedProperties\TextInput\TextInputPolicy.cs" />
     <Compile Include="UI\AttachedProperties\TextInput\TextInputObserver.cs" />
@@ -179,6 +180,7 @@
       <DependentUpon>ThemeColorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Controls\ThemeColorViewModel.cs" />
+    <Compile Include="UI\Controls\TransitioningContentControl.cs" />
     <Compile Include="UI\Converter\ColorToStringConverter.cs" />
     <Compile Include="UI\Converter\FontFamilyConverter.cs" />
     <Compile Include="UI\BizApplication.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="UI\Validation\RequiredRule.cs" />
     <Compile Include="UI\ViewDataTemplateSelector.cs" />
     <Compile Include="UI\VisualElementsAttribute.cs" />
+    <Compile Include="UI\VisualStates.cs" />
     <Compile Include="Utils\BizUtils.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Utils\CopyCloneUtil.cs" />
@@ -302,7 +305,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\Themes\Assets\TabItem.xaml">
+    <Page Include="UI\Themes\Assets\TabControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -317,6 +320,10 @@
     <Page Include="UI\Themes\Assets\ToggleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Themes\Assets\TransitioningContentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Themes\Assets\Window.xaml">
       <SubType>Designer</SubType>

@@ -19,6 +19,13 @@ namespace uEN.UI.AttachedProperties
         VerticalSlideOut,
     }
 
+    internal class ViewTransitionConfig
+    {
+        internal static readonly double SlideAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.SlideAnimationTimeSpan", 0.15d);
+        internal static readonly double OpacityAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.OpacityAnimationTimeSpan", 0.2d);
+        internal static readonly double SlideMargin = BizUtils.AppSettings("ViewTransition.Margin", 30d);
+    }
+
     public class ViewTransition
     {
         public static TransitionStyle GetTransitionStyle(DependencyObject obj)
@@ -84,14 +91,12 @@ namespace uEN.UI.AttachedProperties
 
         //private static readonly double slideAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.SlideAnimationTimeSpan", 0.2d);
         //private static readonly double opacityAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.OpacityAnimationTimeSpan", 0.3d);
-        private static readonly double slideAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.SlideAnimationTimeSpan", 0.15d);
-        private static readonly double opacityAnimationTimeSpan = BizUtils.AppSettings("ViewTransition.OpacityAnimationTimeSpan", 0.2d);
-        private static readonly double SlideMargin = BizUtils.AppSettings("ViewTransition.Margin", 30d);
+
 
         private static Storyboard CreateSlideStoryboard(bool isFadeIn = true)
         {
-            var fromThickness = isFadeIn ? new Thickness(SlideMargin, 0, -SlideMargin, 0) : new Thickness(0);
-            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(SlideMargin, 0, -SlideMargin, 0);
+            var fromThickness = isFadeIn ? new Thickness(ViewTransitionConfig.SlideMargin, 0, -ViewTransitionConfig.SlideMargin, 0) : new Thickness(0);
+            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(ViewTransitionConfig.SlideMargin, 0, -ViewTransitionConfig.SlideMargin, 0);
             var fromOpacity = isFadeIn ? 0 : 1;
             var toOpacity = isFadeIn ? 1 : 0;
 
@@ -100,8 +105,8 @@ namespace uEN.UI.AttachedProperties
 
         private static Storyboard CreateVerticalSlideStoryboard(bool isFadeIn = true)
         {
-            var fromThickness = isFadeIn ? new Thickness(0, SlideMargin, 0, -SlideMargin) : new Thickness(0);
-            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(0, SlideMargin, 0, -SlideMargin);
+            var fromThickness = isFadeIn ? new Thickness(0, ViewTransitionConfig.SlideMargin, 0, -ViewTransitionConfig.SlideMargin) : new Thickness(0);
+            var toThickness = isFadeIn ? new Thickness(0) : new Thickness(0, ViewTransitionConfig.SlideMargin, 0, -ViewTransitionConfig.SlideMargin);
             var fromOpacity = isFadeIn ? 0 : 1;
             var toOpacity = isFadeIn ? 1 : 0;
 
@@ -115,7 +120,7 @@ namespace uEN.UI.AttachedProperties
             var slideAnimation = new ThicknessAnimation();
             slideAnimation.From = fromThickness;
             slideAnimation.To = toThickness;
-            slideAnimation.Duration = new Duration(TimeSpan.FromSeconds(slideTimeSpan ?? slideAnimationTimeSpan));
+            slideAnimation.Duration = new Duration(TimeSpan.FromSeconds(slideTimeSpan ?? ViewTransitionConfig.SlideAnimationTimeSpan));
 
             Storyboard.SetTargetProperty(slideAnimation, new PropertyPath(FrameworkElement.MarginProperty));
             storyboard.Children.Add(slideAnimation);
@@ -123,7 +128,7 @@ namespace uEN.UI.AttachedProperties
             var opacityAnimation = new DoubleAnimation();
             opacityAnimation.From = fromOpacity;
             opacityAnimation.To = toOpacity;
-            opacityAnimation.Duration = new Duration(TimeSpan.FromSeconds(opacityTimeSpan ?? opacityAnimationTimeSpan));
+            opacityAnimation.Duration = new Duration(TimeSpan.FromSeconds(opacityTimeSpan ?? ViewTransitionConfig.OpacityAnimationTimeSpan));
             Storyboard.SetTargetProperty(opacityAnimation, new PropertyPath(FrameworkElement.OpacityProperty));
             storyboard.Children.Add(opacityAnimation);
 
