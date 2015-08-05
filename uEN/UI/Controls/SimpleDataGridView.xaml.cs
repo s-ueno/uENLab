@@ -43,7 +43,7 @@ namespace uEN.UI.Controls
             var parentIsRow = obj.FindVisualParent<DataGridRow>();
             if (parentIsRow == null)
             {
-                e.Handled = true;   
+                e.Handled = true;
             }
         }
 
@@ -54,9 +54,16 @@ namespace uEN.UI.Controls
             builder.Element(PART_grid)
                    .Binding(DataGrid.FrozenColumnCountProperty, x => x.FrozenColumnCount)
                    .Binding(DataGrid.SelectionModeProperty, x => x.SelectionMode)
-                   .Binding(DataGrid.ItemsSourceProperty, x => x.GridSource).IsAsync()
+                   .Binding(DataGrid.ItemsSourceProperty, x => x.GridSource)
+                        .IsAsync(Singleton<AsyncBindingOption>.Value.AllowDataGridItemsSource)
                    .Binding(DataGrid.MouseDoubleClickEvent, x => x.SelectAction);
 
+            var vm = DataContext as SimpleDataGridViewModel;
+            if (vm != null)
+            {
+                vm.Grid = PART_grid;
+                vm.OnAssigned();
+            }
 
         }
 
@@ -69,14 +76,13 @@ namespace uEN.UI.Controls
 
                 var factory = Repository.GetPriorityExport<IDataGridColumnFactory>();
                 var atts = (IEnumerable<DataGridColumnAnnotationAttribute>)e.UserState;
-                foreach (var each in atts.OrderBy(x => x.Idntity))
+                foreach (var each in atts)
                 {
                     PART_grid.Columns.Add(factory.Create(each));
                 }
                 PART_grid.EndInit();
                 PART_grid.UpdateLayout();
             }
-            base.OnViewModelMessageNotify(sender, e);
         }
     }
 }

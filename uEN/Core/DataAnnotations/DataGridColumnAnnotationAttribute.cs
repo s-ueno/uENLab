@@ -20,8 +20,6 @@ namespace uEN.Core
         {
             Idntity = identity;
             Header = header;
-            IsReadOnly = true;
-            IsAutoSize = true;
         }
         public DataGridColumnAnnotationAttribute(int identity, string header, double size)
             : this(identity, header, size, true)
@@ -31,7 +29,6 @@ namespace uEN.Core
             : this(identity, header, size, isReadOnly, null)
         {
         }
-
         public DataGridColumnAnnotationAttribute(int identity, string header, double size, bool isReadOnly, string stringFormat)
             : this(identity, header, size, isReadOnly, stringFormat, false)
         {
@@ -53,20 +50,59 @@ namespace uEN.Core
             ComboBoxItemsSourcePath = comboBoxItemsSourcePath;
         }
 
-        public int Idntity { get; private set; }
-        public string Header { get; private set; }
-        public double? Size { get; private set; }
-        public bool IsAutoSize { get; private set; }
-        public bool IsStar { get; private set; }
-        public bool IsReadOnly { get; private set; }
-        public string StringFormat { get; private set; }
+        public int Idntity { get; set; }
+        public string Header { get; set; }
+        public double? Size { get; set; }
+        public bool IsStar { get; set; }
+        public string StringFormat { get; set; }
 
-        public string ComboBoxItemsSourcePath { get; private set; }
-        public string ComboBoxDisplayMemberPath { get; private set; }
+        public bool IsAutoSize
+        {
+            get { return _IsAutoSize; }
+            set { _IsAutoSize = value; }
+        }
+        bool _IsAutoSize = false;
+
+        public bool IsReadOnly
+        {
+            get { return _IsReadOnly; }
+            set { _IsReadOnly = value; }
+        }
+        bool _IsReadOnly = true;
+
+        public bool CanUserResize
+        {
+            get { return _CanUserResize; }
+            set { _CanUserResize = value; }
+        }
+        bool _CanUserResize = true;
+
+        public bool CanUserSort
+        {
+            get { return _CanUserSort; }
+            set { _CanUserSort = value; }
+        }
+        bool _CanUserSort = true;
+
+        public bool CanUserReorder
+        {
+            get { return _CanUserReorder; }
+            set { _CanUserReorder = value; }
+        }
+        bool _CanUserReorder = true;
+
+        public bool IsVisible
+        {
+            get { return _IsVisible; }
+            set { _IsVisible = value; }
+        }
+        bool _IsVisible = true;
+
+        public string ComboBoxItemsSourcePath { get; set; }
+        public string ComboBoxDisplayMemberPath { get; set; }
 
         public ItemPropertyInfo PropertyInfo { get; internal set; }
         public IList<ValidationRule> Validations { get; internal set; }
-
     }
 
     public interface IDataGridColumnFactory
@@ -133,6 +169,10 @@ namespace uEN.Core
             }
             column.Header = att.Header;
             column.IsReadOnly = att.IsReadOnly;
+            column.CanUserResize = att.CanUserResize;
+            column.CanUserSort = att.CanUserSort;
+            column.CanUserReorder = att.CanUserReorder;
+            column.Visibility = att.IsVisible ? Visibility.Visible : Visibility.Collapsed;
             return column;
         }
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace uEN.Core
     {
         public static void SetBackingStore<T>(this T obj, object value, [CallerMemberName] string key = null) where T : class
         {
-            var appStore = IsolatedStorageFile.GetUserStoreForAssembly();
+            var appStore = CreateStore();
             var directoryPath = typeof(T).FullName;
             if (!appStore.DirectoryExists(directoryPath))
             {
@@ -25,7 +26,7 @@ namespace uEN.Core
 
             if (value == null)
             {
-                Trace.TraceInformation(string.Format("value is NULL. SetBackingStore -> {0}", Path.Combine(directoryPath, key)));
+                Trace.TraceInformation(string.Format("値はNULLです。 SetBackingStore -> {0}", Path.Combine(directoryPath, key)));
                 return;
             }
             using (var stream = new IsolatedStorageFileStream(Path.Combine(directoryPath, key), FileMode.OpenOrCreate, appStore))
@@ -36,7 +37,7 @@ namespace uEN.Core
         }
         public static object GetBackingStore<T>(this T obj, [CallerMemberName] string key = null) where T : class
         {
-            var appStore = IsolatedStorageFile.GetUserStoreForAssembly();
+            var appStore = CreateStore();
             var directoryPath = typeof(T).FullName;
             if (!appStore.DirectoryExists(directoryPath))
             {
@@ -51,7 +52,7 @@ namespace uEN.Core
                 {
                     if (stream.Length == 0)
                     {
-                        Trace.TraceInformation(string.Format("item is null. GetBackingStore -> {0}", path));
+                        Trace.TraceInformation(string.Format("値は空です。 GetBackingStore -> {0}", path));
                         return result;
                     }
                     var formatter = new BinaryFormatter();
@@ -65,12 +66,22 @@ namespace uEN.Core
             }
             return result;
         }
-
         public static void RemoveBackingStore<T>(this T obj) where T : class
         {
-            var appStore = IsolatedStorageFile.GetUserStoreForAssembly();
+            var appStore = CreateStore();
             appStore.Remove();
         }
-
+        private static IsolatedStorageFile CreateStore()
+        {
+            if (AppDomain.CurrentDomain.ActivationContext != null)
+            {
+                var asi = new ApplicationSecurityInfo(AppDomain.CurrentDomain.ActivationContext);
+                var store = IsolatedStorageFile.GetStore(
+                        IsolatedStorageScope.User |
+                        IsolatedStorageScope.Assembly, null, null, asi.ApplicationEvidence, null);
+                return store;
+            }
+            return IsolatedStorageFile.GetUserStoreForAssembly();
+        }
     }
 }

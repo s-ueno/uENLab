@@ -250,13 +250,16 @@ namespace uEN.UI
                 view.SetCurrentValue(BizView.VisibilityProperty, Visibility.Visible);
             }
         }
-        public void Close()
+        public void Close(bool isWindowClose = false)
         {
-            var w = this.GetWindow();
-            if (w != null)
-                w.Close();
-            else
-                this.Collapse();
+            this.Collapse();
+            if (isWindowClose)
+            {
+                var w = this.GetWindow();
+                if (w != null)
+                    w.Close();
+            }
+            Dispose();
         }
         public void Dispose()
         {

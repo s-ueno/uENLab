@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using uEN.UI;
@@ -36,7 +38,13 @@ namespace uEN
                 parent = VisualTreeHelper.GetParent(parent);
             return parent as T;
         }
-
+        public static T FindVisualParentFromPoint<T>(this UIElement target, Point point) where T : DependencyObject
+        {
+            var element = target.InputHitTest(point) as DependencyObject;
+            if (element == null) return null;
+            else if (element is T) return (T)element;
+            else return element.FindVisualParent<T>();
+        }
         public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject target) where T : DependencyObject
         {
             if (!(target is Visual))
@@ -59,8 +67,6 @@ namespace uEN
             }
         }
 
-
-
         //http://msdn.microsoft.com/ja-jp/library/system.windows.threading.dispatcher.pushframe.aspx
         [SecurityPermissionAttribute(SecurityAction.Demand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         public static void DoEvents(this DependencyObject target, DispatcherPriority priority = DispatcherPriority.Background)
@@ -76,5 +82,25 @@ namespace uEN
             ((DispatcherFrame)f).Continue = false;
             return null;
         }
+
+        public static Size MeasureString(this string s)
+        {
+            var app = System.Windows.Application.Current;
+            if (app == null) return new Size(0, 0);
+
+            var textBlock = new TextBlock();
+            textBlock.FontFamily = app.FindResource("AppFont") as FontFamily;
+            textBlock.FontSize = (app.FindResource("AppFontSize") as double?) ?? 12d;
+
+            var formattedText = new FormattedText(
+                s,
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(textBlock.FontFamily, textBlock.FontStyle, textBlock.FontWeight, textBlock.FontStretch),
+                textBlock.FontSize,
+                Brushes.Black);
+            return new Size(formattedText.Width, formattedText.Height);
+        }
+
     }
 }

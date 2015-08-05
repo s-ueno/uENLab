@@ -25,6 +25,10 @@
             <CheckBox x:Name="AlternatingRowBackgroundCheckBox"
                 Style="{DynamicResource SliderCheckBoxStyle}" Foreground="Snow"
                 Margin="5" Content="行の交互にアクセント色をつける" VerticalContentAlignment="Center"/>
+
+            <CheckBox x:Name="DataGridAsyncBindingCheckBox"
+                Style="{DynamicResource SliderCheckBoxStyle}" Foreground="Snow"
+                Margin="5" Content="非同期表示する(パフォーマンス向上)" VerticalContentAlignment="Center"/>
         </StackPanel>
         
     </Grid>

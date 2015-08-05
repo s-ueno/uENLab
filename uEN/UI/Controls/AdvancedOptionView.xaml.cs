@@ -34,10 +34,16 @@ namespace uEN.UI.Controls
         protected override void BuildBinding()
         {
             var builder = CreateBindingBuilder<AdvancedOptionViewModel>();
+
             builder.Element(AlternatingRowBackgroundCheckBox)
                    .Binding(CheckBox.IsCheckedProperty, x => x.UseAlternatingRowBackground)
                    .Binding(CheckBox.CheckedEvent, x => x.AlternatingRowBackgroundChanged)
                    .Binding(CheckBox.UncheckedEvent, x => x.AlternatingRowBackgroundChanged);
+
+
+            builder.Element(DataGridAsyncBindingCheckBox)
+                   .Binding(CheckBox.IsCheckedProperty, x => x.UseDataGridAsyncBinding, BindingMode.TwoWay);
+
         }
     }
 }
