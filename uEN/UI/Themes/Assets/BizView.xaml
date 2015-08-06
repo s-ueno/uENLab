@@ -8,6 +8,7 @@
         <!--<Setter Property="Foreground"   Value="{DynamicResource AppBrand}" />-->
         <Setter Property="Foreground"   Value="{DynamicResource AppForeground}" />
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Language" Value="ja-JP" />
         
         <Setter Property="attached:ViewTransition.TransitionStyle" Value="Slide" />
