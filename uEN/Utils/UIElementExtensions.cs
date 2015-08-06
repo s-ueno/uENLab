@@ -45,6 +45,21 @@ namespace uEN
             else if (element is T) return (T)element;
             else return element.FindVisualParent<T>();
         }
+
+        public static IEnumerable<T> FindVisualChildrenFromPoint<T>(this UIElement target, Point point) where T : DependencyObject
+        {
+            var element = target.InputHitTest(point) as DependencyObject;
+            if (element == null) yield break;
+            else if (element is T) yield return (T)element;
+            else
+            {
+                foreach (var each in element.FindVisualChildren<T>())
+                {
+                    if (each is T) yield return (T)each;
+                }
+            }
+        }
+
         public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject target) where T : DependencyObject
         {
             if (!(target is Visual))
