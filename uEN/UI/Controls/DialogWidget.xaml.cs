@@ -27,12 +27,10 @@ namespace uEN.UI.Controls
             IconButton.Click += OnIconButtonClick;
         }
 
-        public override void OnApplyTemplate()
+        private Grid Container
         {
-            base.OnApplyTemplate();
-            Container = this.Parent as Grid;
+            get { return this.ListVisualParents<Grid>(x => x.Name == "PART_DialogContentContainer").FirstOrDefault(); }
         }
-        private Grid Container { get; set; }
 
         
 

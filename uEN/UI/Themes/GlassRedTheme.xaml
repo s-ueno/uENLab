@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/uEN;component/UI/Themes/Generic.xaml" />
+        <ResourceDictionary Source="/uEN;component/UI/Themes/GlassTheme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <!-- Windowカラー -->
+    <Color x:Key="WindowThemeColor">Black</Color>
+    <DrawingBrush x:Key="WindowTheme">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="#DA508F" Opacity="0.7" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="1,1,1,1"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>                
+                
+                <GeometryDrawing>
+                    <GeometryDrawing.Brush>
+                        <SolidColorBrush Color="{DynamicResource WindowThemeColor}" Opacity="0.8" />
+                    </GeometryDrawing.Brush>
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="1,1,1,1"/>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+</ResourceDictionary>
