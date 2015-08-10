@@ -38,6 +38,20 @@ namespace uEN
                 parent = VisualTreeHelper.GetParent(parent);
             return parent as T;
         }
+        public static IEnumerable<T> ListVisualParents<T>(this DependencyObject target, Func<T, bool> predicate) where T : DependencyObject
+        {
+            if (!(target is Visual))
+                yield break;
+            var parent = FindVisualParent<T>(target);
+            if (parent == null) yield break;
+
+            if (predicate == null || predicate(parent)) yield return parent;
+            foreach (var each in ListVisualParents<T>(parent, predicate))
+            {
+                yield return each;
+            }
+        }
+
         public static T FindVisualParentFromPoint<T>(this UIElement target, Point point) where T : DependencyObject
         {
             var element = target.InputHitTest(point) as DependencyObject;

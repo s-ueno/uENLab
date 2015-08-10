@@ -42,15 +42,15 @@ namespace uEN.UI.Controls
             obj.SetValue(IsManualDisposeProperty, value);
         }
         public static readonly DependencyProperty IsManualDisposeProperty =
-            DependencyProperty.RegisterAttached("IsManualDispose", typeof(bool), typeof(ExtendedContainer), 
+            DependencyProperty.RegisterAttached("IsManualDispose", typeof(bool), typeof(ExtendedContainer),
             new PropertyMetadata(false));
 
-        
+
         public void Close()
         {
             Container.MouseDown -= OnMouseDown;
 
-            CloseAnimation(TopContent, true, () => Container.Visibility = Visibility.Hidden);
+            CloseAnimation(TopContent, true, () => Container.Visibility = Visibility.Collapsed);
             CloseAnimation(BottomContent, false);
 
             DisposableContent(TopContent.ViewModelPresenter);
