@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using uEN.Core;
 
 namespace uEN.UI
@@ -21,6 +25,10 @@ namespace uEN.UI
     {
         Light,
         Dark,
+        GlassBlue,
+        GlassYellow,
+        GlassRed,
+        GlassGreen,
     }
 
 
@@ -47,6 +55,10 @@ namespace uEN.UI
 
         static readonly Uri DarkTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/DarkTheme.xaml");
         static readonly Uri LightTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/LightTheme.xaml");
+        static readonly Uri GlassBlueTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/GlassBlueTheme.xaml");
+        static readonly Uri GlassYellowTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/GlassYellowTheme.xaml");
+        static readonly Uri GlassRedTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/GlassRedTheme.xaml");
+        static readonly Uri GlassGreenTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/GlassGreenTheme.xaml");
 
         static readonly Uri FlatStyle = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/FlatStyle.xaml");
         static readonly Uri ModernStyle = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/ModernStyle.xaml");
@@ -252,21 +264,53 @@ namespace uEN.UI
             if (!IsValid || !value.HasValue)
                 return;
 
-            var light = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == LightTheme);
-            var dark = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == DarkTheme);
+            var oldTheme = CuurentTheme();
+            if (oldTheme != null)
+                Application.Current.Resources.MergedDictionaries.Remove(oldTheme);
 
-            if (light != null)
-                Application.Current.Resources.MergedDictionaries.Remove(light);
-            if (dark != null)
-                Application.Current.Resources.MergedDictionaries.Remove(dark);
+            ResourceDictionary dic = null;
+            if (value.Value == AppTheme.Dark)
+                dic = new ResourceDictionary() { Source = DarkTheme };
+            if (value.Value == AppTheme.Light)
+                dic = new ResourceDictionary() { Source = LightTheme };
+            if (value.Value == AppTheme.GlassBlue)
+                dic = new ResourceDictionary() { Source = GlassBlueTheme };
+            if (value.Value == AppTheme.GlassYellow)
+                dic = new ResourceDictionary() { Source = GlassYellowTheme };
+            if (value.Value == AppTheme.GlassRed)
+                dic = new ResourceDictionary() { Source = GlassRedTheme };
+            if (value.Value == AppTheme.GlassGreen)
+                dic = new ResourceDictionary() { Source = GlassGreenTheme };
 
-            var dic = value.Value == AppTheme.Dark ?
-                        new ResourceDictionary() { Source = DarkTheme } :
-                        new ResourceDictionary() { Source = LightTheme };
             Application.Current.Resources.MergedDictionaries.Add(dic);
         }
+        private ResourceDictionary CuurentTheme()
+        {
+            var theme = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == LightTheme);
+            if (theme != null) return theme;
+
+            theme = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == DarkTheme);
+            if (theme != null) return theme;
+
+            theme = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == GlassBlueTheme);
+            if (theme != null) return theme;
+
+            theme = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == GlassYellowTheme);
+            if (theme != null) return theme;
+
+            theme = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == GlassRedTheme);
+            if (theme != null) return theme;
+
+            theme = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == GlassGreenTheme);
+            if (theme != null) return theme;
+
+            return null;
+        }
+
 
         #endregion
+
+
 
     }
 }

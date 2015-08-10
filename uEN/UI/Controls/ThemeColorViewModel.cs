@@ -17,45 +17,95 @@ namespace uEN.UI.Controls
     public class ThemeColorViewModel : BizViewModel
     {
         public override string Description { get { return "Window カラー"; } }
+        public bool UseWhiteTheme { get; set; }
+        public bool UseBlackTheme { get; set; }
+        public bool UseGlassBuleTheme { get; set; }
 
-        private static Color LightColor = Colors.Snow;
-        private static Color DarkColor = (Color)ColorConverter.ConvertFromString("#1d1d1d");
+
+
+        public bool UseGlassYellowTheme { get; set; }
+        public bool AllowGlassYellow
+        {
+            get { return allowGlassYellow; }
+        }
+        static readonly bool allowGlassYellow = BizUtils.AppSettings("Theme.AllowGlassYellow", false);
+
+        public bool UseGlassRedTheme { get; set; }
+        public bool AllowGlassRed
+        {
+            get { return allowGlassRed; }
+        }
+        static readonly bool allowGlassRed = BizUtils.AppSettings("Theme.AllowGlassRed", false);
+
+
+        public bool UseGlassGreenTheme { get; set; }
+        public bool AllowGlassGreen
+        {
+            get { return allowGlassGreen; }
+        }
+        static readonly bool allowGlassGreen = BizUtils.AppSettings("Theme.AllowGlassGreen", false);
 
         public override void ApplyView()
         {
-            ColorCollection = new ListCollectionView(new[] 
+            var themeManager = Singleton<ThemeManager>.Value;
+            if (themeManager.Theme == AppTheme.Light)
             {
-                LightColor,
-                DarkColor
-            }.ToList());
-
-            if (Singleton<ThemeManager>.Value.Theme == AppTheme.Dark)
-            {
-                ColorCollection.MoveCurrentTo(DarkColor);
+                UseWhiteTheme = true;
             }
-            if (Singleton<ThemeManager>.Value.Theme == AppTheme.Light)
+            if (themeManager.Theme == AppTheme.Dark)
             {
-                ColorCollection.MoveCurrentTo(LightColor);
+                UseBlackTheme = true;
             }
-
-            ColorCollection.CurrentChanged -= ColorCollection_CurrentChanged;
-            ColorCollection.CurrentChanged += ColorCollection_CurrentChanged;
+            if (themeManager.Theme == AppTheme.GlassBlue)
+            {
+                UseGlassBuleTheme = true;
+            }
+            if (themeManager.Theme == AppTheme.GlassYellow)
+            {
+                UseGlassYellowTheme = true;
+            }
+            if (themeManager.Theme == AppTheme.GlassRed)
+            {
+                UseGlassRedTheme = true;
+            }
+            if (themeManager.Theme == AppTheme.GlassGreen)
+            {
+                UseGlassGreenTheme = true;
+            }
         }
-        public ListCollectionView ColorCollection { get; set; }
-
-        void ColorCollection_CurrentChanged(object sender, EventArgs e)
+        public void CheckedAction()
         {
-            var theme = ColorCollection.CurrentItem as Color?;
-            if (!theme.HasValue)
-                return;
-
-            if (theme.Value == DarkColor)
+            SetTheme();
+        }
+        public void UnCheckedAction()
+        {
+            SetTheme();
+        }
+        protected void SetTheme()
+        {
+            if (UseWhiteTheme)
+            {
+                Singleton<ThemeManager>.Value.Theme = AppTheme.Light;
+            }
+            if (UseBlackTheme)
             {
                 Singleton<ThemeManager>.Value.Theme = AppTheme.Dark;
             }
-            if (theme.Value == LightColor)
+            if (UseGlassBuleTheme)
             {
-                Singleton<ThemeManager>.Value.Theme = AppTheme.Light;
+                Singleton<ThemeManager>.Value.Theme = AppTheme.GlassBlue;
+            }
+            if (UseGlassYellowTheme)
+            {
+                Singleton<ThemeManager>.Value.Theme = AppTheme.GlassYellow;
+            }
+            if (UseGlassRedTheme)
+            {
+                Singleton<ThemeManager>.Value.Theme = AppTheme.GlassRed;
+            }
+            if (UseGlassGreenTheme)
+            {
+                Singleton<ThemeManager>.Value.Theme = AppTheme.GlassGreen;
             }
         }
     }

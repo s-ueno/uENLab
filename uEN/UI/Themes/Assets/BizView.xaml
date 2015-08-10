@@ -4,7 +4,7 @@
                     xmlns:attached="clr-namespace:uEN.UI.AttachedProperties"
                     >
     <Style TargetType="{x:Type local:BizView}">
-        <Setter Property="Background"   Value="{DynamicResource WindowTheme}"/>
+        <Setter Property="Background"   Value="Transparent"/>
         <!--<Setter Property="Foreground"   Value="{DynamicResource AppBrand}" />-->
         <Setter Property="Foreground"   Value="{DynamicResource AppForeground}" />
         <Setter Property="Focusable" Value="False" />

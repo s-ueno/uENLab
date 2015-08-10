@@ -11,39 +11,27 @@
         >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <ListBox x:Name="ColorCollection" >
-            <attached:ScrollIntoViewProxy.Instance>
-                <attached:ScrollIntoViewProxy />
-            </attached:ScrollIntoViewProxy.Instance>
-            <ListBox.Resources>
-                <uen:ColorToStringConverter x:Key="colorConvertor" />
-            </ListBox.Resources>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Padding" Value="0" />
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver"  Value="True">
-                            <Setter Property="Cursor" Value="Hand"></Setter>
-                        </Trigger>
-                    </Style.Triggers>
+        <TextBlock Text="配色テーマ" Margin="5" Foreground="Snow" FontSize="24" />
+
+        <StackPanel Grid.Row="1">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}" >
+                    <Setter Property="Margin"     Value="5" />
+                    <Setter Property="BorderBrush" Value="DarkGray" />
                 </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource colorConvertor}}"
-                               Foreground="{DynamicResource AppBrand}" 
-                               Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}} }"
-                               Height="50"                      
-                               >
-                        <TextBlock.Background>
-                            <SolidColorBrush Color="{Binding}" />
-                        </TextBlock.Background>
-                    </TextBlock>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+                <SolidColorBrush x:Key="ToggleButton.Static.Glyph"           Color="Snow"/>
+                <SolidColorBrush x:Key="ToggleButton.Focus.Border"           Color="Pink"/>
+            </StackPanel.Resources>
+            <RadioButton x:Name="WhiteThemeRadioButton"         Content="淡色" />
+            <RadioButton x:Name="BlackThemeRadioButton"         Content="濃色" />
+            <RadioButton x:Name="GlassBuleThemeRadioButton"     Content="グラス ブルー" />
+            <RadioButton x:Name="GlassYellowThemeRadioButton"   Content="グラス イエロー" />
+            <RadioButton x:Name="GlassRedThemeRadioButton"      Content="グラス レッド" />
+            <RadioButton x:Name="GlassGreenThemeRadioButton"    Content="グラス グリーン" />
+        </StackPanel>
     </Grid>
 </uen:BizView>
