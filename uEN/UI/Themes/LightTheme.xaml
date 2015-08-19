@@ -42,7 +42,7 @@
     <SolidColorBrush x:Key="ToggleButton.Static.Border"          Color="#FFABAdB3"/>
     <SolidColorBrush x:Key="ToggleButton.Static.Glyph"           Color="{DynamicResource AppBrandColor}"/>
 
-    <SolidColorBrush x:Key="ToggleButton.MouseOver.Background"   Color="Transparent" />
+    <SolidColorBrush x:Key="ToggleButton.MouseOver.Background"   Color="#FFD9ECFF" />
     <SolidColorBrush x:Key="ToggleButton.MouseOver.Border"       Color="{DynamicResource AppBrandColor}" Opacity="0.3"/>
 
     <SolidColorBrush x:Key="ToggleButton.Pressed.Background"     Color="#FFD9ECFF"/>
