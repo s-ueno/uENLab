@@ -40,13 +40,13 @@ namespace uEN.UI.AttachedProperties
             }
             if (true.Equals(e.NewValue))
             {
-                Control c = fe as Control;
-                if (c != null && c.Background == null)
-                    c.Background = Brushes.Transparent;
+                //Control c = fe as Control;
+                //if (c != null && c.Background == null)
+                //    c.Background = Brushes.Transparent;
 
-                var p = fe as Panel;
-                if (p != null && p.Background == null)
-                    p.Background = Brushes.Transparent;
+                //var p = fe as Panel;
+                //if (p != null && p.Background == null)
+                //    p.Background = Brushes.Transparent;
                 fe.Opacity = 0d;
                 fe.AddHandler(FrameworkElement.MouseEnterEvent, new MouseEventHandler(OnMouseEnter), true);
                 fe.AddHandler(FrameworkElement.MouseLeaveEvent, new MouseEventHandler(OnMouseLeave), true);
