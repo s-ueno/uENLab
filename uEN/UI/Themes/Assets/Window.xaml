@@ -157,6 +157,39 @@
                                 <controls:Settings x:Name="settings" Grid.Column="2" />
                             </Grid>
 
+                            <Grid x:Name="PART_DialogContentContainer" Visibility="Collapsed" 
+                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
+                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
+                                  TextBlock.FontSize="{DynamicResource AppFontSize}"        
+                                  >
+                                <Grid.Background>
+                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
+                                </Grid.Background>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="5*" />
+                                </Grid.ColumnDefinitions>
+                                <controls:DialogWidget x:Name="dialogWidget" Grid.Column="1"                                                     
+                                                       />
+                            </Grid>
+
+                            <Grid x:Name="PART_ExtendedContainer" Visibility="Collapsed" 
+                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
+                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
+                                  TextBlock.FontSize="{DynamicResource AppFontSize}"
+                                  >
+                                <Grid.Background>
+                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
+                                </Grid.Background>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1.2*" />
+                                    <RowDefinition Height="3*" />
+                                    <RowDefinition Height="0.8*" />
+                                </Grid.RowDefinitions>
+                                <controls:GenericPresenter x:Name="TopExtendedContent"    Grid.Row="0" />
+                                <controls:GenericPresenter x:Name="BottomExtendedContent" Grid.Row="2" />
+                            </Grid>
+
                             <Grid x:Name="PART_MessageContentContainer" Visibility="Collapsed"
                                   TextBlock.FontFamily="{DynamicResource AppFont}" 
                                   TextBlock.Foreground="{DynamicResource AppForeground}" 
@@ -192,39 +225,6 @@
                                                 >
                                     </StackPanel>
                                 </Grid>
-                            </Grid>
-
-                            <Grid x:Name="PART_DialogContentContainer" Visibility="Collapsed" 
-                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
-                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
-                                  TextBlock.FontSize="{DynamicResource AppFontSize}"        
-                                  >
-                                <Grid.Background>
-                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
-                                </Grid.Background>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="5*" />
-                                </Grid.ColumnDefinitions>
-                                <controls:DialogWidget x:Name="dialogWidget" Grid.Column="1"                                                     
-                                                       />
-                            </Grid>
-
-                            <Grid x:Name="PART_ExtendedContainer" Visibility="Collapsed" 
-                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
-                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
-                                  TextBlock.FontSize="{DynamicResource AppFontSize}"
-                                  >
-                                <Grid.Background>
-                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
-                                </Grid.Background>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1.2*" />
-                                    <RowDefinition Height="3*" />
-                                    <RowDefinition Height="0.8*" />
-                                </Grid.RowDefinitions>
-                                <controls:GenericPresenter x:Name="TopExtendedContent"    Grid.Row="0" />
-                                <controls:GenericPresenter x:Name="BottomExtendedContent" Grid.Row="2" />
                             </Grid>
                         </Grid>
                     </Border>
@@ -295,6 +295,39 @@
                                 </Grid>
                             </Grid>
 
+                            <Grid x:Name="PART_DialogContentContainer" Visibility="Collapsed" 
+                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
+                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
+                                  TextBlock.FontSize="{DynamicResource AppFontSize}"  
+                                  >
+                                <Grid.Background>
+                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
+                                </Grid.Background>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="5*" />
+                                </Grid.ColumnDefinitions>
+                                <controls:DialogWidget x:Name="dialogWidget" Grid.Column="1"                                                     
+                                                       />
+                            </Grid>
+
+                            <Grid x:Name="PART_ExtendedContainer" Visibility="Collapsed" 
+                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
+                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
+                                  TextBlock.FontSize="{DynamicResource AppFontSize}"
+                                  >
+                                <Grid.Background>
+                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
+                                </Grid.Background>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1.2*" />
+                                    <RowDefinition Height="3*" />
+                                    <RowDefinition Height="0.8*" />
+                                </Grid.RowDefinitions>
+                                <controls:GenericPresenter x:Name="TopExtendedContent"    Grid.Row="0" />
+                                <controls:GenericPresenter x:Name="BottomExtendedContent" Grid.Row="2" />
+                            </Grid>
+
                             <Grid x:Name="PART_MessageContentContainer" Visibility="Collapsed"
                                   TextBlock.FontFamily="{DynamicResource AppFont}" 
                                   TextBlock.Foreground="{DynamicResource AppForeground}" 
@@ -330,39 +363,6 @@
                                                 >
                                     </StackPanel>
                                 </Grid>
-                            </Grid>
-
-                            <Grid x:Name="PART_DialogContentContainer" Visibility="Collapsed" 
-                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
-                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
-                                  TextBlock.FontSize="{DynamicResource AppFontSize}"  
-                                  >
-                                <Grid.Background>
-                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
-                                </Grid.Background>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*" />
-                                    <ColumnDefinition Width="5*" />
-                                </Grid.ColumnDefinitions>
-                                <controls:DialogWidget x:Name="dialogWidget" Grid.Column="1"                                                     
-                                                       />
-                            </Grid>
-
-                            <Grid x:Name="PART_ExtendedContainer" Visibility="Collapsed" 
-                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
-                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
-                                  TextBlock.FontSize="{DynamicResource AppFontSize}"
-                                  >
-                                <Grid.Background>
-                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
-                                </Grid.Background>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1.2*" />
-                                    <RowDefinition Height="3*" />
-                                    <RowDefinition Height="0.8*" />
-                                </Grid.RowDefinitions>
-                                <controls:GenericPresenter x:Name="TopExtendedContent"    Grid.Row="0" />
-                                <controls:GenericPresenter x:Name="BottomExtendedContent" Grid.Row="2" />
                             </Grid>
                         </Grid>
                     </Border>
@@ -489,43 +489,6 @@
                                 </Grid>
                             </Grid>
 
-                            <Grid x:Name="PART_MessageContentContainer" Visibility="Collapsed"
-                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
-                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
-                                  TextBlock.FontSize="{DynamicResource AppFontSize}"
-                                  >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="2*" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="2*" />
-                                </Grid.RowDefinitions>
-                                <Grid.Background>
-                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
-                                </Grid.Background>
-                                <Grid x:Name="PART_MessageContent" Grid.Row="1" Background="{DynamicResource WindowTheme}" >
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="3*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="auto" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock x:Name="PART_MessageTitle" Grid.Column="1" FontSize="24" 
-                                               Margin="50,10,5,0"/>
-                                    <TextBlock x:Name="PART_MessageDescription" Grid.Column="1" Grid.Row="1" Margin="50,5,0,0" TextWrapping="WrapWithOverflow" />
-                                    <StackPanel x:Name="PART_MessageButtons" Grid.Column="1" Grid.Row="2" Margin="50,5,50,10" Focusable="True"
-                                                Orientation="Horizontal" HorizontalAlignment="Right" 
-                                                KeyboardNavigation.TabNavigation="Cycle" 
-                                                KeyboardNavigation.DirectionalNavigation="Cycle" 
-                                                KeyboardNavigation.ControlTabNavigation="Cycle"
-                                                >
-                                    </StackPanel>
-                                </Grid>
-                            </Grid>
-
                             <Grid x:Name="SettingArea" Visibility="Collapsed"
                                   KeyboardNavigation.TabNavigation="Cycle" 
                                   KeyboardNavigation.DirectionalNavigation="Cycle" 
@@ -576,6 +539,43 @@
                                 </Grid.RowDefinitions>
                                 <controls:GenericPresenter x:Name="TopExtendedContent"    Grid.Row="0" />
                                 <controls:GenericPresenter x:Name="BottomExtendedContent" Grid.Row="2" />
+                            </Grid>
+
+                            <Grid x:Name="PART_MessageContentContainer" Visibility="Collapsed"
+                                  TextBlock.FontFamily="{DynamicResource AppFont}" 
+                                  TextBlock.Foreground="{DynamicResource AppForeground}" 
+                                  TextBlock.FontSize="{DynamicResource AppFontSize}"
+                                  >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2*" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="2*" />
+                                </Grid.RowDefinitions>
+                                <Grid.Background>
+                                    <SolidColorBrush Color="DarkGray" Opacity="0.5" />
+                                </Grid.Background>
+                                <Grid x:Name="PART_MessageContent" Grid.Row="1" Background="{DynamicResource WindowTheme}" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock x:Name="PART_MessageTitle" Grid.Column="1" FontSize="24" 
+                                               Margin="50,10,5,0"/>
+                                    <TextBlock x:Name="PART_MessageDescription" Grid.Column="1" Grid.Row="1" Margin="50,5,0,0" TextWrapping="WrapWithOverflow" />
+                                    <StackPanel x:Name="PART_MessageButtons" Grid.Column="1" Grid.Row="2" Margin="50,5,50,10" Focusable="True"
+                                                Orientation="Horizontal" HorizontalAlignment="Right" 
+                                                KeyboardNavigation.TabNavigation="Cycle" 
+                                                KeyboardNavigation.DirectionalNavigation="Cycle" 
+                                                KeyboardNavigation.ControlTabNavigation="Cycle"
+                                                >
+                                    </StackPanel>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Border>
