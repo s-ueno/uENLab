@@ -50,10 +50,6 @@ namespace uEN.UI.AttachedProperties
                 RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(Button), 1)
             });
 
-            //win7でのSegoe UI Symbol対策(win7ではsegoe ui symbolのバージョンが古い)且つ、win8以降のVSデザイナ対策(win8以降ではVSデザイナで正しくアイコン表示させる)
-            var os = Environment.OSVersion;
-            if (6 <= os.Version.Major && 2 <= os.Version.Minor)
-                symbolText.FontFamily = new System.Windows.Media.FontFamily("Segoe UI Symbol");
             symbolText.SetResourceReference(TextBlock.StyleProperty, "SegoeUISymbolTextBlockKey");
 
             content.Children.Add(symbolText);
