@@ -105,6 +105,7 @@ namespace uEN.UI
 
         public virtual IEnumerable<DependencyPropertyBehavior> UpdateSource(string groupRegion = null)
         {
+            if (BindingBehaviors == null) return System.Linq.Enumerable.Empty<DependencyPropertyBehavior>();
             var list = BindingBehaviors.ListBehaviors<DependencyPropertyBehavior>(groupRegion);
             foreach (var each in list)
             {
@@ -114,6 +115,7 @@ namespace uEN.UI
         }
         public virtual IEnumerable<DependencyPropertyBehavior> UpdateTarget(string groupRegion = null)
         {
+            if (BindingBehaviors == null) return System.Linq.Enumerable.Empty<DependencyPropertyBehavior>();
             var list = BindingBehaviors.ListBehaviors<DependencyPropertyBehavior>(groupRegion);
             foreach (var each in list)
             {
