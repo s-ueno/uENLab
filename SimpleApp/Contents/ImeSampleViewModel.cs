@@ -15,6 +15,8 @@ namespace SimpleApp.Contents
     [VisualElements(typeof(ImeSampleView))]
     public class ImeSampleViewModel : BizViewModel
     {
+
+
         public override string Description { get { return "IME Sample"; } }
 
         [TextInputPolicy(TextInputState.None)]
@@ -42,5 +44,9 @@ namespace SimpleApp.Contents
         [AlphanumericAnnotation]
         [TextInputPolicy(TextInputState.Alphanumeric)]
         public string Alpha { get; set; }
+
+        [NumericAnnotation(5, 2)]
+        [TextInputPolicy(TextInputState.Disable)]
+        public decimal? Numeric { get; set; }
     }
 }
