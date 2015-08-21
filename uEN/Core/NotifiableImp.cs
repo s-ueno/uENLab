@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace uEN.Core
@@ -18,7 +19,7 @@ namespace uEN.Core
         }
 
         protected bool SetProperty<T>(ref T storage, T value,
-                            string propertyName = null)
+                            [CallerMemberName] string propertyName = null)
         {
             if (object.Equals(storage, value))
                 return false;

@@ -45,6 +45,7 @@ namespace uEN.UI.AttachedProperties
             {
                 Text = Convert.ToChar(GetSymbol(textBox)).ToString(),
             };
+
             symbolText.SetResourceReference(TextBlock.StyleProperty, "SegoeUISymbolTextBlockKey");
             button.Content = symbolText;
 

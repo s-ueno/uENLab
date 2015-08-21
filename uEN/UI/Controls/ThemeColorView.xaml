@@ -32,6 +32,7 @@
             <RadioButton x:Name="GlassYellowThemeRadioButton"   Content="グラス イエロー" />
             <RadioButton x:Name="GlassRedThemeRadioButton"      Content="グラス レッド" />
             <RadioButton x:Name="GlassGreenThemeRadioButton"    Content="グラス グリーン" />
+            <RadioButton x:Name="GlassBrandThemeRadioButton"    Content="グラス(ブランドカラー)" />
         </StackPanel>
     </Grid>
 </uen:BizView>

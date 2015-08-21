@@ -6,7 +6,7 @@ using System.Text;
 
 namespace uEN.Core
 {
-    // .net 4.0 対応。 .net4.5からは async await で簡単に構築できる
+    // .net 4.0 対応。
     public sealed class AsyncAwaitAdapter<InT, OutT>
     {
         public AsyncAwaitAdapter(Func<AsyncAwaitNotifier<InT>, OutT> workAction, Action<object> reportAction,

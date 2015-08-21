@@ -66,6 +66,13 @@ namespace uEN.UI.Controls
                    .Binding(RadioButton.UncheckedEvent, x => x.CheckedAction)
                    .Binding(RadioButton.VisibilityProperty, x => x.AllowGlassGreen)
                    .Convert(BooleanToVisibility);
+
+            builder.Element(GlassBrandThemeRadioButton)
+                   .Binding(RadioButton.IsCheckedProperty, x => x.UseGlassBrandTheme)
+                   .Binding(RadioButton.CheckedEvent, x => x.CheckedAction)
+                   .Binding(RadioButton.UncheckedEvent, x => x.CheckedAction)
+                   .Binding(RadioButton.VisibilityProperty, x => x.AllowGlassBrand)
+                   .Convert(BooleanToVisibility);
         }
 
         private object BooleanToVisibility(object arg1, Type arg2, object arg3, System.Globalization.CultureInfo arg4)

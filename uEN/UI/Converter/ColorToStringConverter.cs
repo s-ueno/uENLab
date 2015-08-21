@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace uEN.UI
 {
-    public class ColorToStringConverter : IValueConverter
+    internal class ColorToStringConverter : IValueConverter
     {
         public static IEnumerable<Color> ListColors()
         {

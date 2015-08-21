@@ -92,7 +92,6 @@ namespace uEN.Core
                   FormsAuthentication.FormsCookiePath);
             var encTicket = FormsAuthentication.Encrypt(ticket);
 
-            //Web Formじゃないし、CookiesじゃなくてIsolatedStorageでいいんじゃないと思った。どうせレスポンス返すし。
             if (System.Web.HttpContext.Current != null)
             {
                 System.Web.HttpContext.Current.Response.Cookies.Add(

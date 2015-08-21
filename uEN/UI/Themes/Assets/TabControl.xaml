@@ -1,9 +1,11 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<!--Copyright © MahApps.Metro 2011-2015
+    This source is subject to the Microsoft Public License (Ms-PL).
+    Please see http://go.microsoft.com/fwlink/?LinkID=131993 for details.
+    All other rights reserved.-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:attacher="clr-namespace:uEN.UI.AttachedProperties"
                     >
-
-
     <Style TargetType="{x:Type TabControl}" x:Key="ModernTab">
         <Style.Resources>
             <Style TargetType="{x:Type TabItem}" >

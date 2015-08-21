@@ -52,10 +52,11 @@
         </StackPanel>
         <StackPanel Margin="5" Grid.Column="0" Grid.Row="4">
             <TextBlock Text="Alpha" />
-            <TextBox x:Name="AlphaTextBox" 
-                        InputMethod.PreferredImeState="On"
-                     InputMethod.PreferredImeConversionMode="FullShape,Native"
-                     />
+            <TextBox x:Name="AlphaTextBox" />
+        </StackPanel>
+        <StackPanel Margin="5" Grid.Column="1" Grid.Row="4">
+            <TextBlock Text="Numeric" />
+            <TextBox x:Name="NumericTextBox" />
         </StackPanel>
     </Grid>
 </uen:BizView>

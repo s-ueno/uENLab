@@ -45,6 +45,14 @@ namespace uEN.UI.Controls
         }
         static readonly bool allowGlassGreen = BizUtils.AppSettings("Theme.AllowGlassGreen", false);
 
+
+        public bool UseGlassBrandTheme { get; set; }
+        public bool AllowGlassBrand
+        {
+            get { return allowGlassBrand; }
+        }
+        static readonly bool allowGlassBrand = BizUtils.AppSettings("Theme.AllowGlassBrand", true);
+
         public override void ApplyView()
         {
             var themeManager = Singleton<ThemeManager>.Value;
@@ -71,6 +79,10 @@ namespace uEN.UI.Controls
             if (themeManager.Theme == AppTheme.GlassGreen)
             {
                 UseGlassGreenTheme = true;
+            }
+            if (themeManager.Theme == AppTheme.GlassBrand)
+            {
+                UseGlassBrandTheme = true;
             }
         }
         public void CheckedAction()
@@ -106,6 +118,10 @@ namespace uEN.UI.Controls
             if (UseGlassGreenTheme)
             {
                 Singleton<ThemeManager>.Value.Theme = AppTheme.GlassGreen;
+            }
+            if (UseGlassBrandTheme)
+            {
+                Singleton<ThemeManager>.Value.Theme = AppTheme.GlassBrand;
             }
         }
     }

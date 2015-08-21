@@ -58,6 +58,9 @@ namespace SimpleApp.Contents
 
             builder.Element(AlphaTextBox)
                    .Binding(TextBox.TextProperty, x => x.Alpha);
+
+            builder.Element(NumericTextBox)
+                   .Binding(TextBox.TextProperty, x => x.Numeric);
         }
     }
 }

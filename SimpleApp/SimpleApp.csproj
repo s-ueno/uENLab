@@ -65,6 +65,10 @@
       <DependentUpon>ComboBoxView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contents\ComboBoxViewModel.cs" />
+    <Compile Include="Contents\DataGridSampleView.xaml.cs">
+      <DependentUpon>DataGridSampleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contents\DataGridSampleViewModel.cs" />
     <Compile Include="Contents\ImeSampleView.xaml.cs">
       <DependentUpon>ImeSampleView.xaml</DependentUpon>
     </Compile>
@@ -135,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Contents\ComboBoxView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contents\DataGridSampleView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contents\ImeSampleView.xaml">

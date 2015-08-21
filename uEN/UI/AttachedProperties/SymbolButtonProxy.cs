@@ -49,7 +49,9 @@ namespace uEN.UI.AttachedProperties
             {
                 RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(Button), 1)
             });
+
             symbolText.SetResourceReference(TextBlock.StyleProperty, "SegoeUISymbolTextBlockKey");
+
             content.Children.Add(symbolText);
 
             content.Children.Add(new TextBlock()

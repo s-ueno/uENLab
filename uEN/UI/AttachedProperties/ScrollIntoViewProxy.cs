@@ -42,7 +42,7 @@ namespace uEN.UI.AttachedProperties
         private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (changing) return;
-
+            if (sender != e.OriginalSource) return;
             try
             {
                 changing = true;
@@ -85,7 +85,7 @@ namespace uEN.UI.AttachedProperties
                 {
                     if (dataGrid.SelectedIndex < 0) return;
 
-                    dataGrid.ScrollIntoView(dataGrid.Items[dataGrid.Items.Count - 1]);
+                    //dataGrid.ScrollIntoView(dataGrid.Items[dataGrid.Items.Count - 1]);
                     dataGrid.ScrollIntoView(selectedItem);
                     dataGrid.UpdateLayout();
 
@@ -95,7 +95,7 @@ namespace uEN.UI.AttachedProperties
                         if (dataGrid.SelectionUnit == DataGridSelectionUnit.FullRow)
                         {
                             row.IsSelected = true;
-                            dataGrid.DoEvents(DispatcherPriority.Loaded);
+                            //dataGrid.DoEvents(DispatcherPriority.Loaded);
                         }
                         else
                         {
@@ -110,7 +110,7 @@ namespace uEN.UI.AttachedProperties
                                     dataGrid.SelectedCells.Clear();
                                     dataGrid.SelectedCells.Add(dataGridCellInfo);
                                     dataGrid.CurrentCell = dataGridCellInfo;
-                                    dataGrid.DoEvents(DispatcherPriority.Loaded);
+                                    //dataGrid.DoEvents(DispatcherPriority.Loaded);
                                 }
                             }
                         }

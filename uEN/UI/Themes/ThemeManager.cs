@@ -29,6 +29,7 @@ namespace uEN.UI
         GlassYellow,
         GlassRed,
         GlassGreen,
+        GlassBrand,
     }
 
 
@@ -59,6 +60,7 @@ namespace uEN.UI
         static readonly Uri GlassYellowTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/GlassYellowTheme.xaml");
         static readonly Uri GlassRedTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/GlassRedTheme.xaml");
         static readonly Uri GlassGreenTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/GlassGreenTheme.xaml");
+        static readonly Uri GlassBrandTheme = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/GlassBrandTheme.xaml");
 
         static readonly Uri FlatStyle = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/FlatStyle.xaml");
         static readonly Uri ModernStyle = new Uri(@"pack://application:,,,/uEN;component/UI/Themes/ModernStyle.xaml");
@@ -265,24 +267,27 @@ namespace uEN.UI
                 return;
 
             var oldTheme = CuurentTheme();
-            if (oldTheme != null)
-                Application.Current.Resources.MergedDictionaries.Remove(oldTheme);
 
-            ResourceDictionary dic = null;
+            ResourceDictionary newTheme = null;
             if (value.Value == AppTheme.Dark)
-                dic = new ResourceDictionary() { Source = DarkTheme };
+                newTheme = new ResourceDictionary() { Source = DarkTheme };
             if (value.Value == AppTheme.Light)
-                dic = new ResourceDictionary() { Source = LightTheme };
+                newTheme = new ResourceDictionary() { Source = LightTheme };
             if (value.Value == AppTheme.GlassBlue)
-                dic = new ResourceDictionary() { Source = GlassBlueTheme };
+                newTheme = new ResourceDictionary() { Source = GlassBlueTheme };
             if (value.Value == AppTheme.GlassYellow)
-                dic = new ResourceDictionary() { Source = GlassYellowTheme };
+                newTheme = new ResourceDictionary() { Source = GlassYellowTheme };
             if (value.Value == AppTheme.GlassRed)
-                dic = new ResourceDictionary() { Source = GlassRedTheme };
+                newTheme = new ResourceDictionary() { Source = GlassRedTheme };
             if (value.Value == AppTheme.GlassGreen)
-                dic = new ResourceDictionary() { Source = GlassGreenTheme };
+                newTheme = new ResourceDictionary() { Source = GlassGreenTheme };
+            if (value.Value == AppTheme.GlassBrand)
+                newTheme = new ResourceDictionary() { Source = GlassBrandTheme };
 
-            Application.Current.Resources.MergedDictionaries.Add(dic);
+            Application.Current.Resources.MergedDictionaries.Add(newTheme);
+
+            if (oldTheme != null && newTheme.Source != oldTheme.Source)
+                Application.Current.Resources.MergedDictionaries.Remove(oldTheme);
         }
         private ResourceDictionary CuurentTheme()
         {
@@ -302,6 +307,9 @@ namespace uEN.UI
             if (theme != null) return theme;
 
             theme = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == GlassGreenTheme);
+            if (theme != null) return theme;
+
+            theme = Application.Current.Resources.MergedDictionaries.FirstOrDefault(x => x.Source == GlassBrandTheme);
             if (theme != null) return theme;
 
             return null;
