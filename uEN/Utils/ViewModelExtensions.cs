@@ -126,6 +126,7 @@ namespace uEN.UI
                 win.WindowState = WindowState.Normal;
             }
 
+            var backup = win.Topmost;
             try
             {
                 win.Topmost = true;
@@ -136,7 +137,7 @@ namespace uEN.UI
             }
             finally
             {
-                win.Topmost = false;
+                win.Topmost = backup;
                 setChildWindowEnable(win, true);
             }
         }

@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace uEN.UI
 {
-    public class FontFamilyConverter : IValueConverter
+    internal class FontFamilyConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
