@@ -1,8 +1,12 @@
 ## What is uENLab?
 
-uENLab is a framework about the WPF technology that blog of [uEN Laboratory](http://s-ueno.github.io/) introduces.
+[uEN Laboratory](http://s-ueno.github.io/) is a framework for receiving fully the benefits of MVVM technology when developing LOB.
 
-This framework adds a function with an introduction of the blog and uses it as a learning document of WPF.
+Developers By applying the framework, you can get a MVVM and Meto-Style.
+
+
+![READ ME 01](http://s-ueno.github.io/images/readme_01.PNG)
+
 
 
 
