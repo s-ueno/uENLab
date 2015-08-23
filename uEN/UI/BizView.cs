@@ -71,12 +71,12 @@ namespace uEN.UI
 
         protected virtual void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+
         }
 
         protected virtual void OnViewModelMessageNotify(object sender, MessageNotificationEventArgs e)
         {
-            
+
         }
 
         void BizView_Loaded(object sender, RoutedEventArgs e)
@@ -85,6 +85,11 @@ namespace uEN.UI
             if (viewModel != null)
             {
                 viewModel.LoadedView();
+
+                if (!viewModel.Initialized)
+                {
+                    viewModel.Initialize();
+                }
                 viewModel.Initialized = true;
                 viewModel.UpdateTarget();
             }

@@ -100,6 +100,8 @@ namespace uEN.UI
 
         public bool Initialized { get; internal set; }
 
+        public virtual void Initialize() { }
+
         #region StatusMessage
 
         public string StatusMessage
