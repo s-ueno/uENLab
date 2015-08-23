@@ -16,7 +16,7 @@ namespace uEN.UI.Controls
     [VisualElements(typeof(FontFamilyView))]
     public class FontFamilyViewModel : BizViewModel
     {
-        public override string Description { get { return "フォント ファミリ"; } }
+        public override string Description { get { return Properties.Resources.FontFamily; } }
         public override void ApplyView()
         {
             var fonts = Fonts.SystemFontFamilies.OrderBy(x => x.ToString()).ToList();

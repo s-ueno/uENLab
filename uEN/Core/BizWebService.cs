@@ -30,7 +30,7 @@ namespace uEN.Core
         {
             var facade = Repository.GetPriorityExport(typeName) as IBizServiceFacade;
             if (facade == null)
-                throw new InvalidOperationException("汎用WebサービスはIBizServiceFacadeおよびExportMetadataを実装する必要があります。");
+                throw new InvalidOperationException("BizWebService requires implement IBizServiceFacade and ExportMetadata.");
 
             var deserializedRequest = request.FromByteDeserialize();
             var respons = facade.Execute(deserializedRequest);
@@ -116,7 +116,7 @@ namespace uEN.Core
         {
             if (string.IsNullOrWhiteSpace(this.Url))
             {
-                Trace.TraceWarning("BizWebServiceClientProtocol.SetCookie...URL が無効です。");
+                Trace.TraceWarning("BizWebServiceClientProtocol.SetCookie...URL is invalid.");
                 return;
             }
             CookieContainer.Add(new Uri(this.Url), new Cookie(key, HttpUtility.UrlEncode(value)));
@@ -145,7 +145,7 @@ namespace uEN.Core
                                          .OfType<BizWebServiceTypeNameAttribute>()
                                          .FirstOrDefault();
             if (att == null)
-                throw new InvalidOperationException("BizWebServiceTypeNameを指定してください。");
+                throw new InvalidOperationException("specify the BizWebServiceTypeName.");
             TypeName = att.TypeName;
         }
 

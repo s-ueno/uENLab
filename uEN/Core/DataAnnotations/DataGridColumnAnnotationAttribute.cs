@@ -301,7 +301,7 @@ namespace uEN.Core
             var binding = CreateBinding(att);
             if (string.IsNullOrWhiteSpace(binding.StringFormat))
             {
-                binding.StringFormat = "yyyy/MM/dd";
+                binding.StringFormat = "d";
             }
             var template = new DataTemplate()
             {

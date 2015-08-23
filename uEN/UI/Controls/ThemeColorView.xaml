@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:uen="clr-namespace:uEN.UI"
         xmlns:controls="clr-namespace:uEN.UI.Controls"
-        xmlns:attached="clr-namespace:uEN.UI.AttachedProperties"             
+        xmlns:attached="clr-namespace:uEN.UI.AttachedProperties"
+        xmlns:properties="clr-namespace:uEN.Properties"
         mc:Ignorable="d" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,7 +16,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="配色テーマ" Margin="5" Foreground="Snow" FontSize="24" />
+        <TextBlock Text="{x:Static properties:Resources.ThemeColorView_Title}"  Margin="5" Foreground="Snow" FontSize="24" />
 
         <StackPanel Grid.Row="1">
             <StackPanel.Resources>
@@ -26,13 +27,13 @@
                 <SolidColorBrush x:Key="ToggleButton.Static.Glyph"           Color="Snow"/>
                 <SolidColorBrush x:Key="ToggleButton.Focus.Border"           Color="Pink"/>
             </StackPanel.Resources>
-            <RadioButton x:Name="WhiteThemeRadioButton"         Content="淡色" />
-            <RadioButton x:Name="BlackThemeRadioButton"         Content="濃色" />
-            <RadioButton x:Name="GlassBuleThemeRadioButton"     Content="グラス ブルー" />
-            <RadioButton x:Name="GlassYellowThemeRadioButton"   Content="グラス イエロー" />
-            <RadioButton x:Name="GlassRedThemeRadioButton"      Content="グラス レッド" />
-            <RadioButton x:Name="GlassGreenThemeRadioButton"    Content="グラス グリーン" />
-            <RadioButton x:Name="GlassBrandThemeRadioButton"    Content="グラス(ブランドカラー)" />
+            <RadioButton x:Name="WhiteThemeRadioButton"         Content="{x:Static properties:Resources.LightColor}" />
+            <RadioButton x:Name="BlackThemeRadioButton"         Content="{x:Static properties:Resources.DarkColor}" />
+            <RadioButton x:Name="GlassBuleThemeRadioButton"     Content="{x:Static properties:Resources.GlassBlue}" />
+            <RadioButton x:Name="GlassYellowThemeRadioButton"   Content="{x:Static properties:Resources.GlassYellow}" />
+            <RadioButton x:Name="GlassRedThemeRadioButton"      Content="{x:Static properties:Resources.GlassRed}" />
+            <RadioButton x:Name="GlassGreenThemeRadioButton"    Content="{x:Static properties:Resources.GlassGreen}" />
+            <RadioButton x:Name="GlassBrandThemeRadioButton"    Content="{x:Static properties:Resources.Glass_Brand}" />
         </StackPanel>
     </Grid>
 </uen:BizView>

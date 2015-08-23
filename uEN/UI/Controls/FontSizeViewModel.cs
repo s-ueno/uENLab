@@ -15,7 +15,7 @@ namespace uEN.UI.Controls
     [VisualElements(typeof(FontSizeView))]
     public class FontSizeViewModel : BizViewModel
     {
-        public override string Description { get { return "フォント サイズ"; } }
+        public override string Description { get { return Properties.Resources.FontSize; } }
         public override void ApplyView()
         {
             var list = new List<double>();
@@ -25,8 +25,8 @@ namespace uEN.UI.Controls
             }
             FontSizeCollection = new ListCollectionView(list);
             FontSizeCollection.MoveCurrentTo(Singleton<ThemeManager>.Value.FontSize);
-            FontSizeCollection.CurrentChanged -= FontSizeCollection_CurrentChanged;                
-            FontSizeCollection.CurrentChanged += FontSizeCollection_CurrentChanged;                
+            FontSizeCollection.CurrentChanged -= FontSizeCollection_CurrentChanged;
+            FontSizeCollection.CurrentChanged += FontSizeCollection_CurrentChanged;
         }
         public ListCollectionView FontSizeCollection { get; set; }
 

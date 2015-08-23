@@ -39,7 +39,7 @@ namespace uEN.Core
         public NumericAnnotationAttribute(int precision, int scale, bool unsigned)
         {
             if (precision < scale)
-                throw new InvalidOperationException("precision<scale.　precisionは少数桁を含めた総桁数を設定する必要があります。");
+                throw new InvalidOperationException("precision < scale.　precision need to set the total number of digits, a few digits.");
             Precision = precision;
             Scale = scale;
             Unsigned = unsigned;
