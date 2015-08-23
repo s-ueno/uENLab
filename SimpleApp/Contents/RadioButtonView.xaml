@@ -12,20 +12,20 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Margin="20" Orientation="Horizontal">
-            <RadioButton Margin="10" VerticalContentAlignment="Center" Content="ラジオボタン - 1"/>
-            <RadioButton Margin="10" VerticalContentAlignment="Center" Content="ラジオボタン - 2"/>
-            <RadioButton Margin="10" VerticalContentAlignment="Center" Content="ラジオボタン - 3"/>
+            <RadioButton Margin="10" VerticalContentAlignment="Center" Content="RadioButton - 1"/>
+            <RadioButton Margin="10" VerticalContentAlignment="Center" Content="RadioButton - 2"/>
+            <RadioButton Margin="10" VerticalContentAlignment="Center" Content="RadioButton - 3"/>
 
-            <CheckBox  Margin="10" VerticalContentAlignment="Center" Content="チェックボックス - 1"/>
-            <CheckBox  Margin="10" VerticalContentAlignment="Center" Content="チェックボックス - 2"/>
+            <CheckBox  Margin="10" VerticalContentAlignment="Center" Content="CheckBox - 1"/>
+            <CheckBox  Margin="10" VerticalContentAlignment="Center" Content="CheckBox - 2"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Margin="20" Orientation="Horizontal">
-            <RadioButton IsEnabled="False" Content="ラジオボタン 非活性" Margin="10" VerticalContentAlignment="Center"/>
-            <CheckBox IsEnabled="False" Content="チェックボックス 非活性" Margin="10" VerticalContentAlignment="Center"/>
+            <RadioButton IsEnabled="False" Content="RadioButton IsEnabled=False" Margin="10" VerticalContentAlignment="Center"/>
+            <CheckBox IsEnabled="False" Content="CheckBox IsEnabled=False" Margin="10" VerticalContentAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Margin="20" Orientation="Horizontal">
-            <RadioButton Content="ラジオボタン Null値" Margin="10" VerticalContentAlignment="Center" IsChecked="{x:Null}" />
-            <CheckBox Content="チェックボックス Null値" Margin="10" VerticalContentAlignment="Center" IsChecked="{x:Null}" />
+            <RadioButton Content="RadioButton null value" Margin="10" VerticalContentAlignment="Center" IsChecked="{x:Null}" />
+            <CheckBox Content="CheckBox null value" Margin="10" VerticalContentAlignment="Center" IsChecked="{x:Null}" />
         </StackPanel>
     </Grid>
 </uen:BizView>

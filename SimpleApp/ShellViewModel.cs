@@ -36,7 +36,7 @@ namespace SimpleApp
 
             UserName = "User Name";
             Section = "Section";
-            StatusMessage = "準備完了";
+            StatusMessage = Properties.Resources.Ready;
         }
 
         public ListCollectionView ViewModels { get; set; }

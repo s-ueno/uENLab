@@ -13,9 +13,9 @@ namespace SimpleApp.Contents
     [VisualElements(typeof(Vol10View))]
     public class Vol10ViewModel : BizViewModel
     {
-        public override string Description { get { return "画面遷移"; } }
+        public override string Description { get { return Properties.Resources.ViewNavigation; } }
 
-        
+
 
         public void StartAction()
         {
@@ -24,6 +24,6 @@ namespace SimpleApp.Contents
         }
 
 
-       
+
     }
 }

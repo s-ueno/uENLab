@@ -13,7 +13,7 @@ namespace SimpleApp.Contents
     [VisualElements(typeof(Vol10_1View))]
     public class Vol10_1ViewModel : BizViewModel
     {
-        public override string Description { get { return "遷移元サンプル"; } }
+        public override string Description { get { return Properties.Resources.FirstScreen; } }
 
         public void GoForwardAction()
         {

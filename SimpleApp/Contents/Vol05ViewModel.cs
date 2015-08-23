@@ -13,7 +13,7 @@ namespace SimpleApp.Contents
     [VisualElements(typeof(Vol05View))]
     public class Vol05ViewModel : BizViewModel
     {
-        public override string Description { get { return "様々なボタン"; } }
+        public override string Description { get { return Properties.Resources.Various_buttons; } }
 
 
         internal void SampleAction()

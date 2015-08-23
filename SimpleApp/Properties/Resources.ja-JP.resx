@@ -118,45 +118,45 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DesignOfTheMessage" xml:space="preserve">
-    <value>Design of the message</value>
+    <value>メッセージのデザイン</value>
   </data>
   <data name="FirstScreen" xml:space="preserve">
-    <value>First Screen</value>
+    <value>最初の画面</value>
   </data>
   <data name="MainTitle" xml:space="preserve">
-    <value>LOB developed in ViewModel</value>
+    <value>ViewModelでLOB開発</value>
   </data>
   <data name="MessageBox" xml:space="preserve">
-    <value>Message Box</value>
+    <value>メッセージ ボックス</value>
   </data>
   <data name="MessageSample_01" xml:space="preserve">
-    <value>Use message dialogs to convey urgent information that the user must see and acknowledge before continuing.</value>
+    <value>ユーザーが操作を中断して、見たり認識したりする必要がある緊急の情報を伝えるには、メッセージ ダイアログを使います。</value>
   </data>
   <data name="MessageSample_02" xml:space="preserve">
-    <value>Use message dialogs to present blocking questions that require the user's input.</value>
+    <value>ユーザーの入力を必要とするブロック質問を表示するには、メッセージ ダイアログを使います。</value>
   </data>
   <data name="MessageSample_03" xml:space="preserve">
-    <value>Use message dialogs to ask for explicit action from the user or to deliver a message that is important for the user to acknowledge.</value>
+    <value>ユーザーの明示的な操作を求める場合、またはユーザーが認識することが重要であるメッセージを表示する場合は、メッセージ ダイアログを使います</value>
   </data>
   <data name="MessageSample_04" xml:space="preserve">
-    <value>All dialogs should clearly identify the user's objective in the first line of the dialog's text (with or without a title).</value>
+    <value>すべてのダイアログでは、(タイトルの有無に関係なく) ダイアログ内のテキストの 1 行目で、ユーザーの目的 (実行する内容) を明確に示す必要があります。</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>Ready</value>
+    <value>準備完了</value>
   </data>
   <data name="SecondScreen" xml:space="preserve">
-    <value>Second Screen</value>
+    <value>次の画面</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Send</value>
+    <value>送信する</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>Start</value>
+    <value>スタート</value>
   </data>
   <data name="Various_buttons" xml:space="preserve">
-    <value>Various buttons</value>
+    <value>色々なボタン</value>
   </data>
   <data name="ViewNavigation" xml:space="preserve">
-    <value>View navigation</value>
+    <value>画面遷移</value>
   </data>
 </root>
