@@ -9,6 +9,19 @@ Developers By applying the framework, you can get a MVVM and Meto-Style.
 
 
 
+## The latest Visual Studio Template
+
+Download this
+<a href="https://github.com/additionalData/Templates.zip" rel="tooltip" title="uENLab">
+  <img class="social_icon" alt="icon" src="http://s-ueno.github.io/images/zippedFile.png">
+</a>
+
+Unzip the Template, you can use it to copy below.
+
+```
+C:/Users/<user>/Documents/Visual Studio XXXX/Templates
+```
+
 
 ## License
 (The MIT License)
