@@ -24,6 +24,12 @@ namespace SimpleApp.Contents
         {
             if (Initialized) return;
 
+            SimpleGrid = this.CreateSimpleGrid(CreateSampleData());
+            SimpleGrid.GridSource.Filter = gridFilter;
+        }
+
+        private static IEnumerable<SampleGridModel> CreateSampleData()
+        {
             var list = new List<SampleGridModel>();
             for (int i = 0; i < 101; i++)
             {
@@ -42,9 +48,9 @@ namespace SimpleApp.Contents
                 };
                 list.Add(item);
             }
-            SimpleGrid = CreateSimpleGrid(list);
-            SimpleGrid.GridSource.Filter = gridFilter;
+            return list;
         }
+
         public ISimpleGrid SimpleGrid { get; set; }
 
         bool gridFilter(object obj)
@@ -83,8 +89,9 @@ namespace SimpleApp.Contents
         [DataGridColumnAnnotation(20, "CheckBox Colmun", 250d, IsReadOnly = false)]
         public bool Check { get; set; }
 
-        [DataGridColumnAnnotation(30, "Numeric Colmun", 250d)]
-        public int? Value { get; set; }
+        [NumericAnnotation(5, 2)]
+        [DataGridColumnAnnotation(30, "Numeric Colmun", 250d, IsReadOnly = false)]
+        public decimal? Value { get; set; }
 
         [DataGridColumnAnnotation(40, "DatePicker Colmun", 250d, IsReadOnly = false)]
         public DateTime? Dt { get; set; }
