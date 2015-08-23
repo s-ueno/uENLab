@@ -12,15 +12,16 @@ Developers By applying the framework, you can get a MVVM and Meto-Style.
 
 It will provide a type-safe container using the [MEF](https://msdn.microsoft.com/library/dd460648.aspx).
 
-sample
-```
 
+
+## sample
+```
 public interface IHello
 {
     void Func();
 }
 
-[PartCreationPolicy(CreationPolicy.Shared)]
+[PartCreationPolicy(CreationPolicy.NonShared)]
 [ExportMetadata(Repository.Priority, 100)]
 [Export(typeof(IHello))]
 public class Hello : IHello
@@ -31,7 +32,7 @@ public class Hello : IHello
     }
 }
 
-[PartCreationPolicy(CreationPolicy.Shared)]
+[PartCreationPolicy(CreationPolicy.NonShared)]
 [ExportMetadata(Repository.Priority, 10)]
 [Export(typeof(IHello))]
 public class PriorityHello : IHello
@@ -48,12 +49,9 @@ static void Main()
     //svc is PriorityHello
     var svc = Repository.GetPriorityExport<IHello>();
 }
-
-
 ```
 
-app.config
-
+## app.config
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
@@ -70,6 +68,7 @@ app.config
   <Repository.TypeCatalog>
   </Repository.TypeCatalog>
 ```
+
 
 
 ## The latest Visual Studio Template
