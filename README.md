@@ -16,6 +16,11 @@ Download this
   <img class="social_icon" alt="icon" src="http://s-ueno.github.io/images/zippedFile.png">
 </a>
 
+Unzip the Template, you can use it to copy below.
+
+```
+C:/Users/<user>/Documents/Visual Studio XXXX/Templates
+```
 
 
 ## License
