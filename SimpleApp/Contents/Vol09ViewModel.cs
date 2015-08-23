@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleApp.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,47 +14,41 @@ namespace SimpleApp.Contents
     [VisualElements(typeof(Vol09View))]
     public class Vol09ViewModel : BizViewModel
     {
-        public override string Description { get { return "メッセージ　ボックス"; } }
-
-        /// <summary>デフォルトコンストラクタ</summary>
-        public Vol09ViewModel()
-        {
-
-        }
+        public override string Description { get { return Resources.MessageBox; } }
 
         public void OkAction()
         {
-            this.ShowOk("メッセージのデザイン",
-                "ユーザーが操作を中断して、見たり認識したりする必要がある緊急の情報を伝えるには、メッセージ ダイアログを使います。",
+            this.ShowOk(Resources.DesignOfTheMessage,
+                Resources.MessageSample_01,
                 OkActionInternal);
         }
         private void OkActionInternal()
         {
-            StatusMessage = "OK を押しました";
+            StatusMessage = "click 'OK'.";
         }
 
 
 
         public void YesNoAction()
         {
-            this.ShowYesNo("メッセージのデザイン",
-                "ユーザーの入力を必要とするブロック質問を表示するには、メッセージ ダイアログを使います。",
+            this.ShowYesNo(Resources.DesignOfTheMessage,
+                Resources.MessageSample_02,
                 YesAction,
-                () => StatusMessage = "いいえ を押しました");
+                () => StatusMessage = "click 'No'.");
         }
         private void YesAction()
         {
-            StatusMessage = "はい を押しました";
+            StatusMessage = "click 'Yes'";
         }
 
 
 
         public void YesNoCancelAction()
         {
-            this.ShowYesNoCancel("メッセージのデザイン",
-                "ユーザーの明示的な操作を求める場合、またはユーザーが認識することが重要であるメッセージを表示する場合は、メッセージ ダイアログを使います",
-                () => StatusMessage = "はい を押しました",
-                () => StatusMessage = "いいえ を押しました",
+            this.ShowYesNoCancel(Resources.DesignOfTheMessage,
+                Resources.MessageSample_03,
+                () => StatusMessage = "click 'YES'",
+                () => StatusMessage = "click NO",
                 null);
         }
 
@@ -63,10 +58,10 @@ namespace SimpleApp.Contents
 
         public void CustomAction()
         {
-            this.ShowMessage("メッセージのデザイン",
-                "すべてのダイアログでは、(タイトルの有無に関係なく) ダイアログ内のテキストの 1 行目で、ユーザーの目的 (実行する内容) を明確に示す必要があります。",
-                new MessageDialogHelper.Command("はい、そうです", () => { }, true),
-                new MessageDialogHelper.Command("いいえ、違います", () => { }));
+            this.ShowMessage(Resources.DesignOfTheMessage,
+                Resources.MessageSample_04,
+                new MessageDialogHelper.Command("Yes, it is", () => { }, true),
+                new MessageDialogHelper.Command("No, I will not.", () => { }));
         }
     }
 }

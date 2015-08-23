@@ -13,7 +13,7 @@ namespace SimpleApp.Contents
     [VisualElements(typeof(Vol10_2View))]
     public class Vol10_2ViewModel : BizViewModel
     {
-        public override string Description { get { return "次画面タイトル"; } }
+        public override string Description { get { return Properties.Resources.SecondScreen; } }
 
         public void GoBackAction()
         {

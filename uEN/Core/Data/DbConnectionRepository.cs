@@ -140,7 +140,7 @@ namespace uEN.Core.Data
 
             var con = DbConnection;
             if (con.State != System.Data.ConnectionState.Open)
-                throw new InvalidOperationException("データベース接続が開いていません。Openが必要です。");
+                throw new InvalidOperationException("Database connection is not open. Open() is required.");
             Transaction = con.BeginTransaction(isolationLevel);
         }
         public void Commit()

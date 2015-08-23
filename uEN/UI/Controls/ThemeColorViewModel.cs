@@ -16,7 +16,7 @@ namespace uEN.UI.Controls
     [VisualElements(typeof(ThemeColorView))]
     public class ThemeColorViewModel : BizViewModel
     {
-        public override string Description { get { return "Window カラー"; } }
+        public override string Description { get { return Properties.Resources.ThemeColorViewModel_Title; } }
         public bool UseWhiteTheme { get; set; }
         public bool UseBlackTheme { get; set; }
         public bool UseGlassBuleTheme { get; set; }

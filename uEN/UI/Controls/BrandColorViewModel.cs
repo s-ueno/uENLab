@@ -17,7 +17,7 @@ namespace uEN.UI.Controls
     [VisualElements(typeof(BrandColorView))]
     public class BrandColorViewModel : BizViewModel
     {
-        public override string Description { get { return "ブランド カラー"; } }
+        public override string Description { get { return Properties.Resources.BrandColor; } }
 
         public override void ApplyView()
         {

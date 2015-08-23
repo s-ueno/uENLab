@@ -22,7 +22,7 @@ namespace SimpleApp.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SimpleApp.Properties {
         ///   このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SimpleApp.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,138 @@ namespace SimpleApp.Properties {
         ///   現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Design of the message に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string DesignOfTheMessage {
+            get {
+                return ResourceManager.GetString("DesignOfTheMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   First Screen に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string FirstScreen {
+            get {
+                return ResourceManager.GetString("FirstScreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   LOB developed in ViewModel に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MainTitle {
+            get {
+                return ResourceManager.GetString("MainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Message Box に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MessageBox {
+            get {
+                return ResourceManager.GetString("MessageBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Use message dialogs to convey urgent information that the user must see and acknowledge before continuing. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MessageSample_01 {
+            get {
+                return ResourceManager.GetString("MessageSample_01", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Use message dialogs to present blocking questions that require the user&apos;s input. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MessageSample_02 {
+            get {
+                return ResourceManager.GetString("MessageSample_02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Use message dialogs to ask for explicit action from the user or to deliver a message that is important for the user to acknowledge. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MessageSample_03 {
+            get {
+                return ResourceManager.GetString("MessageSample_03", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   All dialogs should clearly identify the user&apos;s objective in the first line of the dialog&apos;s text (with or without a title). に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string MessageSample_04 {
+            get {
+                return ResourceManager.GetString("MessageSample_04", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ready に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Ready {
+            get {
+                return ResourceManager.GetString("Ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Second Screen に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SecondScreen {
+            get {
+                return ResourceManager.GetString("SecondScreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Send に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Start に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Various buttons に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Various_buttons {
+            get {
+                return ResourceManager.GetString("Various_buttons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   View navigation に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ViewNavigation {
+            get {
+                return ResourceManager.GetString("ViewNavigation", resourceCulture);
             }
         }
     }

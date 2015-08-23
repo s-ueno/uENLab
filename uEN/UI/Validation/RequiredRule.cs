@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using uEN.Properties;
 using uEN.UI.DataBinding;
 
 namespace uEN.UI.Validation
@@ -11,7 +12,7 @@ namespace uEN.UI.Validation
 
     public class RequiredRuleAttribute : Attribute, IValidationRuleProvider
     {
-        public RequiredRuleAttribute() : this("入力してください。") { }
+        public RequiredRuleAttribute() : this(Resources.InputRequired) { }
         public RequiredRuleAttribute(string errorMessage)
         {
             ErrorMessage = errorMessage;

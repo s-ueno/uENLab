@@ -118,54 +118,54 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdvancedConfiguration" xml:space="preserve">
-    <value>Advanced Configuration</value>
+    <value>高度な設定</value>
   </data>
   <data name="AlternatingColor" xml:space="preserve">
-    <value>Alternately accents add color line</value>
+    <value>行の交互にアクセント色をつける</value>
   </data>
   <data name="AsynchronousDisplay" xml:space="preserve">
-    <value>Asynchronous display(Performance improvement)</value>
+    <value>非同期表示(パフォーマンス向上)</value>
   </data>
   <data name="BrandColor" xml:space="preserve">
-    <value>Brand Color</value>
+    <value>ブランド カラー</value>
   </data>
   <data name="DarkColor" xml:space="preserve">
-    <value>DarkColor</value>
+    <value>濃色</value>
   </data>
   <data name="FontFamily" xml:space="preserve">
-    <value>Font Family</value>
+    <value>フォント ファミリ</value>
   </data>
   <data name="FontSize" xml:space="preserve">
-    <value>Font Size</value>
+    <value>フォント サイズ</value>
   </data>
   <data name="GlassBlue" xml:space="preserve">
-    <value>Glass Blue</value>
+    <value>グラス ブルー</value>
   </data>
   <data name="GlassGreen" xml:space="preserve">
-    <value>GlassGreen</value>
+    <value>グラス グリーン</value>
   </data>
   <data name="GlassRed" xml:space="preserve">
-    <value>Glass Red</value>
+    <value>グラス レッド</value>
   </data>
   <data name="GlassYellow" xml:space="preserve">
-    <value>Glass Yellow</value>
+    <value>グラス イエロー</value>
   </data>
   <data name="Glass_Brand" xml:space="preserve">
-    <value>Glass(Brand Color)</value>
+    <value>グラス(ブランド カラー)</value>
   </data>
   <data name="GridConfiguration" xml:space="preserve">
-    <value>Grid Configuration</value>
+    <value>グリッドの設定</value>
   </data>
   <data name="InputRequired" xml:space="preserve">
-    <value>Input required.</value>
+    <value>入力が必要です。</value>
   </data>
   <data name="LightColor" xml:space="preserve">
-    <value>LightColor</value>
+    <value>淡色</value>
   </data>
   <data name="ThemeColorViewModel_Title" xml:space="preserve">
-    <value>Window Color</value>
+    <value>Window カラー</value>
   </data>
   <data name="ThemeColorView_Title" xml:space="preserve">
-    <value>Color Theme</value>
+    <value>配色テーマ</value>
   </data>
 </root>

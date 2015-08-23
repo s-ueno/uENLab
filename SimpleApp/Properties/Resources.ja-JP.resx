@@ -117,55 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdvancedConfiguration" xml:space="preserve">
-    <value>Advanced Configuration</value>
+  <data name="DesignOfTheMessage" xml:space="preserve">
+    <value>メッセージのデザイン</value>
   </data>
-  <data name="AlternatingColor" xml:space="preserve">
-    <value>Alternately accents add color line</value>
+  <data name="FirstScreen" xml:space="preserve">
+    <value>最初の画面</value>
   </data>
-  <data name="AsynchronousDisplay" xml:space="preserve">
-    <value>Asynchronous display(Performance improvement)</value>
+  <data name="MainTitle" xml:space="preserve">
+    <value>ViewModelでLOB開発</value>
   </data>
-  <data name="BrandColor" xml:space="preserve">
-    <value>Brand Color</value>
+  <data name="MessageBox" xml:space="preserve">
+    <value>メッセージ ボックス</value>
   </data>
-  <data name="DarkColor" xml:space="preserve">
-    <value>DarkColor</value>
+  <data name="MessageSample_01" xml:space="preserve">
+    <value>ユーザーが操作を中断して、見たり認識したりする必要がある緊急の情報を伝えるには、メッセージ ダイアログを使います。</value>
   </data>
-  <data name="FontFamily" xml:space="preserve">
-    <value>Font Family</value>
+  <data name="MessageSample_02" xml:space="preserve">
+    <value>ユーザーの入力を必要とするブロック質問を表示するには、メッセージ ダイアログを使います。</value>
   </data>
-  <data name="FontSize" xml:space="preserve">
-    <value>Font Size</value>
+  <data name="MessageSample_03" xml:space="preserve">
+    <value>ユーザーの明示的な操作を求める場合、またはユーザーが認識することが重要であるメッセージを表示する場合は、メッセージ ダイアログを使います</value>
   </data>
-  <data name="GlassBlue" xml:space="preserve">
-    <value>Glass Blue</value>
+  <data name="MessageSample_04" xml:space="preserve">
+    <value>すべてのダイアログでは、(タイトルの有無に関係なく) ダイアログ内のテキストの 1 行目で、ユーザーの目的 (実行する内容) を明確に示す必要があります。</value>
   </data>
-  <data name="GlassGreen" xml:space="preserve">
-    <value>GlassGreen</value>
+  <data name="Ready" xml:space="preserve">
+    <value>準備完了</value>
   </data>
-  <data name="GlassRed" xml:space="preserve">
-    <value>Glass Red</value>
+  <data name="SecondScreen" xml:space="preserve">
+    <value>次の画面</value>
   </data>
-  <data name="GlassYellow" xml:space="preserve">
-    <value>Glass Yellow</value>
+  <data name="Send" xml:space="preserve">
+    <value>送信する</value>
   </data>
-  <data name="Glass_Brand" xml:space="preserve">
-    <value>Glass(Brand Color)</value>
+  <data name="Start" xml:space="preserve">
+    <value>スタート</value>
   </data>
-  <data name="GridConfiguration" xml:space="preserve">
-    <value>Grid Configuration</value>
+  <data name="Various_buttons" xml:space="preserve">
+    <value>色々なボタン</value>
   </data>
-  <data name="InputRequired" xml:space="preserve">
-    <value>Input required.</value>
-  </data>
-  <data name="LightColor" xml:space="preserve">
-    <value>LightColor</value>
-  </data>
-  <data name="ThemeColorViewModel_Title" xml:space="preserve">
-    <value>Window Color</value>
-  </data>
-  <data name="ThemeColorView_Title" xml:space="preserve">
-    <value>Color Theme</value>
+  <data name="ViewNavigation" xml:space="preserve">
+    <value>画面遷移</value>
   </data>
 </root>

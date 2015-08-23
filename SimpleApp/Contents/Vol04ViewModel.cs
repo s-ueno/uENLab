@@ -17,7 +17,7 @@ namespace SimpleApp.Contents
     {
         public override string Description { get { return "Vol 04"; } }
 
-        [RequiredRule("テキスト入力してください。")]
+        [RequiredRule("Please to text input.")]
         public string SampleText { get; set; }
 
         public void SampleAction()

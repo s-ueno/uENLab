@@ -18,7 +18,7 @@ namespace uEN.UI.Controls
     [VisualElements(typeof(AdvancedOptionView))]
     public class AdvancedOptionViewModel : BizViewModel
     {
-        public override string Description { get { return "高度な設定"; } }
+        public override string Description { get { return Properties.Resources.AdvancedConfiguration; } }
         public bool UseAlternatingRowBackground
         {
             get { return Singleton<ThemeManager>.Value.UseAlternatingRowBackground; }

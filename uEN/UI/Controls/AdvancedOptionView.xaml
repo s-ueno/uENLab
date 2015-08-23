@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:uen="clr-namespace:uEN.UI"
         xmlns:controls="clr-namespace:uEN.UI.Controls"
+        xmlns:properties="clr-namespace:uEN.Properties"
         mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         Background="{DynamicResource AppBrand}"
         Foreground="Snow"
+        
         >
     <Grid>
         <Grid.Resources>
@@ -15,21 +17,21 @@
                 <Setter Property="FontSize" Value="24" />
             </Style>
         </Grid.Resources>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        
+
         <StackPanel Grid.Row="0">
-            <TextBlock Text="グリッドの設定" Margin="5" Style="{StaticResource TextBlock.Title}"/>
+            <TextBlock Text="{x:Static properties:Resources.GridConfiguration}" Margin="5" Style="{StaticResource TextBlock.Title}"/>
             <CheckBox x:Name="AlternatingRowBackgroundCheckBox"
                 Style="{DynamicResource SliderCheckBoxStyle}" Foreground="Snow"
-                Margin="5" Content="行の交互にアクセント色をつける" VerticalContentAlignment="Center"/>
+                Margin="5" Content="{x:Static properties:Resources.AlternatingColor}" VerticalContentAlignment="Center"/>
 
             <CheckBox x:Name="DataGridAsyncBindingCheckBox"
                 Style="{DynamicResource SliderCheckBoxStyle}" Foreground="Snow"
-                Margin="5" Content="非同期表示する(パフォーマンス向上)" VerticalContentAlignment="Center"/>
+                Margin="5" Content="{x:Static properties:Resources.AsynchronousDisplay}" VerticalContentAlignment="Center"/>
         </StackPanel>
-        
+
     </Grid>
 </uen:BizView>
