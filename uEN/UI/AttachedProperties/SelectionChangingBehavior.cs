@@ -27,7 +27,7 @@ namespace uEN.UI.AttachedProperties
         public SelectionChangingEventargs(object oldItem, object newItem)
         {
             OldItem = oldItem;
-            NewItem = NewItem;
+            NewItem = newItem;
         }
         public bool Cancel { get; set; }
         public object OldItem { get; private set; }
