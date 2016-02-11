@@ -11,6 +11,8 @@ using System.Windows.Input;
 using uEN.UI.DataBinding;
 using uEN.UI.Controls;
 using System.Windows.Threading;
+using System.Windows.Data;
+using uEN.Core;
 namespace uEN.UI
 {
     public abstract class BizViewModel : INotifyPropertyChanged, IDisposable
@@ -333,12 +335,51 @@ namespace uEN.UI
             vm.EnsureItemsSource(source);
             return vm;
         }
+        protected ListCollectionView CreateListCollectionView<T>(IEnumerable<T> items, bool addBlankItem = false)
+        {
+            var list = new List<object>();
+            if (addBlankItem)
+            {
+                list.Add("");
+            }
+            list.AddRange(items.OfType<object>());
+            return new ListCollectionView(list);
+        }
 
         internal void NavigatingActionInternal(RoutedEventArgs e)
         {
             NavigatingAction(e as NavigatingEventArgs);
         }
         public virtual void NavigatingAction(NavigatingEventArgs e) { }
+
+
+        #region 'async await' is kind of iffy.
+
+        protected void AsyncAwaitFunc<InT, OutT>(Func<AsyncAwaitNotifier<InT>, OutT> longRunningWork, Action<object> uiReportAction, Action<Exception, OutT> uiCcompletedAction, InT userState)
+        {
+            var asyncAdapter = new AsyncAwaitAdapter<InT, OutT>(
+                                longRunningWork, uiReportAction, uiCcompletedAction, userState);
+            asyncAdapter.RunWorkerAsync();
+        }
+        protected void AsyncAwaitFunc<OutT>(Func<AsyncAwaitNotifier<object>, OutT> longRunningWork, Action<object> uiReportAction, Action<Exception, OutT> uiCompletedAction)
+        {
+            AsyncAwaitFunc<object, OutT>(longRunningWork, uiReportAction, uiCompletedAction, null);
+        }
+        protected void AsyncAwaitAction<InT>(Action<AsyncAwaitNotifier<InT>> longRunningWork, Action<object> uiReportAction, Action<Exception> uiCompletedAction, InT userState)
+        {
+            AsyncAwaitFunc<InT, object>(x => { longRunningWork(x); return null; }, uiReportAction, (ex, x) => uiCompletedAction(ex), userState);
+        }
+        protected void AsyncAwaitAction(Action<AsyncAwaitNotifier<object>> longRunningWork, Action<object> uiReportAction, Action<Exception> uiCompletedAction, object userState = null)
+        {
+            AsyncAwaitAction<object>(longRunningWork, uiReportAction, uiCompletedAction, userState);
+        }
+        protected void AsyncAwaitAction(Action longRunningWork, Action<Exception> uiCompletedAction)
+        {
+            AsyncAwaitAction(x => longRunningWork(), x => { }, uiCompletedAction);
+        }
+
+        #endregion
+
     }
 
     public class MessageNotificationEventArgs : EventArgs

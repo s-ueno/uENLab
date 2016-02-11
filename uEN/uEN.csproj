@@ -83,6 +83,7 @@
     <Compile Include="Core\DataAnnotations\ExcludeCharAnnotationAttribute.cs" />
     <Compile Include="Core\Data\ExcelReader.cs" />
     <Compile Include="Core\ILogService.cs" />
+    <Compile Include="Core\NarrowTextGenerator.cs" />
     <Compile Include="Core\NotifiableImp.cs" />
     <Compile Include="Core\ObjectDumper.cs" />
     <Compile Include="Core\ObjectShredder.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Core\BizWebService.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\WideTextGenerator.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="UI\AggregateNavigation\NavigationAggregator.cs" />
     <Compile Include="UI\AggregateNavigation\WindowNavigation.cs" />
     <Compile Include="UI\AttachedProperties\AutoHideBehavior.cs" />
+    <Compile Include="UI\AttachedProperties\MouseWheelScrollToHorizontally.cs" />
     <Compile Include="UI\AttachedProperties\PasswordBoxProxy.cs" />
     <Compile Include="UI\AttachedProperties\ScrollIntoViewProxy.cs" />
     <Compile Include="UI\AttachedProperties\SelectionChangingBehavior.cs" />
@@ -128,6 +131,7 @@
     <Compile Include="UI\AttachedProperties\TextInput\TextInputAnnotation.cs" />
     <Compile Include="UI\AttachedProperties\TextInput\TextInputPolicy.cs" />
     <Compile Include="UI\AttachedProperties\TextInput\TextInputObserver.cs" />
+    <Compile Include="UI\AttachedProperties\TreeViewBehavior.cs" />
     <Compile Include="UI\AttachedProperties\ViewTransition.cs" />
     <Compile Include="UI\AttachedProperties\WindowProxy.cs" />
     <Compile Include="UI\Binding\ActionEventPolicy.cs" />
@@ -198,6 +202,7 @@
     <Compile Include="UI\AttachedProperties\TextInput\TextInputTextChangedWrapper.cs" />
     <Compile Include="Core\DataAnnotations\DataGridColumnAnnotationAttribute.cs" />
     <Compile Include="UI\GeneralRoutedEvent.cs" />
+    <Compile Include="UI\GenericCommand.cs" />
     <Compile Include="UI\MessageDialogHelper.cs" />
     <Compile Include="UI\Symbols.cs" />
     <Compile Include="UI\Themes\ThemeManager.cs" />
@@ -293,6 +298,10 @@
     <Page Include="UI\Themes\Assets\DataGrid.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Themes\Assets\GroupBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Themes\Assets\ListBox.xaml">
       <SubType>Designer</SubType>

@@ -49,6 +49,7 @@ namespace uEN.Core.Data
             return helper;
         }
 
+
     }
 
     /// <summary>
@@ -95,8 +96,12 @@ namespace uEN.Core.Data
             }
             public DbConnection Pop(string context)
             {
-                var stack = dic[context];
-                return stack.Pop();
+                if (dic.ContainsKey(context))
+                {
+                    var stack = dic[context];
+                    return stack.Pop();
+                }
+                return null;
             }
         }
 
@@ -133,6 +138,11 @@ namespace uEN.Core.Data
         }
 
         public DbConnection DbConnection { get { return Connections.GetConnection(ContextName); } }
+        public DbDataAdapter CreateDataAdapter()
+        {
+            return Factory.CreateDataAdapter();
+        }
+
         protected DbTransaction Transaction { get; private set; }
         public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
@@ -164,7 +174,8 @@ namespace uEN.Core.Data
                 Transaction = null;
             }
 
-            Connections.Pop(ContextName).Close();
+            var con = Connections.Pop(ContextName);
+            if (con != null) con.Close();
             Trace.TraceInformation("DbConnectionHelper.Close --- {0} ", ContextName);
             closed = true;
         }
@@ -193,6 +204,27 @@ namespace uEN.Core.Data
             Trace.TraceInformation("DbConnectionHelper.Dispose");
         }
         bool disposed = false;
+
+
+
+        public string ProviderName
+        {
+            get
+            {
+                var repository = Repository.GetPriorityExport<DbConnectionRepository>();
+                var conInfo = repository.CreateConnectionString(ContextName);
+                return conInfo.ProviderName;
+            }
+        }
+        public string ConnectionString
+        {
+            get
+            {
+                var repository = Repository.GetPriorityExport<DbConnectionRepository>();
+                var conInfo = repository.CreateConnectionString(ContextName);
+                return conInfo.ConnectionString;
+            }
+        }
     }
 
 }

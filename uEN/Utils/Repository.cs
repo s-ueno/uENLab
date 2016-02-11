@@ -97,10 +97,25 @@ namespace uEN
                                 .FirstOrDefault();
             return mostPriority != null ? mostPriority.Value : null;
         }
+
+
+        public const string Context = "Context";
+        public static T GetContextExport<T>(Func<string, bool> predicate)
+        {
+            var ret = container.GetExports<T, IContext>()
+                               .FirstOrDefault(x => predicate(x.Metadata.Context));
+            return ret == null ? default(T) : ret.Value;
+        }
+
+        public static IEnumerable<Lazy<T>> GetExports<T>()
+        {
+            return container.GetExports<T>();
+        }
+
     }
 
     public interface IPriority { int Priority { get; } }
-
+    public interface IContext { string Context { get; } }
 
 
 }
