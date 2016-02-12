@@ -49,7 +49,18 @@ namespace uEN.Core.Data
             return helper;
         }
 
-
+        public static string GetProviderName(string context = DefaultContext)
+        {
+            var repository = Repository.GetPriorityExport<DbConnectionRepository>();
+            var conInfo = repository.CreateConnectionString(context);
+            return conInfo.ProviderName;
+        }
+        public static string GetConnectionString(string context = DefaultContext)
+        {
+            var repository = Repository.GetPriorityExport<DbConnectionRepository>();
+            var conInfo = repository.CreateConnectionString(context);
+            return conInfo.ConnectionString;
+        }
     }
 
     /// <summary>
@@ -60,7 +71,10 @@ namespace uEN.Core.Data
     [ExportMetadata(Repository.Priority, int.MaxValue)]
     public class DbConnectionHelper : IDisposable
     {
+        protected DbConnectionHelper() { }
         protected internal string ContextName { get; internal set; }
+
+        #region ConnectionStack - "ThreadStatic"
 
         private class ConnectionStack
         {
@@ -99,7 +113,7 @@ namespace uEN.Core.Data
                 if (dic.ContainsKey(context))
                 {
                     var stack = dic[context];
-                    return stack.Pop();
+                    return stack.Any() ? stack.Pop() : null;
                 }
                 return null;
             }
@@ -119,6 +133,8 @@ namespace uEN.Core.Data
         [ThreadStatic]
         private static ConnectionStack _connections;
 
+        #endregion
+
         protected DbProviderFactory Factory
         {
             get
@@ -129,13 +145,19 @@ namespace uEN.Core.Data
                 return repository.CreateDbProviderFactory(conInfo.ProviderName);
             }
         }
+
         public void Open()
         {
+            if (IsOpen) return;
+
             Trace.TraceInformation("DbConnectionHelper.Open --- {0} ", ContextName);
 
             var con = Connections.Push(ContextName);
             con.Open();
+
+            IsOpen = true;
         }
+        public bool IsOpen { get; private set; }
 
         public DbConnection DbConnection { get { return Connections.GetConnection(ContextName); } }
         public DbDataAdapter CreateDataAdapter()
@@ -155,11 +177,17 @@ namespace uEN.Core.Data
         }
         public void Commit()
         {
+            if (Transaction == null)
+                throw new InvalidOperationException("Database connection is not begin transaction. BeginTransaction() is required.");
+
             Transaction.Commit();
             Trace.TraceInformation("DbConnectionHelper.Commit --- {0} ", ContextName);
         }
         public void Rollback()
         {
+            if (Transaction == null)
+                throw new InvalidOperationException("Database connection is not begin transaction. BeginTransaction() is required.");
+
             Transaction.Rollback();
             Trace.TraceInformation("DbConnectionHelper.Rollback --- {0} ", ContextName);
         }
@@ -204,27 +232,6 @@ namespace uEN.Core.Data
             Trace.TraceInformation("DbConnectionHelper.Dispose");
         }
         bool disposed = false;
-
-
-
-        public string ProviderName
-        {
-            get
-            {
-                var repository = Repository.GetPriorityExport<DbConnectionRepository>();
-                var conInfo = repository.CreateConnectionString(ContextName);
-                return conInfo.ProviderName;
-            }
-        }
-        public string ConnectionString
-        {
-            get
-            {
-                var repository = Repository.GetPriorityExport<DbConnectionRepository>();
-                var conInfo = repository.CreateConnectionString(ContextName);
-                return conInfo.ConnectionString;
-            }
-        }
     }
 
 }
