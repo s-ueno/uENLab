@@ -76,46 +76,77 @@ namespace uEN.Core.Data
 
         #region ConnectionStack - "ThreadStatic"
 
+        private class DbPair : IDisposable
+        {
+            public DbConnection Connection { get; internal set; }
+            public DbTransaction Transaction { get; internal set; }
+            public void Dispose()
+            {
+                Dispose(true);
+                GC.SuppressFinalize(this);
+            }
+            protected void Dispose(bool disposing)
+            {
+                if (disposed) return;
+
+                if (Connection != null)
+                {
+                    Connection.Close();
+                    Connection = null;
+                }
+                if (Transaction != null)
+                {
+                    Transaction.Dispose();
+                    Transaction = null;
+                }
+                disposed = true;
+            }
+            bool disposed = false;
+        }
         private class ConnectionStack
         {
-            private Dictionary<string, Stack<DbConnection>> dic = new Dictionary<string, Stack<DbConnection>>();
-            public DbConnection GetConnection(string context)
-            {
-                if (dic.ContainsKey(context))
-                {
-                    return dic[context].Peek();
-                }
-                return Push(context);
-            }
-            public DbConnection Push(string context)
+            private Dictionary<string, Stack<DbPair>> dic = new Dictionary<string, Stack<DbPair>>();
+
+            public DbPair Push(string context)
             {
                 var repository = Repository.GetPriorityExport<DbConnectionRepository>();
                 var conInfo = repository.CreateConnectionString(context);
 
                 var factory = repository.CreateDbProviderFactory(conInfo.ProviderName);
+
                 var newCon = factory.CreateConnection();
                 newCon.ConnectionString = conInfo.ConnectionString;
+                var db = new DbPair() { Connection = newCon };
 
                 if (!dic.ContainsKey(context))
                 {
-                    var stack = new Stack<DbConnection>();
-                    stack.Push(newCon);
+                    var stack = new Stack<DbPair>();
+                    stack.Push(db);
                     dic[context] = stack;
                 }
                 else
                 {
-                    dic[context].Push(newCon);
+                    dic[context].Push(db);
                 }
-                return newCon;
+                return db;
             }
-            public DbConnection Pop(string context)
+            public DbPair Pop(string context)
             {
-                if (dic.ContainsKey(context))
+                if (dic.ContainsKey(context) &&
+                    dic[context].Count != 0)
                 {
-                    var stack = dic[context];
-                    return stack.Any() ? stack.Pop() : null;
+                    return dic[context].Pop();
                 }
                 return null;
+            }
+            public DbPair PeekOrNew(string context)
+            {
+                if (dic.ContainsKey(context) &&
+                    dic[context].Count != 0)
+                {
+                    return dic[context].Peek();
+                }
+                return Push(context);
             }
         }
 
@@ -135,38 +166,40 @@ namespace uEN.Core.Data
 
         #endregion
 
-        protected DbProviderFactory Factory
+        public virtual DbProviderFactory Factory
         {
             get
             {
                 var repository = Repository.GetPriorityExport<DbConnectionRepository>();
                 var conInfo = repository.CreateConnectionString(ContextName);
-
                 return repository.CreateDbProviderFactory(conInfo.ProviderName);
             }
         }
-
-        public void Open()
+        private DbPair Db { get { return Connections.PeekOrNew(ContextName); } }
+        public virtual DbConnection DbConnection { get { return Db.Connection; } }
+        public virtual DbTransaction Transaction
         {
-            if (IsOpen) return;
-
-            Trace.TraceInformation("DbConnectionHelper.Open --- {0} ", ContextName);
-
-            var con = Connections.Push(ContextName);
-            con.Open();
-
-            IsOpen = true;
+            get { return Db.Transaction; }
+            set { Db.Transaction = value; }
         }
-        public bool IsOpen { get; private set; }
-
-        public DbConnection DbConnection { get { return Connections.GetConnection(ContextName); } }
-        public DbDataAdapter CreateDataAdapter()
+        public virtual DbDataAdapter CreateDataAdapter()
         {
             return Factory.CreateDataAdapter();
         }
+        public virtual DbCommand CreateCommand()
+        {
+            return DbConnection.CreateCommand();
+        }
 
-        protected DbTransaction Transaction { get; private set; }
-        public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+
+        public virtual void Open()
+        {
+            Trace.TraceInformation("DbConnectionHelper.Open --- {0} ", ContextName);
+
+            var db = Connections.Push(ContextName);
+            db.Connection.Open();
+        }
+        public virtual void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
             Trace.TraceInformation("DbConnectionHelper.BeginTransaction --- {0} ", isolationLevel);
 
@@ -175,7 +208,7 @@ namespace uEN.Core.Data
                 throw new InvalidOperationException("Database connection is not open. Open() is required.");
             Transaction = con.BeginTransaction(isolationLevel);
         }
-        public void Commit()
+        public virtual void Commit()
         {
             if (Transaction == null)
                 throw new InvalidOperationException("Database connection is not begin transaction. BeginTransaction() is required.");
@@ -183,7 +216,7 @@ namespace uEN.Core.Data
             Transaction.Commit();
             Trace.TraceInformation("DbConnectionHelper.Commit --- {0} ", ContextName);
         }
-        public void Rollback()
+        public virtual void Rollback()
         {
             if (Transaction == null)
                 throw new InvalidOperationException("Database connection is not begin transaction. BeginTransaction() is required.");
@@ -191,28 +224,18 @@ namespace uEN.Core.Data
             Transaction.Rollback();
             Trace.TraceInformation("DbConnectionHelper.Rollback --- {0} ", ContextName);
         }
-        public void Close()
+        public virtual void Close()
         {
             if (closed)
                 return;
 
-            if (Transaction != null)
-            {
-                Transaction.Dispose();
-                Transaction = null;
-            }
+            var db = Connections.Pop(ContextName);
+            db.Dispose();
 
-            var con = Connections.Pop(ContextName);
-            if (con != null) con.Close();
             Trace.TraceInformation("DbConnectionHelper.Close --- {0} ", ContextName);
             closed = true;
         }
         bool closed = false;
-
-        public DbCommand CreateCommand()
-        {
-            return DbConnection.CreateCommand();
-        }
 
         public void Dispose()
         {
