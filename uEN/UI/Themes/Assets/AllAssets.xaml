@@ -19,6 +19,8 @@
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/ScrollBar.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/TextBlock.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/GroupBox.xaml" />
+        <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/TabControl.xaml" />
+
 
         <ResourceDictionary Source="/uEN;component/UI/Controls/MetroProgress.xaml" />
         <ResourceDictionary Source="/uEN;component/UI/Themes/Assets/TransitioningContentControl.xaml" />

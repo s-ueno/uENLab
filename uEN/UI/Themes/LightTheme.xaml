@@ -55,6 +55,29 @@
 
     <SolidColorBrush x:Key="ToggleButton.Focus.Border"           Color="{DynamicResource AppBrandColor}"/>
 
+    <!-- Modern Tab -->
+    <SolidColorBrush x:Key="TabItem.Selected.Foreground"     Color="{DynamicResource AppBrandColor}" Opacity="0.9"/>
+    <SolidColorBrush x:Key="TabItem.Selected.Underline"      Color="{DynamicResource AppBrandColor}" Opacity="0.9"/>
+    <SolidColorBrush x:Key="TabItem.UnSelected.Foreground"   Color="DarkGray"/>
+    <SolidColorBrush x:Key="TabItem.UnSelected.Underline"    Color="DarkGray"/>
+    <SolidColorBrush x:Key="TabItem.MouseOver.Foreground"    Color="Black"/>
+    <SolidColorBrush x:Key="TabItem.MouseOver.Underline"     Color="Black"/>
+    <SolidColorBrush x:Key="TabItem.Highlight.Foreground"    Color="{DynamicResource AppBrandColor}" />
+    <SolidColorBrush x:Key="TabItem.Highlight.Underline"     Color="{DynamicResource AppBrandColor}" />
+
+    <!-- Basic Tab -->
+    <SolidColorBrush x:Key="TabItem.Basic.Selected.Foreground"    Color="Snow" />
+    <SolidColorBrush x:Key="TabItem.Basic.Selected.Background"    Color="{DynamicResource AppBrandColor}" Opacity="0.7"/>
+    <SolidColorBrush x:Key="TabItem.Basic.MouseOver.Background"     Color="{DynamicResource AppBrandColor}" Opacity="0.3"/>
+    <SolidColorBrush x:Key="TabItem.Basic.MouseOver.Foreground"     Color="White"/>
+    <SolidColorBrush x:Key="TabItem.CloseButton.Pressed.Background"  Color="{DynamicResource AppBrandColor}"/>
+    <SolidColorBrush x:Key="TabItem.CloseButton.Pressed.Foreground"  Color="DimGray"/>
+
+    <SolidColorBrush x:Key="TabPanel.Basic.Static.BorderBrush"    Color="{DynamicResource AppBrandColor}" Opacity="0.7"/>
+    <SolidColorBrush x:Key="TabPanel.Basic.Static.Background"     Color="Transparent" />
+
+    <SolidColorBrush x:Key="TabControl.Basic.Container.Background"    Color="Transparent" />    
+    
 
     <!-- ComboBox -->
     <SolidColorBrush x:Key="ComboBox.Static.Background"      Color="Transparent"/>
