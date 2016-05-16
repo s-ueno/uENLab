@@ -144,11 +144,11 @@ namespace uEN
             var request = new AuthenticationRequest(userName, password);
             var svc = Repository.GetPriorityExport<AuthenticationServiceProxy>();
             var ret = svc.Execute(request);
-            BizAuthenticationnResponse response = ret.Response;
-            foreach (var each in response.AdditionalInfo.Keys)
-            {
-                AdditionalInfo[each] = response.AdditionalInfo[each];
-            }
+            //BizAuthenticationnResponse response = ret.Response;
+            //foreach (var each in response.AdditionalInfo.Keys)
+            //{
+            //    AdditionalInfo[each] = response.AdditionalInfo[each];
+            //}
             AdditionalInfo[FormsAuthentication.FormsCookiePath] = ret.Ticket;
 
             System.Threading.Thread.CurrentPrincipal =

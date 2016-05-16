@@ -66,7 +66,7 @@ namespace uEN.Core
     internal class AuthenticationResponse
     {
         public string Ticket { get; set; }
-        public string Response { get; set; }
+        //public string Response { get; set; }
     }
 
     [PartCreationPolicy(CreationPolicy.NonShared)]
@@ -97,7 +97,8 @@ namespace uEN.Core
                 System.Web.HttpContext.Current.Response.Cookies.Add(
                     new System.Web.HttpCookie(FormsAuthentication.FormsCookiePath, encTicket));
             }
-            return new AuthenticationResponse() { Ticket = encTicket, Response = ret };
+            //return new AuthenticationResponse() { Ticket = encTicket, Response = ret };
+            return new AuthenticationResponse() { Ticket = encTicket };
         }
     }
     [PartCreationPolicy(CreationPolicy.NonShared)]
