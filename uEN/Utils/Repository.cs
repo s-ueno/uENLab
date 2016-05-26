@@ -44,7 +44,7 @@ namespace uEN
             {
                 catalog.Catalogs.Add(each);
             }
-            container = new CompositionContainer(catalog);
+            container = new CompositionContainer(catalog, true);
         }
         private static Assembly LoadAssembly(string s)
         {

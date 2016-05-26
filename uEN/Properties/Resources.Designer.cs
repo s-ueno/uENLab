@@ -61,6 +61,15 @@ namespace uEN.Properties {
         }
         
         /// <summary>
+        ///   Add to Favourites に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string AddToFavourites {
+            get {
+                return ResourceManager.GetString("AddToFavourites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Advanced Configuration に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string AdvancedConfiguration {
@@ -192,6 +201,15 @@ namespace uEN.Properties {
         public static string LightColor {
             get {
                 return ResourceManager.GetString("LightColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Remove from Favorites に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string RemoveToFavourites {
+            get {
+                return ResourceManager.GetString("RemoveToFavourites", resourceCulture);
             }
         }
         
