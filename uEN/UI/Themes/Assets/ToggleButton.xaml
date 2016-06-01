@@ -291,9 +291,6 @@
                                 <Setter.Value>
                                     <TextBlock FontFamily="Segoe UI Symbol" 
                                                Text="&#xE1CE;"                                               
-                                               FontSize="{Binding FontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ToggleButton},AncestorLevel= 1}}"
-                                               Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ToggleButton},AncestorLevel= 1}}"
-                                               Background="{Binding Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ToggleButton},AncestorLevel= 1}}"
                                                />
                                 </Setter.Value>
                             </Setter>
